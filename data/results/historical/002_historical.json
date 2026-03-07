@@ -1,0 +1,13 @@
+{
+  "strategy_id": "002",
+  "strategy_name": "Volume Profile FVG",
+  "date_generated": "2026-03-06T21:01:00.772990",
+  "data_range": {
+    "start": "2025-09-14 19:00:00.460271+00:00",
+    "end": "2025-10-24 01:08:18.812000+00:00",
+    "total_ticks": 14332259,
+    "rth_ticks": 8852052,
+    "bars": 11322
+  },
+  "variations": []
+}

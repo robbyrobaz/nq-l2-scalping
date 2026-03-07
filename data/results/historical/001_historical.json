@@ -1,0 +1,314 @@
+{
+  "strategy_id": "001",
+  "strategy_name": "Delta Absorption Breakout",
+  "date_generated": "2026-03-06T21:01:58.687346",
+  "data_range": {
+    "start": "2025-09-14 19:00:00.460271+00:00",
+    "end": "2025-10-24 01:08:18.812000+00:00",
+    "total_ticks": 14332259,
+    "rth_ticks": 8852052,
+    "bars": 11322
+  },
+  "variations": [
+    {
+      "variation_id": 1,
+      "variation_name": "Tight",
+      "params": {
+        "delta_threshold": 200,
+        "range_window": 5,
+        "range_atr_mult": 3.0,
+        "absorption_bars": 1,
+        "price_move_max_ticks": 4,
+        "take_profit_ticks": 6,
+        "stop_loss_ticks": 4,
+        "session_filter": "RTH"
+      },
+      "signals": 5,
+      "trades": 5,
+      "profit_factor": 0.38,
+      "sharpe": -7.94,
+      "win_rate": 20.0,
+      "avg_winner_ticks": 6.0,
+      "avg_loser_ticks": 4.0,
+      "total_trades": 5,
+      "net_pnl_usd": -5.0,
+      "max_drawdown_pct": 0.0,
+      "trades_detail": [
+        {
+          "entry_ts": "2025-10-01 19:59:00+00:00",
+          "exit_ts": "2025-10-01 20:00:00+00:00",
+          "direction": "short",
+          "entry_price": 25011.75,
+          "exit_price": 25012.75,
+          "pnl_ticks": -4.0,
+          "pnl_usd": -2.0
+        },
+        {
+          "entry_ts": "2025-10-10 18:44:00+00:00",
+          "exit_ts": "2025-10-10 18:45:00+00:00",
+          "direction": "short",
+          "entry_price": 24626.5,
+          "exit_price": 24627.5,
+          "pnl_ticks": -4.0,
+          "pnl_usd": -2.0
+        },
+        {
+          "entry_ts": "2025-10-10 18:52:00+00:00",
+          "exit_ts": "2025-10-10 18:53:00+00:00",
+          "direction": "short",
+          "entry_price": 24591.5,
+          "exit_price": 24592.5,
+          "pnl_ticks": -4.0,
+          "pnl_usd": -2.0
+        },
+        {
+          "entry_ts": "2025-10-17 18:18:00+00:00",
+          "exit_ts": "2025-10-17 18:19:00+00:00",
+          "direction": "long",
+          "entry_price": 24988.75,
+          "exit_price": 24987.75,
+          "pnl_ticks": -4.0,
+          "pnl_usd": -2.0
+        },
+        {
+          "entry_ts": "2025-10-20 19:55:00+00:00",
+          "exit_ts": "2025-10-20 19:56:00+00:00",
+          "direction": "short",
+          "entry_price": 25319.0,
+          "exit_price": 25317.5,
+          "pnl_ticks": 6.0,
+          "pnl_usd": 3.0
+        }
+      ]
+    },
+    {
+      "variation_id": 2,
+      "variation_name": "Default",
+      "params": {
+        "delta_threshold": 300,
+        "range_window": 10,
+        "range_atr_mult": 3.0,
+        "absorption_bars": 1,
+        "price_move_max_ticks": 4,
+        "take_profit_ticks": 8,
+        "stop_loss_ticks": 12,
+        "session_filter": "RTH"
+      },
+      "signals": 3,
+      "trades": 3,
+      "profit_factor": 1.33,
+      "sharpe": 2.24,
+      "win_rate": 66.7,
+      "avg_winner_ticks": 8.0,
+      "avg_loser_ticks": 12.0,
+      "total_trades": 3,
+      "net_pnl_usd": 2.0,
+      "max_drawdown_pct": 0.0,
+      "trades_detail": [
+        {
+          "entry_ts": "2025-10-10 18:44:00+00:00",
+          "exit_ts": "2025-10-10 18:45:00+00:00",
+          "direction": "short",
+          "entry_price": 24626.5,
+          "exit_price": 24629.5,
+          "pnl_ticks": -12.0,
+          "pnl_usd": -6.0
+        },
+        {
+          "entry_ts": "2025-10-10 18:52:00+00:00",
+          "exit_ts": "2025-10-10 18:53:00+00:00",
+          "direction": "short",
+          "entry_price": 24591.5,
+          "exit_price": 24589.5,
+          "pnl_ticks": 8.0,
+          "pnl_usd": 4.0
+        },
+        {
+          "entry_ts": "2025-10-17 18:18:00+00:00",
+          "exit_ts": "2025-10-17 18:19:00+00:00",
+          "direction": "long",
+          "entry_price": 24988.75,
+          "exit_price": 24990.75,
+          "pnl_ticks": 8.0,
+          "pnl_usd": 4.0
+        }
+      ]
+    },
+    {
+      "variation_id": 3,
+      "variation_name": "Wide Range",
+      "params": {
+        "delta_threshold": 400,
+        "range_window": 15,
+        "range_atr_mult": 3.0,
+        "absorption_bars": 1,
+        "price_move_max_ticks": 4,
+        "take_profit_ticks": 10,
+        "stop_loss_ticks": 8,
+        "session_filter": "RTH"
+      },
+      "signals": 0,
+      "trades": 0,
+      "profit_factor": 0.0,
+      "sharpe": 0.0,
+      "win_rate": 0.0,
+      "avg_winner_ticks": 0,
+      "avg_loser_ticks": 0,
+      "total_trades": 0,
+      "net_pnl_usd": 0.0,
+      "max_drawdown_pct": 0.0,
+      "trades_detail": []
+    },
+    {
+      "variation_id": 4,
+      "variation_name": "Aggressive TP",
+      "params": {
+        "delta_threshold": 300,
+        "range_window": 8,
+        "range_atr_mult": 3.0,
+        "absorption_bars": 1,
+        "price_move_max_ticks": 4,
+        "take_profit_ticks": 16,
+        "stop_loss_ticks": 8,
+        "session_filter": "RTH"
+      },
+      "signals": 3,
+      "trades": 3,
+      "profit_factor": 0.0,
+      "sharpe": 0.0,
+      "win_rate": 0.0,
+      "avg_winner_ticks": 0,
+      "avg_loser_ticks": 8.0,
+      "total_trades": 3,
+      "net_pnl_usd": -12.0,
+      "max_drawdown_pct": 0.0,
+      "trades_detail": [
+        {
+          "entry_ts": "2025-10-10 18:44:00+00:00",
+          "exit_ts": "2025-10-10 18:45:00+00:00",
+          "direction": "short",
+          "entry_price": 24626.5,
+          "exit_price": 24628.5,
+          "pnl_ticks": -8.0,
+          "pnl_usd": -4.0
+        },
+        {
+          "entry_ts": "2025-10-10 18:52:00+00:00",
+          "exit_ts": "2025-10-10 18:53:00+00:00",
+          "direction": "short",
+          "entry_price": 24591.5,
+          "exit_price": 24593.5,
+          "pnl_ticks": -8.0,
+          "pnl_usd": -4.0
+        },
+        {
+          "entry_ts": "2025-10-17 18:18:00+00:00",
+          "exit_ts": "2025-10-17 18:19:00+00:00",
+          "direction": "long",
+          "entry_price": 24988.75,
+          "exit_price": 24986.75,
+          "pnl_ticks": -8.0,
+          "pnl_usd": -4.0
+        }
+      ]
+    },
+    {
+      "variation_id": 5,
+      "variation_name": "Scalp",
+      "params": {
+        "delta_threshold": 150,
+        "range_window": 5,
+        "range_atr_mult": 3.0,
+        "absorption_bars": 1,
+        "price_move_max_ticks": 4,
+        "take_profit_ticks": 4,
+        "stop_loss_ticks": 3,
+        "session_filter": "RTH"
+      },
+      "signals": 8,
+      "trades": 8,
+      "profit_factor": 0.19,
+      "sharpe": -14.57,
+      "win_rate": 12.5,
+      "avg_winner_ticks": 4.0,
+      "avg_loser_ticks": 3.0,
+      "total_trades": 8,
+      "net_pnl_usd": -8.5,
+      "max_drawdown_pct": 0.0,
+      "trades_detail": [
+        {
+          "entry_ts": "2025-10-01 19:59:00+00:00",
+          "exit_ts": "2025-10-01 20:00:00+00:00",
+          "direction": "short",
+          "entry_price": 25011.75,
+          "exit_price": 25012.5,
+          "pnl_ticks": -3.0,
+          "pnl_usd": -1.5
+        },
+        {
+          "entry_ts": "2025-10-08 15:56:00+00:00",
+          "exit_ts": "2025-10-08 15:57:00+00:00",
+          "direction": "long",
+          "entry_price": 25260.5,
+          "exit_price": 25259.75,
+          "pnl_ticks": -3.0,
+          "pnl_usd": -1.5
+        },
+        {
+          "entry_ts": "2025-10-10 18:44:00+00:00",
+          "exit_ts": "2025-10-10 18:45:00+00:00",
+          "direction": "short",
+          "entry_price": 24626.5,
+          "exit_price": 24627.25,
+          "pnl_ticks": -3.0,
+          "pnl_usd": -1.5
+        },
+        {
+          "entry_ts": "2025-10-10 18:52:00+00:00",
+          "exit_ts": "2025-10-10 18:53:00+00:00",
+          "direction": "short",
+          "entry_price": 24591.5,
+          "exit_price": 24592.25,
+          "pnl_ticks": -3.0,
+          "pnl_usd": -1.5
+        },
+        {
+          "entry_ts": "2025-10-13 19:48:00+00:00",
+          "exit_ts": "2025-10-13 19:49:00+00:00",
+          "direction": "short",
+          "entry_price": 24913.0,
+          "exit_price": 24913.75,
+          "pnl_ticks": -3.0,
+          "pnl_usd": -1.5
+        },
+        {
+          "entry_ts": "2025-10-17 18:18:00+00:00",
+          "exit_ts": "2025-10-17 18:19:00+00:00",
+          "direction": "long",
+          "entry_price": 24988.75,
+          "exit_price": 24988.0,
+          "pnl_ticks": -3.0,
+          "pnl_usd": -1.5
+        },
+        {
+          "entry_ts": "2025-10-20 19:55:00+00:00",
+          "exit_ts": "2025-10-20 19:56:00+00:00",
+          "direction": "short",
+          "entry_price": 25319.0,
+          "exit_price": 25318.0,
+          "pnl_ticks": 4.0,
+          "pnl_usd": 2.0
+        },
+        {
+          "entry_ts": "2025-10-20 19:59:00+00:00",
+          "exit_ts": "2025-10-20 20:00:00+00:00",
+          "direction": "short",
+          "entry_price": 25300.25,
+          "exit_price": 25301.0,
+          "pnl_ticks": -3.0,
+          "pnl_usd": -1.5
+        }
+      ]
+    }
+  ]
+}
