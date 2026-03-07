@@ -1,0 +1,298 @@
+[
+  {
+    "strategy_id": "003",
+    "strategy_name": "CVD Divergence Absorption",
+    "backtest_period": {
+      "start": "2026-03-05 14:30:00",
+      "end": "2026-03-06 14:59:00"
+    },
+    "metrics": {
+      "profit_factor": 2.0,
+      "sharpe": 5.29,
+      "win_rate": 50.0,
+      "avg_winner_ticks": 16.0,
+      "avg_loser_ticks": 8.0,
+      "total_trades": 4,
+      "net_pnl_usd": 8.0,
+      "max_drawdown_pct": 50.0
+    },
+    "params": {
+      "divergence_window": 3,
+      "min_cvd_move": 100,
+      "confirmation_bars": 1,
+      "price_tolerance_ticks": 20,
+      "take_profit_ticks": 16,
+      "stop_loss_ticks": 8,
+      "session_filter": "RTH"
+    },
+    "trades": [
+      {
+        "entry_ts": "2026-03-05 14:46:00",
+        "exit_ts": "2026-03-05 14:47:00",
+        "direction": "long",
+        "entry_price": 25005.0,
+        "exit_price": 25003.0,
+        "pnl_ticks": -8.0
+      },
+      {
+        "entry_ts": "2026-03-05 17:33:00",
+        "exit_ts": "2026-03-05 17:34:00",
+        "direction": "long",
+        "entry_price": 25071.5,
+        "exit_price": 25075.5,
+        "pnl_ticks": 16.0
+      },
+      {
+        "entry_ts": "2026-03-05 17:35:00",
+        "exit_ts": "2026-03-05 17:36:00",
+        "direction": "short",
+        "entry_price": 25076.0,
+        "exit_price": 25078.0,
+        "pnl_ticks": -8.0
+      },
+      {
+        "entry_ts": "2026-03-05 18:18:00",
+        "exit_ts": "2026-03-05 18:19:00",
+        "direction": "short",
+        "entry_price": 25085.75,
+        "exit_price": 25081.75,
+        "pnl_ticks": 16.0
+      }
+    ],
+    "notes": "Data: 2347158 ticks. RTH only. CVD reset at session open. Mar 5-6 2026.",
+    "variation": 4,
+    "variation_name": "Momentum"
+  },
+  {
+    "strategy_id": "003",
+    "strategy_name": "CVD Divergence Absorption",
+    "backtest_period": {
+      "start": "2026-03-05 14:30:00",
+      "end": "2026-03-06 14:59:00"
+    },
+    "metrics": {
+      "profit_factor": 1.5,
+      "sharpe": 3.17,
+      "win_rate": 50.0,
+      "avg_winner_ticks": 12.0,
+      "avg_loser_ticks": 8.0,
+      "total_trades": 4,
+      "net_pnl_usd": 4.0,
+      "max_drawdown_pct": 100.0
+    },
+    "params": {
+      "divergence_window": 3,
+      "min_cvd_move": 100,
+      "confirmation_bars": 1,
+      "price_tolerance_ticks": 20,
+      "take_profit_ticks": 12,
+      "stop_loss_ticks": 8,
+      "session_filter": "RTH"
+    },
+    "trades": [
+      {
+        "entry_ts": "2026-03-05 14:46:00",
+        "exit_ts": "2026-03-05 14:47:00",
+        "direction": "long",
+        "entry_price": 25005.0,
+        "exit_price": 25003.0,
+        "pnl_ticks": -8.0
+      },
+      {
+        "entry_ts": "2026-03-05 17:33:00",
+        "exit_ts": "2026-03-05 17:34:00",
+        "direction": "long",
+        "entry_price": 25071.5,
+        "exit_price": 25074.5,
+        "pnl_ticks": 12.0
+      },
+      {
+        "entry_ts": "2026-03-05 17:35:00",
+        "exit_ts": "2026-03-05 17:36:00",
+        "direction": "short",
+        "entry_price": 25076.0,
+        "exit_price": 25078.0,
+        "pnl_ticks": -8.0
+      },
+      {
+        "entry_ts": "2026-03-05 18:18:00",
+        "exit_ts": "2026-03-05 18:19:00",
+        "direction": "short",
+        "entry_price": 25085.75,
+        "exit_price": 25082.75,
+        "pnl_ticks": 12.0
+      }
+    ],
+    "notes": "Data: 2347158 ticks. RTH only. CVD reset at session open. Mar 5-6 2026.",
+    "variation": 3,
+    "variation_name": "Strict"
+  },
+  {
+    "strategy_id": "003",
+    "strategy_name": "CVD Divergence Absorption",
+    "backtest_period": {
+      "start": "2026-03-05 14:30:00",
+      "end": "2026-03-06 14:59:00"
+    },
+    "metrics": {
+      "profit_factor": 1.33,
+      "sharpe": 2.27,
+      "win_rate": 50.0,
+      "avg_winner_ticks": 8.0,
+      "avg_loser_ticks": 6.0,
+      "total_trades": 4,
+      "net_pnl_usd": 2.0,
+      "max_drawdown_pct": 150.0
+    },
+    "params": {
+      "divergence_window": 3,
+      "min_cvd_move": 100,
+      "confirmation_bars": 1,
+      "price_tolerance_ticks": 20,
+      "take_profit_ticks": 8,
+      "stop_loss_ticks": 6,
+      "session_filter": "RTH"
+    },
+    "trades": [
+      {
+        "entry_ts": "2026-03-05 14:46:00",
+        "exit_ts": "2026-03-05 14:47:00",
+        "direction": "long",
+        "entry_price": 25005.0,
+        "exit_price": 25003.5,
+        "pnl_ticks": -6.0
+      },
+      {
+        "entry_ts": "2026-03-05 17:33:00",
+        "exit_ts": "2026-03-05 17:34:00",
+        "direction": "long",
+        "entry_price": 25071.5,
+        "exit_price": 25073.5,
+        "pnl_ticks": 8.0
+      },
+      {
+        "entry_ts": "2026-03-05 17:35:00",
+        "exit_ts": "2026-03-05 17:36:00",
+        "direction": "short",
+        "entry_price": 25076.0,
+        "exit_price": 25077.5,
+        "pnl_ticks": -6.0
+      },
+      {
+        "entry_ts": "2026-03-05 18:18:00",
+        "exit_ts": "2026-03-05 18:19:00",
+        "direction": "short",
+        "entry_price": 25085.75,
+        "exit_price": 25083.75,
+        "pnl_ticks": 8.0
+      }
+    ],
+    "notes": "Data: 2347158 ticks. RTH only. CVD reset at session open. Mar 5-6 2026.",
+    "variation": 1,
+    "variation_name": "Sensitive"
+  },
+  {
+    "strategy_id": "003",
+    "strategy_name": "CVD Divergence Absorption",
+    "backtest_period": {
+      "start": "2026-03-05 14:30:00",
+      "end": "2026-03-06 14:59:00"
+    },
+    "metrics": {
+      "profit_factor": 1.25,
+      "sharpe": 1.76,
+      "win_rate": 50.0,
+      "avg_winner_ticks": 10.0,
+      "avg_loser_ticks": 8.0,
+      "total_trades": 4,
+      "net_pnl_usd": 2.0,
+      "max_drawdown_pct": 200.0
+    },
+    "params": {
+      "divergence_window": 3,
+      "min_cvd_move": 100,
+      "confirmation_bars": 1,
+      "price_tolerance_ticks": 20,
+      "take_profit_ticks": 10,
+      "stop_loss_ticks": 8,
+      "session_filter": "RTH"
+    },
+    "trades": [
+      {
+        "entry_ts": "2026-03-05 14:46:00",
+        "exit_ts": "2026-03-05 14:47:00",
+        "direction": "long",
+        "entry_price": 25005.0,
+        "exit_price": 25003.0,
+        "pnl_ticks": -8.0
+      },
+      {
+        "entry_ts": "2026-03-05 17:33:00",
+        "exit_ts": "2026-03-05 17:34:00",
+        "direction": "long",
+        "entry_price": 25071.5,
+        "exit_price": 25074.0,
+        "pnl_ticks": 10.0
+      },
+      {
+        "entry_ts": "2026-03-05 17:35:00",
+        "exit_ts": "2026-03-05 17:36:00",
+        "direction": "short",
+        "entry_price": 25076.0,
+        "exit_price": 25078.0,
+        "pnl_ticks": -8.0
+      },
+      {
+        "entry_ts": "2026-03-05 18:18:00",
+        "exit_ts": "2026-03-05 18:19:00",
+        "direction": "short",
+        "entry_price": 25085.75,
+        "exit_price": 25083.25,
+        "pnl_ticks": 10.0
+      }
+    ],
+    "notes": "Data: 2347158 ticks. RTH only. CVD reset at session open. Mar 5-6 2026.",
+    "variation": 2,
+    "variation_name": "Default"
+  },
+  {
+    "strategy_id": "003",
+    "strategy_name": "CVD Divergence Absorption",
+    "backtest_period": {
+      "start": "2026-03-05 14:30:00",
+      "end": "2026-03-06 14:59:00"
+    },
+    "metrics": {
+      "profit_factor": 0.0,
+      "sharpe": 0.0,
+      "win_rate": 0.0,
+      "avg_winner_ticks": 0,
+      "avg_loser_ticks": 4.0,
+      "total_trades": 1,
+      "net_pnl_usd": -2.0,
+      "max_drawdown_pct": 0.0
+    },
+    "params": {
+      "divergence_window": 3,
+      "min_cvd_move": 200,
+      "confirmation_bars": 1,
+      "price_tolerance_ticks": 10,
+      "take_profit_ticks": 5,
+      "stop_loss_ticks": 4,
+      "session_filter": "RTH"
+    },
+    "trades": [
+      {
+        "entry_ts": "2026-03-05 17:33:00",
+        "exit_ts": "2026-03-05 17:34:00",
+        "direction": "long",
+        "entry_price": 25071.5,
+        "exit_price": 25070.5,
+        "pnl_ticks": -4.0
+      }
+    ],
+    "notes": "Data: 2347158 ticks. RTH only. CVD reset at session open. Mar 5-6 2026.",
+    "variation": 5,
+    "variation_name": "Scalp"
+  }
+]

@@ -154,7 +154,11 @@ def main():
     print(f"  1. Review transcript: {folder}/transcript.txt")
     print(f"  2. Fill in strategy logic: {folder}/strategy_spec.md")
     print(f"  3. Implement backtest: {folder}/backtest.py")
-    print(f"  4. Run: python3 {folder}/backtest.py")
+    print(f"  4. Define 5 parameter variations in backtest.py")
+    print(f"  5. Run optimization: python3 pipeline/optimize.py --strategy-id {args.strategy_id}")
+    print(f"  6. Review results: data/results/{args.strategy_id}_optimization_*.json")
+    print(f"  7. Check comparison: data/results/comparison_report.md")
+    print(f"  8. Forward test top configs: python3 run_all_optimizations.py")
 
 
 if __name__ == "__main__":

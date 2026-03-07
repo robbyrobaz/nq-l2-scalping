@@ -6,13 +6,13 @@
     "end": "2026-03-06 14:59:00"
   },
   "metrics": {
-    "profit_factor": Infinity,
+    "profit_factor": 0.0,
     "sharpe": 0.0,
-    "win_rate": 100.0,
-    "avg_winner_ticks": 10.0,
-    "avg_loser_ticks": 0,
+    "win_rate": 0.0,
+    "avg_winner_ticks": 0,
+    "avg_loser_ticks": 4.0,
     "total_trades": 1,
-    "net_pnl_usd": 5.0,
+    "net_pnl_usd": -2.0,
     "max_drawdown_pct": 0.0
   },
   "params": {
@@ -20,8 +20,8 @@
     "min_cvd_move": 200,
     "confirmation_bars": 1,
     "price_tolerance_ticks": 10,
-    "take_profit_ticks": 10,
-    "stop_loss_ticks": 8,
+    "take_profit_ticks": 5,
+    "stop_loss_ticks": 4,
     "session_filter": "RTH"
   },
   "trades": [
@@ -30,8 +30,8 @@
       "exit_ts": "2026-03-05 17:34:00",
       "direction": "long",
       "entry_price": 25071.5,
-      "exit_price": 25074.0,
-      "pnl_ticks": 10.0
+      "exit_price": 25070.5,
+      "pnl_ticks": -4.0
     }
   ],
   "notes": "Data: 2347158 ticks. RTH only. CVD reset at session open. Mar 5-6 2026."
