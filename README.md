@@ -1,5 +1,7 @@
 # NQ L2 Scalping — Order Flow Strategy Library
 
+📊 **[Full Results & Comparison Report](data/results/comparison_report.md)** ← Click for detailed analysis
+
 A video-driven research pipeline that:
 1. Ingests trading education videos → extracts strategies
 2. Implements each strategy against IBKR tick-level + L2 data
@@ -27,7 +29,7 @@ A video-driven research pipeline that:
 **Backtest Period:** Mar 5-6 2026 (2 RTH sessions, 376 1-min bars)
 **Data:** 2,347,158 IBKR ticks
 **PnL Basis:** MNQ $0.50 per tick
-**Report:** See `data/results/comparison_report.md` for full analysis
+**Report:** **[📊 Full Comparison Report](data/results/comparison_report.md)** — ranked results, top configs, verdicts
 
 ### Top 3 Performers (Live Testing Priority)
 1. **001 - Aggressive TP**: PF=4.00, Sharpe=11.22 (6 trades, 66.7% WR)
