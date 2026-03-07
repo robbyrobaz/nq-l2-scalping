@@ -13,11 +13,13 @@ A video-driven research pipeline that:
 
 ## Strategy Library
 
-| ID | Strategy | Source | Status | BT PF | BT Sharpe |
-|----|----------|--------|--------|-------|-----------|
-| 001 | Delta Absorption Breakout | YT: o-w5Gxss6T0 | research | - | - |
-| 002 | Volume Profile FVG Rejection | YT: o-w5Gxss6T0 | research | - | - |
-| 003 | CVD Divergence Absorption | YT: o-w5Gxss6T0 | research | - | - |
+| ID | Strategy | Source | Status | Trades | WR | PF | Sharpe | Net PnL |
+|----|----------|--------|--------|--------|-----|-----|--------|---------|
+| 001 | Delta Absorption Breakout | YT: o-w5Gxss6T0 | backtested | 2 | 50.0% | 0.67 | -3.17 | -$2.00 |
+| 002 | Volume Profile FVG Rejection | YT: o-w5Gxss6T0 | backtested | 30 | 43.3% | 1.15 | 1.07 | +$10.00 |
+| 003 | CVD Divergence Absorption | YT: o-w5Gxss6T0 | backtested | 1 | 100% | inf | 0.00 | +$5.00 |
+
+*Backtest period: Mar 5-6 2026 (2 RTH sessions). MNQ pricing ($0.50/tick). See `data/results/comparison_report.md` for detailed analysis.*
 
 ## Pipeline
 

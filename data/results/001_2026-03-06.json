@@ -1,0 +1,47 @@
+{
+  "strategy_id": "001",
+  "strategy_name": "Delta Absorption Breakout",
+  "backtest_period": {
+    "start": "2026-03-05 14:30:00",
+    "end": "2026-03-06 14:59:00"
+  },
+  "metrics": {
+    "profit_factor": 0.67,
+    "sharpe": -3.17,
+    "win_rate": 50.0,
+    "avg_winner_ticks": 8.0,
+    "avg_loser_ticks": 12.0,
+    "total_trades": 2,
+    "net_pnl_usd": -2.0,
+    "max_drawdown_pct": 150.0
+  },
+  "params": {
+    "range_window": 5,
+    "range_atr_mult": 3.0,
+    "delta_threshold": 40,
+    "absorption_bars": 1,
+    "price_move_max_ticks": 4,
+    "take_profit_ticks": 8,
+    "stop_loss_ticks": 12,
+    "session_filter": "RTH"
+  },
+  "trades": [
+    {
+      "entry_ts": "2026-03-05 19:53:00",
+      "exit_ts": "2026-03-05 19:54:00",
+      "direction": "short",
+      "entry_price": 25081.0,
+      "exit_price": 25079.0,
+      "pnl_ticks": 8.0
+    },
+    {
+      "entry_ts": "2026-03-05 20:45:00",
+      "exit_ts": "2026-03-05 20:46:00",
+      "direction": "long",
+      "entry_price": 25102.75,
+      "exit_price": 25099.75,
+      "pnl_ticks": -12.0
+    }
+  ],
+  "notes": "Data: 2347158 ticks over Mar 5-6 2026. RTH only. Side inferred from bid/ask."
+}

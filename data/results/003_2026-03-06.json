@@ -1,0 +1,38 @@
+{
+  "strategy_id": "003",
+  "strategy_name": "CVD Divergence Absorption",
+  "backtest_period": {
+    "start": "2026-03-05 14:30:00",
+    "end": "2026-03-06 14:59:00"
+  },
+  "metrics": {
+    "profit_factor": Infinity,
+    "sharpe": 0.0,
+    "win_rate": 100.0,
+    "avg_winner_ticks": 10.0,
+    "avg_loser_ticks": 0,
+    "total_trades": 1,
+    "net_pnl_usd": 5.0,
+    "max_drawdown_pct": 0.0
+  },
+  "params": {
+    "divergence_window": 3,
+    "min_cvd_move": 200,
+    "confirmation_bars": 1,
+    "price_tolerance_ticks": 10,
+    "take_profit_ticks": 10,
+    "stop_loss_ticks": 8,
+    "session_filter": "RTH"
+  },
+  "trades": [
+    {
+      "entry_ts": "2026-03-05 17:33:00",
+      "exit_ts": "2026-03-05 17:34:00",
+      "direction": "long",
+      "entry_price": 25071.5,
+      "exit_price": 25074.0,
+      "pnl_ticks": 10.0
+    }
+  ],
+  "notes": "Data: 2347158 ticks. RTH only. CVD reset at session open. Mar 5-6 2026."
+}
