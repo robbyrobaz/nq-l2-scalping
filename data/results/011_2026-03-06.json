@@ -1,0 +1,37 @@
+{
+  "strategy_id": "011",
+  "strategy_name": "Exhaustion Reversal",
+  "backtest_period": {
+    "start": "2026-03-05 14:30:00",
+    "end": "2026-03-06 14:59:00"
+  },
+  "metrics": {
+    "profit_factor": 0.0,
+    "sharpe": 0.0,
+    "win_rate": 0.0,
+    "avg_winner_ticks": 0,
+    "avg_loser_ticks": 5.0,
+    "total_trades": 1,
+    "net_pnl_usd": -2.5,
+    "max_drawdown_pct": 0.0
+  },
+  "params": {
+    "lookback_bars": 4,
+    "volume_avg_period": 20,
+    "min_volume_ratio": 0.7,
+    "take_profit_ticks": 5,
+    "stop_loss_ticks": 5,
+    "session_filter": "RTH"
+  },
+  "trades": [
+    {
+      "entry_ts": "2026-03-05 18:53:00",
+      "exit_ts": "2026-03-05 18:54:00",
+      "direction": "short",
+      "entry_price": 25066.5,
+      "exit_price": 25067.75,
+      "pnl_ticks": -5.0
+    }
+  ],
+  "notes": "Data: 2347158 ticks over Mar 5-6 2026. RTH only."
+}

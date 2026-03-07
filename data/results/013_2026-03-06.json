@@ -1,0 +1,85 @@
+{
+  "strategy_id": "013",
+  "strategy_name": "Value Area Rejection",
+  "backtest_period": {
+    "start": "2026-03-05 14:30:00",
+    "end": "2026-03-06 14:59:00"
+  },
+  "metrics": {
+    "profit_factor": 3.0,
+    "sharpe": 9.13,
+    "win_rate": 71.4,
+    "avg_winner_ticks": 6.0,
+    "avg_loser_ticks": 5.0,
+    "total_trades": 7,
+    "net_pnl_usd": 10.0,
+    "max_drawdown_pct": 50.0
+  },
+  "params": {
+    "volume_profile_bars": 50,
+    "value_area_pct": 0.65,
+    "boundary_touch_ticks": 2,
+    "take_profit_ticks": 6,
+    "stop_loss_ticks": 5,
+    "session_filter": "RTH"
+  },
+  "trades": [
+    {
+      "entry_ts": "2026-03-05 19:15:00",
+      "exit_ts": "2026-03-05 19:16:00",
+      "direction": "short",
+      "entry_price": 25108.0,
+      "exit_price": 25106.5,
+      "pnl_ticks": 6.0
+    },
+    {
+      "entry_ts": "2026-03-05 19:22:00",
+      "exit_ts": "2026-03-05 19:23:00",
+      "direction": "short",
+      "entry_price": 25114.25,
+      "exit_price": 25112.75,
+      "pnl_ticks": 6.0
+    },
+    {
+      "entry_ts": "2026-03-05 21:03:00",
+      "exit_ts": "2026-03-05 21:04:00",
+      "direction": "short",
+      "entry_price": 25113.5,
+      "exit_price": 25112.0,
+      "pnl_ticks": 6.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:30:00",
+      "exit_ts": "2026-03-06 14:31:00",
+      "direction": "long",
+      "entry_price": 24636.25,
+      "exit_price": 24635.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:31:00",
+      "exit_ts": "2026-03-06 14:32:00",
+      "direction": "long",
+      "entry_price": 24636.0,
+      "exit_price": 24634.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:32:00",
+      "exit_ts": "2026-03-06 14:33:00",
+      "direction": "long",
+      "entry_price": 24636.25,
+      "exit_price": 24637.75,
+      "pnl_ticks": 6.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:33:00",
+      "exit_ts": "2026-03-06 14:34:00",
+      "direction": "long",
+      "entry_price": 24638.75,
+      "exit_price": 24640.25,
+      "pnl_ticks": 6.0
+    }
+  ],
+  "notes": "Data: 2347158 ticks over Mar 5-6 2026. RTH only."
+}

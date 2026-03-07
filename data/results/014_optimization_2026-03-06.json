@@ -1,0 +1,202 @@
+[
+  {
+    "strategy_id": "014",
+    "strategy_name": "Failed Auction Hook",
+    "backtest_period": {
+      "start": "2026-03-05 14:30:00",
+      "end": "2026-03-06 14:59:00"
+    },
+    "metrics": {
+      "profit_factor": Infinity,
+      "sharpe": 0.0,
+      "win_rate": 100.0,
+      "avg_winner_ticks": 14.0,
+      "avg_loser_ticks": 0,
+      "total_trades": 1,
+      "net_pnl_usd": 7.0,
+      "max_drawdown_pct": 0.0
+    },
+    "params": {
+      "volume_profile_bars": 60,
+      "value_area_pct": 0.75,
+      "breakout_threshold_ticks": 4,
+      "reentry_tolerance_ticks": 3,
+      "take_profit_ticks": 14,
+      "stop_loss_ticks": 12,
+      "session_filter": "RTH"
+    },
+    "trades": [
+      {
+        "entry_ts": "2026-03-06 14:33:00",
+        "exit_ts": "2026-03-06 14:34:00",
+        "direction": "long",
+        "entry_price": 24638.75,
+        "exit_price": 24642.25,
+        "pnl_ticks": 14.0
+      }
+    ],
+    "notes": "Data: 2347158 ticks over Mar 5-6 2026. RTH only.",
+    "variation": 3,
+    "variation_name": "Wide"
+  },
+  {
+    "strategy_id": "014",
+    "strategy_name": "Failed Auction Hook",
+    "backtest_period": {
+      "start": "2026-03-05 14:30:00",
+      "end": "2026-03-06 14:59:00"
+    },
+    "metrics": {
+      "profit_factor": Infinity,
+      "sharpe": 0.0,
+      "win_rate": 100.0,
+      "avg_winner_ticks": 14.0,
+      "avg_loser_ticks": 0,
+      "total_trades": 1,
+      "net_pnl_usd": 7.0,
+      "max_drawdown_pct": 0.0
+    },
+    "params": {
+      "volume_profile_bars": 40,
+      "value_area_pct": 0.7,
+      "breakout_threshold_ticks": 2,
+      "reentry_tolerance_ticks": 1,
+      "take_profit_ticks": 14,
+      "stop_loss_ticks": 8,
+      "session_filter": "RTH"
+    },
+    "trades": [
+      {
+        "entry_ts": "2026-03-06 14:33:00",
+        "exit_ts": "2026-03-06 14:34:00",
+        "direction": "long",
+        "entry_price": 24638.75,
+        "exit_price": 24642.25,
+        "pnl_ticks": 14.0
+      }
+    ],
+    "notes": "Data: 2347158 ticks over Mar 5-6 2026. RTH only.",
+    "variation": 4,
+    "variation_name": "Aggressive"
+  },
+  {
+    "strategy_id": "014",
+    "strategy_name": "Failed Auction Hook",
+    "backtest_period": {
+      "start": "2026-03-05 14:30:00",
+      "end": "2026-03-06 14:59:00"
+    },
+    "metrics": {
+      "profit_factor": Infinity,
+      "sharpe": 0.0,
+      "win_rate": 100.0,
+      "avg_winner_ticks": 12.0,
+      "avg_loser_ticks": 0,
+      "total_trades": 1,
+      "net_pnl_usd": 6.0,
+      "max_drawdown_pct": 0.0
+    },
+    "params": {
+      "volume_profile_bars": 50,
+      "value_area_pct": 0.7,
+      "breakout_threshold_ticks": 3,
+      "reentry_tolerance_ticks": 2,
+      "take_profit_ticks": 12,
+      "stop_loss_ticks": 10,
+      "session_filter": "RTH"
+    },
+    "trades": [
+      {
+        "entry_ts": "2026-03-06 14:33:00",
+        "exit_ts": "2026-03-06 14:34:00",
+        "direction": "long",
+        "entry_price": 24638.75,
+        "exit_price": 24641.75,
+        "pnl_ticks": 12.0
+      }
+    ],
+    "notes": "Data: 2347158 ticks over Mar 5-6 2026. RTH only.",
+    "variation": 2,
+    "variation_name": "Default"
+  },
+  {
+    "strategy_id": "014",
+    "strategy_name": "Failed Auction Hook",
+    "backtest_period": {
+      "start": "2026-03-05 14:30:00",
+      "end": "2026-03-06 14:59:00"
+    },
+    "metrics": {
+      "profit_factor": Infinity,
+      "sharpe": 0.0,
+      "win_rate": 100.0,
+      "avg_winner_ticks": 10.0,
+      "avg_loser_ticks": 0,
+      "total_trades": 1,
+      "net_pnl_usd": 5.0,
+      "max_drawdown_pct": 0.0
+    },
+    "params": {
+      "volume_profile_bars": 40,
+      "value_area_pct": 0.65,
+      "breakout_threshold_ticks": 2,
+      "reentry_tolerance_ticks": 1,
+      "take_profit_ticks": 10,
+      "stop_loss_ticks": 8,
+      "session_filter": "RTH"
+    },
+    "trades": [
+      {
+        "entry_ts": "2026-03-06 14:33:00",
+        "exit_ts": "2026-03-06 14:34:00",
+        "direction": "long",
+        "entry_price": 24638.75,
+        "exit_price": 24641.25,
+        "pnl_ticks": 10.0
+      }
+    ],
+    "notes": "Data: 2347158 ticks over Mar 5-6 2026. RTH only.",
+    "variation": 1,
+    "variation_name": "Tight"
+  },
+  {
+    "strategy_id": "014",
+    "strategy_name": "Failed Auction Hook",
+    "backtest_period": {
+      "start": "2026-03-05 14:30:00",
+      "end": "2026-03-06 14:59:00"
+    },
+    "metrics": {
+      "profit_factor": Infinity,
+      "sharpe": 0.0,
+      "win_rate": 100.0,
+      "avg_winner_ticks": 8.0,
+      "avg_loser_ticks": 0,
+      "total_trades": 1,
+      "net_pnl_usd": 4.0,
+      "max_drawdown_pct": 0.0
+    },
+    "params": {
+      "volume_profile_bars": 50,
+      "value_area_pct": 0.65,
+      "breakout_threshold_ticks": 3,
+      "reentry_tolerance_ticks": 2,
+      "take_profit_ticks": 8,
+      "stop_loss_ticks": 6,
+      "session_filter": "RTH"
+    },
+    "trades": [
+      {
+        "entry_ts": "2026-03-06 14:33:00",
+        "exit_ts": "2026-03-06 14:34:00",
+        "direction": "long",
+        "entry_price": 24638.75,
+        "exit_price": 24640.75,
+        "pnl_ticks": 8.0
+      }
+    ],
+    "notes": "Data: 2347158 ticks over Mar 5-6 2026. RTH only.",
+    "variation": 5,
+    "variation_name": "Scalp"
+  }
+]

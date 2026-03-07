@@ -1,0 +1,37 @@
+{
+  "strategy_id": "012",
+  "strategy_name": "LVN Rebalance",
+  "backtest_period": {
+    "start": "2026-03-05 14:30:00",
+    "end": "2026-03-06 14:59:00"
+  },
+  "metrics": {
+    "profit_factor": 0.0,
+    "sharpe": 0.0,
+    "win_rate": 0.0,
+    "avg_winner_ticks": 0,
+    "avg_loser_ticks": 6.0,
+    "total_trades": 1,
+    "net_pnl_usd": -3.0,
+    "max_drawdown_pct": 0.0
+  },
+  "params": {
+    "volume_profile_bars": 50,
+    "lvn_threshold_ratio": 0.35,
+    "value_area_pct": 0.7,
+    "take_profit_ticks": 6,
+    "stop_loss_ticks": 6,
+    "session_filter": "RTH"
+  },
+  "trades": [
+    {
+      "entry_ts": "2026-03-06 14:31:00",
+      "exit_ts": "2026-03-06 14:32:00",
+      "direction": "short",
+      "entry_price": 24636.0,
+      "exit_price": 24637.5,
+      "pnl_ticks": -6.0
+    }
+  ],
+  "notes": "Data: 2347158 ticks over Mar 5-6 2026. RTH only."
+}

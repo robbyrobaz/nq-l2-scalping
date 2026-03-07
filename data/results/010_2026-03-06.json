@@ -1,0 +1,69 @@
+{
+  "strategy_id": "010",
+  "strategy_name": "Initiative Auction",
+  "backtest_period": {
+    "start": "2026-03-05 14:30:00",
+    "end": "2026-03-06 14:59:00"
+  },
+  "metrics": {
+    "profit_factor": 0.0,
+    "sharpe": 0.0,
+    "win_rate": 0.0,
+    "avg_winner_ticks": 0,
+    "avg_loser_ticks": 4.0,
+    "total_trades": 5,
+    "net_pnl_usd": -10.0,
+    "max_drawdown_pct": 0.0
+  },
+  "params": {
+    "delta_threshold": 200,
+    "volume_avg_period": 20,
+    "volume_multiplier": 1.8,
+    "take_profit_ticks": 6,
+    "stop_loss_ticks": 4,
+    "session_filter": "RTH"
+  },
+  "trades": [
+    {
+      "entry_ts": "2026-03-05 17:01:00",
+      "exit_ts": "2026-03-05 17:02:00",
+      "direction": "long",
+      "entry_price": 25072.75,
+      "exit_price": 25071.75,
+      "pnl_ticks": -4.0
+    },
+    {
+      "entry_ts": "2026-03-05 17:33:00",
+      "exit_ts": "2026-03-05 17:34:00",
+      "direction": "long",
+      "entry_price": 25072.25,
+      "exit_price": 25071.25,
+      "pnl_ticks": -4.0
+    },
+    {
+      "entry_ts": "2026-03-05 18:22:00",
+      "exit_ts": "2026-03-05 18:23:00",
+      "direction": "short",
+      "entry_price": 25058.75,
+      "exit_price": 25059.75,
+      "pnl_ticks": -4.0
+    },
+    {
+      "entry_ts": "2026-03-05 19:13:00",
+      "exit_ts": "2026-03-05 19:14:00",
+      "direction": "long",
+      "entry_price": 25099.0,
+      "exit_price": 25098.0,
+      "pnl_ticks": -4.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:57:00",
+      "exit_ts": "2026-03-06 14:58:00",
+      "direction": "short",
+      "entry_price": 24667.75,
+      "exit_price": 24668.75,
+      "pnl_ticks": -4.0
+    }
+  ],
+  "notes": "Data: 2347158 ticks over Mar 5-6 2026. RTH only."
+}

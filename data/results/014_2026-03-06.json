@@ -1,0 +1,38 @@
+{
+  "strategy_id": "014",
+  "strategy_name": "Failed Auction Hook",
+  "backtest_period": {
+    "start": "2026-03-05 14:30:00",
+    "end": "2026-03-06 14:59:00"
+  },
+  "metrics": {
+    "profit_factor": Infinity,
+    "sharpe": 0.0,
+    "win_rate": 100.0,
+    "avg_winner_ticks": 8.0,
+    "avg_loser_ticks": 0,
+    "total_trades": 1,
+    "net_pnl_usd": 4.0,
+    "max_drawdown_pct": 0.0
+  },
+  "params": {
+    "volume_profile_bars": 50,
+    "value_area_pct": 0.65,
+    "breakout_threshold_ticks": 3,
+    "reentry_tolerance_ticks": 2,
+    "take_profit_ticks": 8,
+    "stop_loss_ticks": 6,
+    "session_filter": "RTH"
+  },
+  "trades": [
+    {
+      "entry_ts": "2026-03-06 14:33:00",
+      "exit_ts": "2026-03-06 14:34:00",
+      "direction": "long",
+      "entry_price": 24638.75,
+      "exit_price": 24640.75,
+      "pnl_ticks": 8.0
+    }
+  ],
+  "notes": "Data: 2347158 ticks over Mar 5-6 2026. RTH only."
+}

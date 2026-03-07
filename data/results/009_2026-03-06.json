@@ -1,0 +1,44 @@
+{
+  "strategy_id": "009",
+  "strategy_name": "Absorption",
+  "backtest_period": {
+    "start": "2026-03-05 14:30:00",
+    "end": "2026-03-06 14:59:00"
+  },
+  "metrics": {
+    "profit_factor": 0.0,
+    "sharpe": 0.0,
+    "win_rate": 0.0,
+    "avg_winner_ticks": 0,
+    "avg_loser_ticks": 8.0,
+    "total_trades": 2,
+    "net_pnl_usd": -8.0,
+    "max_drawdown_pct": 0.0
+  },
+  "params": {
+    "delta_threshold": 250,
+    "close_move_required_ticks": 1,
+    "take_profit_ticks": 12,
+    "stop_loss_ticks": 8,
+    "session_filter": "RTH"
+  },
+  "trades": [
+    {
+      "entry_ts": "2026-03-05 17:30:00",
+      "exit_ts": "2026-03-05 17:31:00",
+      "direction": "long",
+      "entry_price": 25076.5,
+      "exit_price": 25074.5,
+      "pnl_ticks": -8.0
+    },
+    {
+      "entry_ts": "2026-03-05 20:51:00",
+      "exit_ts": "2026-03-05 20:53:00",
+      "direction": "short",
+      "entry_price": 25096.75,
+      "exit_price": 25098.75,
+      "pnl_ticks": -8.0
+    }
+  ],
+  "notes": "Data: 2347158 ticks. RTH only."
+}

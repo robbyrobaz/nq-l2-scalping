@@ -60,6 +60,31 @@ spec_008 = importlib.util.spec_from_file_location("backtest_008",
 s008_backtest = importlib.util.module_from_spec(spec_008)
 spec_008.loader.exec_module(s008_backtest)
 
+spec_010 = importlib.util.spec_from_file_location("backtest_010",
+    Path(__file__).resolve().parents[1] / 'strategies' / '010_initiative_auction' / 'backtest.py')
+s010_backtest = importlib.util.module_from_spec(spec_010)
+spec_010.loader.exec_module(s010_backtest)
+
+spec_011 = importlib.util.spec_from_file_location("backtest_011",
+    Path(__file__).resolve().parents[1] / 'strategies' / '011_exhaustion_reversal' / 'backtest.py')
+s011_backtest = importlib.util.module_from_spec(spec_011)
+spec_011.loader.exec_module(s011_backtest)
+
+spec_012 = importlib.util.spec_from_file_location("backtest_012",
+    Path(__file__).resolve().parents[1] / 'strategies' / '012_lvn_rebalance' / 'backtest.py')
+s012_backtest = importlib.util.module_from_spec(spec_012)
+spec_012.loader.exec_module(s012_backtest)
+
+spec_013 = importlib.util.spec_from_file_location("backtest_013",
+    Path(__file__).resolve().parents[1] / 'strategies' / '013_value_area_rejection' / 'backtest.py')
+s013_backtest = importlib.util.module_from_spec(spec_013)
+spec_013.loader.exec_module(s013_backtest)
+
+spec_014 = importlib.util.spec_from_file_location("backtest_014",
+    Path(__file__).resolve().parents[1] / 'strategies' / '014_failed_auction_hook' / 'backtest.py')
+s014_backtest = importlib.util.module_from_spec(spec_014)
+spec_014.loader.exec_module(s014_backtest)
+
 
 STRATEGIES = {
     '001': {
@@ -584,6 +609,316 @@ STRATEGIES = {
                 }
             },
         }
+    },
+    '010': {
+        'name': 'Initiative Auction',
+        'backtest': s010_backtest,
+        'variations': {
+            1: {
+                'name': 'Tight',
+                'params': {
+                    'delta_threshold': 250,
+                    'volume_avg_period': 20,
+                    'volume_multiplier': 1.8,
+                    'take_profit_ticks': 8,
+                    'stop_loss_ticks': 6,
+                    'session_filter': 'RTH',
+                }
+            },
+            2: {
+                'name': 'Default',
+                'params': {
+                    'delta_threshold': 300,
+                    'volume_avg_period': 20,
+                    'volume_multiplier': 1.5,
+                    'take_profit_ticks': 12,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            3: {
+                'name': 'Wide',
+                'params': {
+                    'delta_threshold': 350,
+                    'volume_avg_period': 20,
+                    'volume_multiplier': 1.2,
+                    'take_profit_ticks': 16,
+                    'stop_loss_ticks': 10,
+                    'session_filter': 'RTH',
+                }
+            },
+            4: {
+                'name': 'Aggressive',
+                'params': {
+                    'delta_threshold': 250,
+                    'volume_avg_period': 20,
+                    'volume_multiplier': 1.3,
+                    'take_profit_ticks': 16,
+                    'stop_loss_ticks': 6,
+                    'session_filter': 'RTH',
+                }
+            },
+            5: {
+                'name': 'Scalp',
+                'params': {
+                    'delta_threshold': 200,
+                    'volume_avg_period': 20,
+                    'volume_multiplier': 1.8,
+                    'take_profit_ticks': 6,
+                    'stop_loss_ticks': 4,
+                    'session_filter': 'RTH',
+                }
+            },
+        }
+    },
+    '011': {
+        'name': 'Exhaustion Reversal',
+        'backtest': s011_backtest,
+        'variations': {
+            1: {
+                'name': 'Tight',
+                'params': {
+                    'lookback_bars': 3,
+                    'volume_avg_period': 20,
+                    'min_volume_ratio': 0.7,
+                    'take_profit_ticks': 6,
+                    'stop_loss_ticks': 6,
+                    'session_filter': 'RTH',
+                }
+            },
+            2: {
+                'name': 'Default',
+                'params': {
+                    'lookback_bars': 4,
+                    'volume_avg_period': 20,
+                    'min_volume_ratio': 0.6,
+                    'take_profit_ticks': 8,
+                    'stop_loss_ticks': 10,
+                    'session_filter': 'RTH',
+                }
+            },
+            3: {
+                'name': 'Wide',
+                'params': {
+                    'lookback_bars': 5,
+                    'volume_avg_period': 20,
+                    'min_volume_ratio': 0.5,
+                    'take_profit_ticks': 12,
+                    'stop_loss_ticks': 12,
+                    'session_filter': 'RTH',
+                }
+            },
+            4: {
+                'name': 'Aggressive',
+                'params': {
+                    'lookback_bars': 3,
+                    'volume_avg_period': 20,
+                    'min_volume_ratio': 0.5,
+                    'take_profit_ticks': 12,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            5: {
+                'name': 'Scalp',
+                'params': {
+                    'lookback_bars': 4,
+                    'volume_avg_period': 20,
+                    'min_volume_ratio': 0.7,
+                    'take_profit_ticks': 5,
+                    'stop_loss_ticks': 5,
+                    'session_filter': 'RTH',
+                }
+            },
+        }
+    },
+    '012': {
+        'name': 'LVN Rebalance',
+        'backtest': s012_backtest,
+        'variations': {
+            1: {
+                'name': 'Tight',
+                'params': {
+                    'volume_profile_bars': 40,
+                    'lvn_threshold_ratio': 0.35,
+                    'value_area_pct': 0.70,
+                    'take_profit_ticks': 8,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            2: {
+                'name': 'Default',
+                'params': {
+                    'volume_profile_bars': 50,
+                    'lvn_threshold_ratio': 0.30,
+                    'value_area_pct': 0.70,
+                    'take_profit_ticks': 10,
+                    'stop_loss_ticks': 12,
+                    'session_filter': 'RTH',
+                }
+            },
+            3: {
+                'name': 'Wide',
+                'params': {
+                    'volume_profile_bars': 60,
+                    'lvn_threshold_ratio': 0.25,
+                    'value_area_pct': 0.70,
+                    'take_profit_ticks': 14,
+                    'stop_loss_ticks': 14,
+                    'session_filter': 'RTH',
+                }
+            },
+            4: {
+                'name': 'Aggressive',
+                'params': {
+                    'volume_profile_bars': 40,
+                    'lvn_threshold_ratio': 0.25,
+                    'value_area_pct': 0.70,
+                    'take_profit_ticks': 12,
+                    'stop_loss_ticks': 10,
+                    'session_filter': 'RTH',
+                }
+            },
+            5: {
+                'name': 'Scalp',
+                'params': {
+                    'volume_profile_bars': 50,
+                    'lvn_threshold_ratio': 0.35,
+                    'value_area_pct': 0.70,
+                    'take_profit_ticks': 6,
+                    'stop_loss_ticks': 6,
+                    'session_filter': 'RTH',
+                }
+            },
+        }
+    },
+    '013': {
+        'name': 'Value Area Rejection',
+        'backtest': s013_backtest,
+        'variations': {
+            1: {
+                'name': 'Tight',
+                'params': {
+                    'volume_profile_bars': 40,
+                    'value_area_pct': 0.65,
+                    'boundary_touch_ticks': 1,
+                    'take_profit_ticks': 8,
+                    'stop_loss_ticks': 6,
+                    'session_filter': 'RTH',
+                }
+            },
+            2: {
+                'name': 'Default',
+                'params': {
+                    'volume_profile_bars': 50,
+                    'value_area_pct': 0.70,
+                    'boundary_touch_ticks': 2,
+                    'take_profit_ticks': 10,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            3: {
+                'name': 'Wide',
+                'params': {
+                    'volume_profile_bars': 60,
+                    'value_area_pct': 0.75,
+                    'boundary_touch_ticks': 3,
+                    'take_profit_ticks': 12,
+                    'stop_loss_ticks': 10,
+                    'session_filter': 'RTH',
+                }
+            },
+            4: {
+                'name': 'Aggressive',
+                'params': {
+                    'volume_profile_bars': 40,
+                    'value_area_pct': 0.70,
+                    'boundary_touch_ticks': 1,
+                    'take_profit_ticks': 12,
+                    'stop_loss_ticks': 6,
+                    'session_filter': 'RTH',
+                }
+            },
+            5: {
+                'name': 'Scalp',
+                'params': {
+                    'volume_profile_bars': 50,
+                    'value_area_pct': 0.65,
+                    'boundary_touch_ticks': 2,
+                    'take_profit_ticks': 6,
+                    'stop_loss_ticks': 5,
+                    'session_filter': 'RTH',
+                }
+            },
+        }
+    },
+    '014': {
+        'name': 'Failed Auction Hook',
+        'backtest': s014_backtest,
+        'variations': {
+            1: {
+                'name': 'Tight',
+                'params': {
+                    'volume_profile_bars': 40,
+                    'value_area_pct': 0.65,
+                    'breakout_threshold_ticks': 2,
+                    'reentry_tolerance_ticks': 1,
+                    'take_profit_ticks': 10,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            2: {
+                'name': 'Default',
+                'params': {
+                    'volume_profile_bars': 50,
+                    'value_area_pct': 0.70,
+                    'breakout_threshold_ticks': 3,
+                    'reentry_tolerance_ticks': 2,
+                    'take_profit_ticks': 12,
+                    'stop_loss_ticks': 10,
+                    'session_filter': 'RTH',
+                }
+            },
+            3: {
+                'name': 'Wide',
+                'params': {
+                    'volume_profile_bars': 60,
+                    'value_area_pct': 0.75,
+                    'breakout_threshold_ticks': 4,
+                    'reentry_tolerance_ticks': 3,
+                    'take_profit_ticks': 14,
+                    'stop_loss_ticks': 12,
+                    'session_filter': 'RTH',
+                }
+            },
+            4: {
+                'name': 'Aggressive',
+                'params': {
+                    'volume_profile_bars': 40,
+                    'value_area_pct': 0.70,
+                    'breakout_threshold_ticks': 2,
+                    'reentry_tolerance_ticks': 1,
+                    'take_profit_ticks': 14,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            5: {
+                'name': 'Scalp',
+                'params': {
+                    'volume_profile_bars': 50,
+                    'value_area_pct': 0.65,
+                    'breakout_threshold_ticks': 3,
+                    'reentry_tolerance_ticks': 2,
+                    'take_profit_ticks': 8,
+                    'stop_loss_ticks': 6,
+                    'session_filter': 'RTH',
+                }
+            },
+        }
     }
 }
 
@@ -658,13 +993,13 @@ def run_optimization(strategy_id):
 
 def main():
     parser = argparse.ArgumentParser(description='Optimize strategy parameters')
-    parser.add_argument('--strategy-id', type=str, choices=['001', '002', '003', '004', '005', '006', '007', '008', 'all'],
+    parser.add_argument('--strategy-id', type=str, choices=['001', '002', '003', '004', '005', '006', '007', '008', '010', '011', '012', '013', '014', 'all'],
                         default='all', help='Strategy ID to optimize')
     args = parser.parse_args()
 
     if args.strategy_id == 'all':
         all_results = {}
-        for sid in ['001', '002', '003', '004', '005', '006', '007', '008']:
+        for sid in ['001', '002', '003', '004', '005', '006', '007', '008', '010', '011', '012', '013', '014']:
             all_results[sid] = run_optimization(sid)
         return all_results
     else:
