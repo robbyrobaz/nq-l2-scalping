@@ -1,0 +1,157 @@
+[
+  {
+    "strategy_id": "008",
+    "strategy_name": "Stacked Book Breakout",
+    "backtest_period": {
+      "start": "2026-03-05 14:30:00",
+      "end": "2026-03-06 14:59:00"
+    },
+    "metrics": {
+      "profit_factor": 0.0,
+      "sharpe": 0.0,
+      "win_rate": 0.0,
+      "avg_winner_ticks": 0,
+      "avg_loser_ticks": 0,
+      "total_trades": 0,
+      "net_pnl_usd": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "params": {
+      "stack_threshold": 2.0,
+      "stack_lookback_bars": 5,
+      "breakout_min_ticks": 1,
+      "entry_offset_ticks": 1,
+      "take_profit_ticks": 10,
+      "stop_loss_ticks": 6,
+      "session_filter": "RTH"
+    },
+    "trades": [],
+    "notes": "Data: 2347158 ticks. RTH only. Stacked bid/ask detection.",
+    "variation": 1,
+    "variation_name": "Tight"
+  },
+  {
+    "strategy_id": "008",
+    "strategy_name": "Stacked Book Breakout",
+    "backtest_period": {
+      "start": "2026-03-05 14:30:00",
+      "end": "2026-03-06 14:59:00"
+    },
+    "metrics": {
+      "profit_factor": 0.0,
+      "sharpe": 0.0,
+      "win_rate": 0.0,
+      "avg_winner_ticks": 0,
+      "avg_loser_ticks": 0,
+      "total_trades": 0,
+      "net_pnl_usd": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "params": {
+      "stack_threshold": 2.0,
+      "stack_lookback_bars": 5,
+      "breakout_min_ticks": 1,
+      "entry_offset_ticks": 1,
+      "take_profit_ticks": 12,
+      "stop_loss_ticks": 8,
+      "session_filter": "RTH"
+    },
+    "trades": [],
+    "notes": "Data: 2347158 ticks. RTH only. Stacked bid/ask detection.",
+    "variation": 2,
+    "variation_name": "Default"
+  },
+  {
+    "strategy_id": "008",
+    "strategy_name": "Stacked Book Breakout",
+    "backtest_period": {
+      "start": "2026-03-05 14:30:00",
+      "end": "2026-03-06 14:59:00"
+    },
+    "metrics": {
+      "profit_factor": 0.0,
+      "sharpe": 0.0,
+      "win_rate": 0.0,
+      "avg_winner_ticks": 0,
+      "avg_loser_ticks": 0,
+      "total_trades": 0,
+      "net_pnl_usd": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "params": {
+      "stack_threshold": 2.0,
+      "stack_lookback_bars": 5,
+      "breakout_min_ticks": 2,
+      "entry_offset_ticks": 1,
+      "take_profit_ticks": 14,
+      "stop_loss_ticks": 8,
+      "session_filter": "RTH"
+    },
+    "trades": [],
+    "notes": "Data: 2347158 ticks. RTH only. Stacked bid/ask detection.",
+    "variation": 3,
+    "variation_name": "Strict"
+  },
+  {
+    "strategy_id": "008",
+    "strategy_name": "Stacked Book Breakout",
+    "backtest_period": {
+      "start": "2026-03-05 14:30:00",
+      "end": "2026-03-06 14:59:00"
+    },
+    "metrics": {
+      "profit_factor": 0.0,
+      "sharpe": 0.0,
+      "win_rate": 0.0,
+      "avg_winner_ticks": 0,
+      "avg_loser_ticks": 0,
+      "total_trades": 0,
+      "net_pnl_usd": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "params": {
+      "stack_threshold": 2.0,
+      "stack_lookback_bars": 5,
+      "breakout_min_ticks": 1,
+      "entry_offset_ticks": 1,
+      "take_profit_ticks": 16,
+      "stop_loss_ticks": 8,
+      "session_filter": "RTH"
+    },
+    "trades": [],
+    "notes": "Data: 2347158 ticks. RTH only. Stacked bid/ask detection.",
+    "variation": 4,
+    "variation_name": "Aggressive"
+  },
+  {
+    "strategy_id": "008",
+    "strategy_name": "Stacked Book Breakout",
+    "backtest_period": {
+      "start": "2026-03-05 14:30:00",
+      "end": "2026-03-06 14:59:00"
+    },
+    "metrics": {
+      "profit_factor": 0.0,
+      "sharpe": 0.0,
+      "win_rate": 0.0,
+      "avg_winner_ticks": 0,
+      "avg_loser_ticks": 0,
+      "total_trades": 0,
+      "net_pnl_usd": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "params": {
+      "stack_threshold": 2.0,
+      "stack_lookback_bars": 5,
+      "breakout_min_ticks": 0.5,
+      "entry_offset_ticks": 1,
+      "take_profit_ticks": 6,
+      "stop_loss_ticks": 4,
+      "session_filter": "RTH"
+    },
+    "trades": [],
+    "notes": "Data: 2347158 ticks. RTH only. Stacked bid/ask detection.",
+    "variation": 5,
+    "variation_name": "Scalp"
+  }
+]

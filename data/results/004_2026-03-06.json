@@ -1,0 +1,29 @@
+{
+  "strategy_id": "004",
+  "strategy_name": "Bid/Ask Imbalance",
+  "backtest_period": {
+    "start": "2026-03-05 14:30:00",
+    "end": "2026-03-06 14:59:00"
+  },
+  "metrics": {
+    "profit_factor": 0.0,
+    "sharpe": 0.0,
+    "win_rate": 0.0,
+    "avg_winner_ticks": 0,
+    "avg_loser_ticks": 0,
+    "total_trades": 0,
+    "net_pnl_usd": 0.0,
+    "max_drawdown_pct": 0.0
+  },
+  "params": {
+    "imbalance_ratio_threshold": 2.0,
+    "consecutive_bars": 1,
+    "min_size_contracts": 50,
+    "entry_offset_ticks": 1,
+    "take_profit_ticks": 14,
+    "stop_loss_ticks": 10,
+    "session_filter": "RTH"
+  },
+  "trades": [],
+  "notes": "Data: 2347158 ticks. RTH only. Quotes-based imbalance ratio."
+}

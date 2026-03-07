@@ -13,13 +13,26 @@ A video-driven research pipeline that:
 
 ## Strategy Library
 
-| ID | Strategy | Source | Status | Trades | WR | PF | Sharpe | Net PnL |
-|----|----------|--------|--------|--------|-----|-----|--------|---------|
-| 001 | Delta Absorption Breakout | YT: o-w5Gxss6T0 | backtested | 2 | 50.0% | 0.67 | -3.17 | -$2.00 |
-| 002 | Volume Profile FVG Rejection | YT: o-w5Gxss6T0 | backtested | 30 | 43.3% | 1.15 | 1.07 | +$10.00 |
-| 003 | CVD Divergence Absorption | YT: o-w5Gxss6T0 | backtested | 1 | 100% | inf | 0.00 | +$5.00 |
+| ID | Strategy | Best Variation | Trades | WR | PF | Sharpe | PnL | Status |
+|----|----------|-----------------|--------|-----|--------|---------|---------|---------|
+| ✓ 001 | Delta Absorption Breakout | Aggressive TP | 6 | 66.7% | 4.00 | 11.22 | +$24 | 🚀 TRADEABLE |
+| ✓ 002 | Volume Profile FVG Rejection | Aggressive | 42 | 38.1% | 1.54 | 3.06 | +$56 | ✓ VIABLE |
+| ✓ 003 | CVD Divergence Absorption | Momentum | 4 | 50.0% | 2.00 | 5.29 | +$8 | ✓ VIABLE |
+| ✗ 004 | Bid/Ask Imbalance | (all) | 0 | — | 0.00 | 0.00 | $0 | ❌ NO SIGNALS |
+| ✗ 005 | Large Print Momentum | (all) | 0 | — | 0.00 | 0.00 | $0 | ❌ NO SIGNALS |
+| ✗ 006 | Aggressive Tape Streak | (all) | 375 | 3.5% | 0.00 | -52.24 | -$282,856 | ❌ OVERFITTING |
+| ✗ 007 | Sweep & Fade | Aggressive | 652 | 41.1% | 0.56 | -4.63 | -$847 | ❌ UNPROFITABLE |
+| ✗ 008 | Stacked Book Breakout | (all) | 0 | — | 0.00 | 0.00 | $0 | ❌ NO SIGNALS |
 
-*Backtest period: Mar 5-6 2026 (2 RTH sessions). MNQ pricing ($0.50/tick). See `data/results/comparison_report.md` for detailed analysis.*
+**Backtest Period:** Mar 5-6 2026 (2 RTH sessions, 376 1-min bars)
+**Data:** 2,347,158 IBKR ticks
+**PnL Basis:** MNQ $0.50 per tick
+**Report:** See `data/results/comparison_report.md` for full analysis
+
+### Top 3 Performers (Live Testing Priority)
+1. **001 - Aggressive TP**: PF=4.00, Sharpe=11.22 (6 trades, 66.7% WR)
+2. **001 - Wide Range**: PF=2.50, Sharpe=7.48 (6 trades, 66.7% WR)
+3. **002 - Aggressive**: PF=1.54, Sharpe=3.06 (42 trades, 38.1% WR)
 
 ## Pipeline
 

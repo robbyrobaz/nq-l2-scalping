@@ -35,6 +35,31 @@ spec_003 = importlib.util.spec_from_file_location("backtest_003",
 s003_backtest = importlib.util.module_from_spec(spec_003)
 spec_003.loader.exec_module(s003_backtest)
 
+spec_004 = importlib.util.spec_from_file_location("backtest_004",
+    Path(__file__).resolve().parents[1] / 'strategies' / '004_bid_ask_imbalance' / 'backtest.py')
+s004_backtest = importlib.util.module_from_spec(spec_004)
+spec_004.loader.exec_module(s004_backtest)
+
+spec_005 = importlib.util.spec_from_file_location("backtest_005",
+    Path(__file__).resolve().parents[1] / 'strategies' / '005_large_print_momentum' / 'backtest.py')
+s005_backtest = importlib.util.module_from_spec(spec_005)
+spec_005.loader.exec_module(s005_backtest)
+
+spec_006 = importlib.util.spec_from_file_location("backtest_006",
+    Path(__file__).resolve().parents[1] / 'strategies' / '006_tape_streak' / 'backtest.py')
+s006_backtest = importlib.util.module_from_spec(spec_006)
+spec_006.loader.exec_module(s006_backtest)
+
+spec_007 = importlib.util.spec_from_file_location("backtest_007",
+    Path(__file__).resolve().parents[1] / 'strategies' / '007_sweep_fade' / 'backtest.py')
+s007_backtest = importlib.util.module_from_spec(spec_007)
+spec_007.loader.exec_module(s007_backtest)
+
+spec_008 = importlib.util.spec_from_file_location("backtest_008",
+    Path(__file__).resolve().parents[1] / 'strategies' / '008_stacked_book_breakout' / 'backtest.py')
+s008_backtest = importlib.util.module_from_spec(spec_008)
+spec_008.loader.exec_module(s008_backtest)
+
 
 STRATEGIES = {
     '001': {
@@ -239,6 +264,326 @@ STRATEGIES = {
                 }
             },
         }
+    },
+    '004': {
+        'name': 'Bid/Ask Imbalance',
+        'backtest': s004_backtest,
+        'variations': {
+            1: {
+                'name': 'Tight Threshold',
+                'params': {
+                    'imbalance_ratio_threshold': 2.0,
+                    'consecutive_bars': 2,
+                    'min_size_contracts': 200,
+                    'entry_offset_ticks': 1,
+                    'take_profit_ticks': 8,
+                    'stop_loss_ticks': 6,
+                    'session_filter': 'RTH',
+                }
+            },
+            2: {
+                'name': 'Default',
+                'params': {
+                    'imbalance_ratio_threshold': 3.0,
+                    'consecutive_bars': 2,
+                    'min_size_contracts': 100,
+                    'entry_offset_ticks': 1,
+                    'take_profit_ticks': 10,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            3: {
+                'name': 'Aggressive',
+                'params': {
+                    'imbalance_ratio_threshold': 3.5,
+                    'consecutive_bars': 1,
+                    'min_size_contracts': 150,
+                    'entry_offset_ticks': 1,
+                    'take_profit_ticks': 12,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            4: {
+                'name': 'Scalp',
+                'params': {
+                    'imbalance_ratio_threshold': 2.5,
+                    'consecutive_bars': 1,
+                    'min_size_contracts': 80,
+                    'entry_offset_ticks': 1,
+                    'take_profit_ticks': 6,
+                    'stop_loss_ticks': 4,
+                    'session_filter': 'RTH',
+                }
+            },
+            5: {
+                'name': 'Extreme',
+                'params': {
+                    'imbalance_ratio_threshold': 4.0,
+                    'consecutive_bars': 2,
+                    'min_size_contracts': 200,
+                    'entry_offset_ticks': 1,
+                    'take_profit_ticks': 14,
+                    'stop_loss_ticks': 10,
+                    'session_filter': 'RTH',
+                }
+            },
+        }
+    },
+    '005': {
+        'name': 'Large Print Momentum',
+        'backtest': s005_backtest,
+        'variations': {
+            1: {
+                'name': 'Sensitive',
+                'params': {
+                    'lookback_bars': 30,
+                    'std_dev_threshold': 1.5,
+                    'min_trade_size': 500,
+                    'signal_cooldown_bars': 3,
+                    'take_profit_ticks': 10,
+                    'stop_loss_ticks': 6,
+                    'session_filter': 'RTH',
+                }
+            },
+            2: {
+                'name': 'Default',
+                'params': {
+                    'lookback_bars': 50,
+                    'std_dev_threshold': 2.0,
+                    'min_trade_size': 1000,
+                    'signal_cooldown_bars': 5,
+                    'take_profit_ticks': 12,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            3: {
+                'name': 'Strict',
+                'params': {
+                    'lookback_bars': 80,
+                    'std_dev_threshold': 2.5,
+                    'min_trade_size': 1500,
+                    'signal_cooldown_bars': 10,
+                    'take_profit_ticks': 14,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            4: {
+                'name': 'Aggressive',
+                'params': {
+                    'lookback_bars': 25,
+                    'std_dev_threshold': 1.5,
+                    'min_trade_size': 750,
+                    'signal_cooldown_bars': 2,
+                    'take_profit_ticks': 16,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            5: {
+                'name': 'Scalp',
+                'params': {
+                    'lookback_bars': 20,
+                    'std_dev_threshold': 1.8,
+                    'min_trade_size': 600,
+                    'signal_cooldown_bars': 1,
+                    'take_profit_ticks': 6,
+                    'stop_loss_ticks': 4,
+                    'session_filter': 'RTH',
+                }
+            },
+        }
+    },
+    '006': {
+        'name': 'Aggressive Tape Streak',
+        'backtest': s006_backtest,
+        'variations': {
+            1: {
+                'name': 'Tight',
+                'params': {
+                    'min_consecutive_trades': 3,
+                    'lookback_bars': 2,
+                    'min_total_volume': 0,
+                    'take_profit_ticks': 8,
+                    'stop_loss_ticks': 6,
+                    'session_filter': 'RTH',
+                }
+            },
+            2: {
+                'name': 'Default',
+                'params': {
+                    'min_consecutive_trades': 5,
+                    'lookback_bars': 3,
+                    'min_total_volume': 0,
+                    'take_profit_ticks': 10,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            3: {
+                'name': 'Strict',
+                'params': {
+                    'min_consecutive_trades': 7,
+                    'lookback_bars': 5,
+                    'min_total_volume': 0,
+                    'take_profit_ticks': 12,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            4: {
+                'name': 'Aggressive',
+                'params': {
+                    'min_consecutive_trades': 4,
+                    'lookback_bars': 2,
+                    'min_total_volume': 0,
+                    'take_profit_ticks': 14,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            5: {
+                'name': 'Scalp',
+                'params': {
+                    'min_consecutive_trades': 3,
+                    'lookback_bars': 1,
+                    'min_total_volume': 0,
+                    'take_profit_ticks': 5,
+                    'stop_loss_ticks': 3,
+                    'session_filter': 'RTH',
+                }
+            },
+        }
+    },
+    '007': {
+        'name': 'Sweep & Fade',
+        'backtest': s007_backtest,
+        'variations': {
+            1: {
+                'name': 'Sensitive',
+                'params': {
+                    'sweep_tick_threshold': 5,
+                    'sweep_time_seconds': 30,
+                    'take_profit_ticks': 5,
+                    'stop_loss_ticks': 8,
+                    'retracement_min_ticks': 0.5,
+                    'session_filter': 'RTH',
+                }
+            },
+            2: {
+                'name': 'Default',
+                'params': {
+                    'sweep_tick_threshold': 8,
+                    'sweep_time_seconds': 30,
+                    'take_profit_ticks': 6,
+                    'stop_loss_ticks': 10,
+                    'retracement_min_ticks': 1,
+                    'session_filter': 'RTH',
+                }
+            },
+            3: {
+                'name': 'Strict',
+                'params': {
+                    'sweep_tick_threshold': 12,
+                    'sweep_time_seconds': 30,
+                    'take_profit_ticks': 8,
+                    'stop_loss_ticks': 12,
+                    'retracement_min_ticks': 2,
+                    'session_filter': 'RTH',
+                }
+            },
+            4: {
+                'name': 'Aggressive',
+                'params': {
+                    'sweep_tick_threshold': 6,
+                    'sweep_time_seconds': 30,
+                    'take_profit_ticks': 8,
+                    'stop_loss_ticks': 10,
+                    'retracement_min_ticks': 0.5,
+                    'session_filter': 'RTH',
+                }
+            },
+            5: {
+                'name': 'Scalp',
+                'params': {
+                    'sweep_tick_threshold': 4,
+                    'sweep_time_seconds': 30,
+                    'take_profit_ticks': 3,
+                    'stop_loss_ticks': 5,
+                    'retracement_min_ticks': 0.25,
+                    'session_filter': 'RTH',
+                }
+            },
+        }
+    },
+    '008': {
+        'name': 'Stacked Book Breakout',
+        'backtest': s008_backtest,
+        'variations': {
+            1: {
+                'name': 'Tight',
+                'params': {
+                    'stack_threshold': 2.0,
+                    'stack_lookback_bars': 5,
+                    'breakout_min_ticks': 1,
+                    'entry_offset_ticks': 1,
+                    'take_profit_ticks': 10,
+                    'stop_loss_ticks': 6,
+                    'session_filter': 'RTH',
+                }
+            },
+            2: {
+                'name': 'Default',
+                'params': {
+                    'stack_threshold': 3.0,
+                    'stack_lookback_bars': 10,
+                    'breakout_min_ticks': 1,
+                    'entry_offset_ticks': 1,
+                    'take_profit_ticks': 12,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            3: {
+                'name': 'Strict',
+                'params': {
+                    'stack_threshold': 4.0,
+                    'stack_lookback_bars': 15,
+                    'breakout_min_ticks': 2,
+                    'entry_offset_ticks': 1,
+                    'take_profit_ticks': 14,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            4: {
+                'name': 'Aggressive',
+                'params': {
+                    'stack_threshold': 2.5,
+                    'stack_lookback_bars': 8,
+                    'breakout_min_ticks': 1,
+                    'entry_offset_ticks': 1,
+                    'take_profit_ticks': 16,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            5: {
+                'name': 'Scalp',
+                'params': {
+                    'stack_threshold': 2.0,
+                    'stack_lookback_bars': 5,
+                    'breakout_min_ticks': 0.5,
+                    'entry_offset_ticks': 1,
+                    'take_profit_ticks': 6,
+                    'stop_loss_ticks': 4,
+                    'session_filter': 'RTH',
+                }
+            },
+        }
     }
 }
 
@@ -313,13 +658,13 @@ def run_optimization(strategy_id):
 
 def main():
     parser = argparse.ArgumentParser(description='Optimize strategy parameters')
-    parser.add_argument('--strategy-id', type=str, choices=['001', '002', '003', 'all'],
+    parser.add_argument('--strategy-id', type=str, choices=['001', '002', '003', '004', '005', '006', '007', '008', 'all'],
                         default='all', help='Strategy ID to optimize')
     args = parser.parse_args()
 
     if args.strategy_id == 'all':
         all_results = {}
-        for sid in ['001', '002', '003']:
+        for sid in ['001', '002', '003', '004', '005', '006', '007', '008']:
             all_results[sid] = run_optimization(sid)
         return all_results
     else:

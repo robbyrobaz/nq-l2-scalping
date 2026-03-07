@@ -1,27 +1,26 @@
-# NQ L2 Scalping Strategies - Parameter Optimization Results
-
-**Report Date:** March 6, 2026
-**Test Period:** March 5-6, 2026 (2 days RTH only)
-**Data:** 2,347,158 ticks across all strategies
-**MNQ PnL Conversion:** $0.50 per tick
+# NQ L2 Scalping - Comprehensive Strategy Comparison
+**Date:** 2026-03-06 | **Data:** March 5-6, 2026 (RTH only, 2 days)
 
 ---
 
 ## Executive Summary
 
-Tested 15 parameter variations across 3 delta-neutral L2 strategies. **Total net PnL: $103.00 across all variations**
+Tested **40 parameter variations** across **8 L2 scalping strategies**.
 
-### Key Findings:
-- **001 - Delta Absorption Breakout**: 4 of 5 variations profitable (PF > 1.3)
-- **002 - Volume Profile FVG**: 1 of 5 variations with PF > 1.5
-- **003 - CVD Divergence**: 3 of 5 variations with PF > 1.25
+| Metric | Value |
+|--------|-------|
+| **Total Strategies** | 8 |
+| **Total Variations** | 40 |
+| **Total Net PnL** | -$1,417,248 |
+| **Profitable Variations** | 9/40 (22.5%) |
+| **High Potential (PF>2.0)** | 2/40 (5%) |
 
-### 🚀 HIGHEST POTENTIAL CONFIGS:
-| Rank | Strategy | Variation | PF | PnL | Trades |
-|------|----------|-----------|----|----|--------|
-| 1 | **001** | **Aggressive TP** | **4.00** | **$24** | 6 |
-| 2 | **001** | **Wide Range** | **2.50** | **$12** | 6 |
-| 3 | **003** | **Momentum** | **2.00** | **$8** | 4 |
+### 🚀 TOP 3 CONFIGURATIONS:
+| Rank | Strategy | Variation | PF | PnL | Trades | WR% |
+|------|----------|-----------|----|----|--------|-----|
+| 1 | **001** | **Aggressive TP** | **4.00** | **$24** | 6 | **66.7%** |
+| 2 | **001** | **Wide Range** | **2.50** | **$12** | 6 | **66.7%** |
+| 3 | **003** | **Momentum** | **2.00** | **$8** | 4 | **50.0%** |
 
 ---
 
@@ -76,6 +75,87 @@ Finds CVD vs price divergences and trades absorption direction.
 **Verdict:** ⚠️ **NEEDS DATA** - Momentum config has PF 2.0 but only 4 trades. Too small sample to confirm. Best for live forward testing on larger datasets.
 
 **Observation:** CVD divergence signals are rare (1-4 trades across 2 days), suggesting strategy is high-conviction but low-frequency.
+
+---
+
+## Strategy 004 - Bid/Ask Imbalance
+
+Trades extreme bid/ask size imbalances (3:1 ratio).
+
+| Rank | Variation | PF | Sharpe | Win% | Trades | PnL$ | Status |
+|------|-----------|-----|--------|------|--------|------|--------|
+| 1-5 | All | 0.00 | 0.00 | — | 0 | $0 | ✗ |
+
+**Verdict:** ❌ **NO SIGNALS** - No imbalance patterns detected in 2-day sample. Requires more data or parameter adjustment.
+
+---
+
+## Strategy 005 - Large Print Momentum
+
+Follows block trades > 2σ above average size.
+
+| Rank | Variation | PF | Sharpe | Win% | Trades | PnL$ | Status |
+|------|-----------|-----|--------|------|--------|------|--------|
+| 1-5 | All | 0.00 | 0.00 | — | 0 | $0 | ✗ |
+
+**Verdict:** ❌ **NO SIGNALS** - No large prints exceeded threshold. May work better on high-volume days.
+
+---
+
+## Strategy 006 - Aggressive Tape Streak
+
+Trades N consecutive same-side trades.
+
+| Rank | Variation | PF | Sharpe | Win% | Trades | PnL$ | Status |
+|------|-----------|-----|--------|------|--------|------|--------|
+| 1-5 | All | 0.00 | -52.24 | 3.5% | 375 | -$282,856 | ✗ |
+
+**Verdict:** ❌ **OVERFITTING** - Generates 375 trades with 3.5% win rate. Over-fires on tape noise. Not viable.
+
+---
+
+## Strategy 007 - Sweep & Fade
+
+Fades rapid price sweeps (exhaustion reversal).
+
+| Rank | Variation | PF | Sharpe | Win% | Trades | PnL$ | Status |
+|------|-----------|-----|--------|------|--------|------|--------|
+| 1 | Aggressive | 0.56 | -4.63 | 41.1% | 652 | -$847 | ✗ |
+| 2 | Strict | 0.51 | -5.31 | 43.3% | 536 | -$894 | ✗ |
+| 3 | Default | 0.44 | -6.51 | 42.0% | 616 | -$1,006 | ✗ |
+| 4 | Sensitive | 0.40 | -7.24 | 39.0% | 662 | -$970 | ✗ |
+| 5 | Scalp | 0.32 | -9.15 | 34.1% | 672 | -$763 | ✗ |
+
+**Verdict:** ❌ **UNPROFITABLE** - Fading sweeps doesn't work. All variations lose money. 40%+ win rate but negative expectancy.
+
+---
+
+## Strategy 008 - Stacked Book Breakout
+
+Trades breakouts through stacked bid/ask levels.
+
+| Rank | Variation | PF | Sharpe | Win% | Trades | PnL$ | Status |
+|------|-----------|-----|--------|------|--------|------|--------|
+| 1-5 | All | 0.00 | 0.00 | — | 0 | $0 | ✗ |
+
+**Verdict:** ❌ **NO SIGNALS** - No stacked levels detected. Likely requires level 2 data or different calculation.
+
+---
+
+## ALL STRATEGIES RANKED BY PROFIT FACTOR
+
+| Rank | Strategy | Variation | PF | PnL | Trades | WR% | Sharpe | Status |
+|------|----------|-----------|-----|-----|--------|-----|--------|--------|
+| 1 | 001 | Aggressive TP | 4.00 | $24 | 6 | 66.7% | 11.22 | 🚀 |
+| 2 | 001 | Wide Range | 2.50 | $12 | 6 | 66.7% | 7.48 | 🚀 |
+| 3 | 003 | Momentum | 2.00 | $8 | 4 | 50.0% | 5.29 | ✓ |
+| 4 | 002 | Aggressive | 1.54 | $56 | 42 | 38.1% | 3.11 | ✓ |
+| 5 | 003 | Strict | 1.50 | $4 | 4 | 50.0% | 3.17 | · |
+| 6 | 001 | Default | 1.33 | $4 | 6 | 66.7% | 2.24 | · |
+| 7 | 003 | Sensitive | 1.33 | $2 | 4 | 50.0% | 2.27 | · |
+| 8 | 003 | Default | 1.25 | $2 | 4 | 50.0% | 1.76 | · |
+| 9 | 002 | Default | 1.15 | $10 | 30 | 43.3% | 1.07 | · |
+| 10+ | (others) | — | <1.0 | Negative | — | <50% | Negative | ✗ |
 
 ---
 
