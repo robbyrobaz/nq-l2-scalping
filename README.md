@@ -15,7 +15,7 @@ A video-driven research pipeline that:
 
 ## Strategy Library
 
-**Total Strategies:** 14 | **Parameter Variations:** 65 | **High Potential Configs:** 6 (PF > 2.0)
+**Total Strategies:** 17 | **Parameter Variations:** TBD | **High Potential Configs:** 6 (PF > 2.0)
 
 ### Tier 1: Tradeable (Deploy Now) 🚀
 | ID | Strategy | Best Variation | Trades | WR | PF | Sharpe | PnL | Status |
@@ -48,6 +48,13 @@ A video-driven research pipeline that:
 | ❌ 007 | Sweep & Fade | 652 | 41.1% | 0.56 | Unprofitable |
 | ❌ 008 | Stacked Book Breakout | 0 | — | 0.00 | No signals |
 | ❌ 009 | Absorption v2 | 0 | — | 0.00 | No signals |
+
+### Tier 5: Under Discovery (Week of Mar 8, 2026) 🔬
+| ID | Strategy | Source | Status |
+|----|----------|--------|---------|
+| 🔬 015 | Order Flow Market Structure | Bear Bull Traders | 🔬 Awaiting Implementation |
+| 🔬 016 | Orderflow Auction Theory Framework | Fabervaale ENG | 🔬 Awaiting Implementation |
+| 🔬 017 | Simple Order Flow Delta Setups | Carmine Rosato | 🔬 Awaiting Implementation |
 
 **Backtest Period:** Mar 5-6 2026 (2 RTH sessions, 376 1-min bars)
 **Data:** 2,347,158 IBKR ticks
