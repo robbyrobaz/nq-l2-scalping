@@ -19,85 +19,110 @@ from pipeline.data_loader import (
 
 # Default parameters
 PARAMS = {
-    "imbalance_ratio_threshold": 3.0,
-    "consecutive_bars": 2,
-    "min_size_contracts": 100,
-    "entry_offset_ticks": 1,
+    "imbalance_threshold": 0.4,
+    "sustained_quotes": 20,
     "take_profit_ticks": 10,
     "stop_loss_ticks": 8,
     "session_filter": None,
 }
 
 
-def build_1min_imbalance_bars():
-    """Build 1-min bars with bid/ask size imbalance data."""
+def load_quote_imbalance_events(threshold, sustained_quotes):
+    """Compute sustained bid/ask imbalance events directly from the raw quote stream.
+
+    Scans ALL nq_quotes (no bar-derived active_minutes filter).
+    Uses DuckDB window function for efficiency over 68M rows.
+    """
     conn = _get_conn()
-
-    # Load quotes
-    q = "SELECT ts_utc, bid_size, ask_size FROM nq_quotes ORDER BY ts_utc"
-    quotes = conn.execute(q).fetchdf()
+    q = """
+        WITH scored AS (
+            SELECT
+                ts_utc,
+                CASE
+                    WHEN bid_size + ask_size > 0
+                    THEN CAST(bid_size - ask_size AS DOUBLE) / CAST(bid_size + ask_size AS DOUBLE)
+                    ELSE 0.0
+                END AS imbalance
+            FROM nq_quotes
+        ),
+        rolled AS (
+            SELECT
+                ts_utc,
+                AVG(imbalance) OVER (
+                    ORDER BY ts_utc
+                    ROWS BETWEEN ? PRECEDING AND CURRENT ROW
+                ) AS rolling_imbalance
+            FROM scored
+        ),
+        edged AS (
+            SELECT
+                ts_utc,
+                rolling_imbalance,
+                LAG(rolling_imbalance) OVER (ORDER BY ts_utc) AS prev_rolling_imbalance
+            FROM rolled
+        )
+        SELECT
+            ts_utc,
+            CASE
+                WHEN rolling_imbalance > ? THEN 'long'
+                ELSE 'short'
+            END AS direction,
+            rolling_imbalance AS quote_imbalance
+        FROM edged
+        WHERE
+            (rolling_imbalance > ? AND COALESCE(prev_rolling_imbalance, 0.0) <= ?)
+            OR
+            (rolling_imbalance < -? AND COALESCE(prev_rolling_imbalance, 0.0) >= -?)
+        ORDER BY ts_utc
+    """
+    quotes = conn.execute(
+        q,
+        [
+            sustained_quotes - 1,
+            threshold,
+            threshold, threshold,
+            threshold, threshold,
+        ],
+    ).fetchdf()
     conn.close()
-
-    if quotes.empty:
-        return pd.DataFrame()
-
-    # Resample to 1-min bars: for each minute, take last quote
-    quotes['bar'] = quotes['ts_utc'].dt.floor('1min')
-    bars = quotes.groupby('bar').agg(
-        bid_size=('bid_size', 'last'),
-        ask_size=('ask_size', 'last'),
-    ).reset_index().rename(columns={'bar': 'ts_utc'})
-
-    # Compute imbalance ratio
-    bars['bid_ask_ratio'] = bars['bid_size'] / (bars['ask_size'] + 1)  # avoid div by 0
-    bars['ask_bid_ratio'] = bars['ask_size'] / (bars['bid_size'] + 1)
-
-    return bars
+    return quotes
 
 
-def find_signals(imbalance_bars, price_bars, params=PARAMS):
-    """Scan bars for bid/ask imbalance signals."""
+def find_quote_imbalance_signals(df_quotes, df_trades, df_bars, params=PARAMS):
+    """Detect sustained quote imbalance on the raw quote stream."""
     signals = []
-    n = len(imbalance_bars)
-    threshold = params['imbalance_ratio_threshold']
-    consec = params['consecutive_bars']
-    min_size = params['min_size_contracts']
+    if df_quotes.empty or df_trades.empty or df_bars.empty:
+        return signals
 
-    for i in range(consec, n - 1):
-        current = imbalance_bars.iloc[i]
+    quotes = df_quotes.sort_values('ts_utc').reset_index(drop=True)
+    trades = df_trades[df_trades['side'].isin(['B', 'S'])].sort_values('ts_utc').reset_index(drop=True)
+    trade_ts = trades['ts_utc'].to_numpy()
+    bar_ts = df_bars['ts_utc'].to_numpy()
+    last_bar_idx = -1
 
-        # Check for long signal (bid > ask)
-        if current['bid_size'] >= min_size and current['bid_ask_ratio'] >= threshold:
-            # Check consecutive bars
-            recent = imbalance_bars.iloc[i - consec:i]
-            if (recent['bid_ask_ratio'] >= threshold).sum() >= consec:
-                # Get corresponding price bar for entry
-                price_idx = min(i, len(price_bars) - 1)
-                price_bar = price_bars.iloc[price_idx]
+    for _, quote in quotes.iterrows():
+        direction = quote['direction']
+        side = 'B' if direction == 'long' else 'S'
+        signal_ts = quote['ts_utc']
+        trade_idx = np.searchsorted(trade_ts, signal_ts.to_datetime64(), side='right')
+        while trade_idx < len(trades) and trades.iloc[trade_idx]['side'] != side:
+            trade_idx += 1
+        if trade_idx >= len(trades):
+            continue
 
-                signals.append({
-                    'bar_idx': i,
-                    'ts': current['ts_utc'],
-                    'direction': 'long',
-                    'entry_price': price_bar['close'],
-                    'imbalance_ratio': current['bid_ask_ratio'],
-                })
+        entry_trade = trades.iloc[trade_idx]
+        bar_idx = np.searchsorted(bar_ts, entry_trade['ts_utc'].to_datetime64(), side='right') - 1
+        if bar_idx < 0 or bar_idx >= len(df_bars) or bar_idx == last_bar_idx:
+            continue
 
-        # Check for short signal (ask > bid)
-        elif current['ask_size'] >= min_size and current['ask_bid_ratio'] >= threshold:
-            # Check consecutive bars
-            recent = imbalance_bars.iloc[i - consec:i]
-            if (recent['ask_bid_ratio'] >= threshold).sum() >= consec:
-                price_idx = min(i, len(price_bars) - 1)
-                price_bar = price_bars.iloc[price_idx]
-
-                signals.append({
-                    'bar_idx': i,
-                    'ts': current['ts_utc'],
-                    'direction': 'short',
-                    'entry_price': price_bar['close'],
-                    'imbalance_ratio': current['ask_bid_ratio'],
-                })
+        signals.append({
+            'bar_idx': int(bar_idx),
+            'ts': entry_trade['ts_utc'],
+            'direction': direction,
+            'entry_price': float(entry_trade['price']),
+            'quote_imbalance': float(quote['quote_imbalance']),
+        })
+        last_bar_idx = int(bar_idx)
 
     return signals
 
@@ -215,32 +240,38 @@ def run(params=None):
     else:
         params = params.copy()
 
-    print("Loading quotes and building imbalance bars...")
-    imbalance_bars = build_1min_imbalance_bars()
-    imbalance_bars = filter_sessions(imbalance_bars, sessions=params.get('session_filter'))
-
     print("Loading trades and building price bars...")
     trades_df = load_trades()
     price_bars = build_1min_bars_with_delta(trades_df)
     price_bars = filter_sessions(price_bars, sessions=params.get('session_filter'))
+    trades_df = filter_sessions(trades_df, sessions=params.get('session_filter'))
 
-    if imbalance_bars.empty or price_bars.empty:
+    print("Computing sustained quote imbalance events (raw quote stream, no bar filter)...")
+    quotes_df = load_quote_imbalance_events(
+        threshold=float(params.get('imbalance_threshold', 0.4)),
+        sustained_quotes=int(params.get('sustained_quotes', 20)),
+    )
+
+    if quotes_df.empty or price_bars.empty or trades_df.empty:
         print("No data available")
         return None
 
-    print(f"Price bars: {len(price_bars)}")
+    print(f"Price bars: {len(price_bars)}, quote events: {len(quotes_df)}")
 
     print("Scanning for signals...")
-    signals = find_signals(imbalance_bars, price_bars, params)
+    signals = find_quote_imbalance_signals(quotes_df, trades_df, price_bars, params)
     print(f"Signals found: {len(signals)}")
 
     if not signals:
         print("No signals found. Trying relaxed parameters...")
         relaxed = params.copy()
-        relaxed['imbalance_ratio_threshold'] = 2.0
-        relaxed['consecutive_bars'] = 1
-        relaxed['min_size_contracts'] = 50
-        signals = find_signals(imbalance_bars, price_bars, relaxed)
+        relaxed['imbalance_threshold'] = 0.25
+        relaxed['sustained_quotes'] = 10
+        quotes_df = load_quote_imbalance_events(
+            threshold=float(relaxed['imbalance_threshold']),
+            sustained_quotes=int(relaxed['sustained_quotes']),
+        )
+        signals = find_quote_imbalance_signals(quotes_df, trades_df, price_bars, relaxed)
         print(f"Signals with relaxed params: {len(signals)}")
         params = relaxed
 

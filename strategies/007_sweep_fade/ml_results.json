@@ -1,0 +1,104 @@
+{
+  "folds": [
+    {
+      "test_date": "2026-03-06",
+      "train_days": 1,
+      "train_samples": 268,
+      "test_samples": 293,
+      "auc": 0.476,
+      "base_wr": 0.287
+    },
+    {
+      "test_date": "2026-03-08",
+      "train_days": 2,
+      "train_samples": 561,
+      "test_samples": 16,
+      "auc": 0.444,
+      "base_wr": 0.438
+    },
+    {
+      "test_date": "2026-03-09",
+      "train_days": 3,
+      "train_samples": 577,
+      "test_samples": 323,
+      "auc": 0.534,
+      "base_wr": 0.307
+    }
+  ],
+  "overall_auc": 0.498,
+  "threshold": 0.84,
+  "target_daily_trades": 7,
+  "total_samples": 900,
+  "base_win_rate": 0.304,
+  "top_features": [
+    {
+      "feature": "absorption_ratio",
+      "importance": 437
+    },
+    {
+      "feature": "tick_velocity",
+      "importance": 400
+    },
+    {
+      "feature": "sweep_tick_count",
+      "importance": 339
+    },
+    {
+      "feature": "sweep_volume_total",
+      "importance": 328
+    },
+    {
+      "feature": "sweep_duration_ms",
+      "importance": 328
+    },
+    {
+      "feature": "bid_ask_imbalance_delta",
+      "importance": 197
+    },
+    {
+      "feature": "sweep_pts",
+      "importance": 192
+    },
+    {
+      "feature": "bid_ask_imbalance_pre",
+      "importance": 139
+    },
+    {
+      "feature": "spread_pts",
+      "importance": 132
+    },
+    {
+      "feature": "bid_ask_imbalance",
+      "importance": 112
+    }
+  ],
+  "backtest_comparison": {
+    "unfiltered": {
+      "total_signals": 900,
+      "total_trades": 900,
+      "profit_factor": 0.26,
+      "sharpe": -11.06,
+      "win_rate": 30.4,
+      "avg_winner_ticks": 6.0,
+      "avg_loser_ticks": 10.0,
+      "net_pnl_usd": -2308.0,
+      "max_drawdown_pct": 77033.3
+    },
+    "filtered": {
+      "total_signals": 30,
+      "total_trades": 30,
+      "profit_factor": Infinity,
+      "sharpe": 0.0,
+      "win_rate": 100.0,
+      "avg_winner_ticks": 6.0,
+      "avg_loser_ticks": 0,
+      "net_pnl_usd": 90.0,
+      "max_drawdown_pct": 0.0
+    }
+  },
+  "filtered_signals_per_day": {
+    "2026-03-05": 14,
+    "2026-03-06": 6,
+    "2026-03-09": 10
+  }
+}

@@ -100,6 +100,102 @@ def load_trades(start_ts=None, end_ts=None):
     return merged[['ts_utc', 'price', 'size', 'side', 'delta']].copy()
 
 
+def load_quotes_full(start_ts=None, end_ts=None):
+    """Load L1 quotes with bid/ask sizes for L2 feature computation.
+
+    Returns DataFrame: ts_utc, bid, ask, bid_size, ask_size
+    """
+    conn = _get_conn()
+    q = "SELECT ts_utc, bid, ask, bid_size, ask_size FROM nq_quotes ORDER BY ts_utc"
+    if start_ts and end_ts:
+        q = (
+            f"SELECT ts_utc, bid, ask, bid_size, ask_size FROM nq_quotes"
+            f" WHERE ts_utc BETWEEN '{start_ts}' AND '{end_ts}' ORDER BY ts_utc"
+        )
+    df = conn.execute(q).fetchdf()
+    conn.close()
+    return df
+
+
+def load_depth_raw(start_ts=None, end_ts=None):
+    """Load DOM depth snapshots (5-level book).
+
+    Returns DataFrame: ts_utc, side ('bid'/'ask'), position (0-4), price, size
+    """
+    conn = _get_conn()
+    q = "SELECT ts_utc, side, position, price, size FROM nq_depth ORDER BY ts_utc"
+    if start_ts and end_ts:
+        q = (
+            f"SELECT ts_utc, side, position, price, size FROM nq_depth"
+            f" WHERE ts_utc BETWEEN '{start_ts}' AND '{end_ts}' ORDER BY ts_utc"
+        )
+    df = conn.execute(q).fetchdf()
+    conn.close()
+    return df
+
+
+def precompute_dom_series(df_depth):
+    """Aggregate raw DOM rows into per-snapshot bid/ask totals.
+
+    Returns DataFrame: ts_utc, dom_bid_total, dom_ask_total, dom_imbalance,
+                       dom_top_bid_size, dom_top_ask_size
+    """
+    if df_depth.empty:
+        return pd.DataFrame(
+            columns=['ts_utc', 'dom_bid_total', 'dom_ask_total',
+                     'dom_imbalance', 'dom_top_bid_size', 'dom_top_ask_size']
+        )
+
+    df = df_depth[df_depth['position'].between(0, 4)].copy()
+
+    totals = (
+        df.groupby(['ts_utc', 'side'])['size']
+        .sum()
+        .unstack(fill_value=0)
+        .reset_index()
+    )
+    # Normalise column names to bid/ask regardless of source casing
+    totals.columns.name = None
+    col_map = {}
+    for c in totals.columns:
+        lc = str(c).lower()
+        if 'bid' in lc:
+            col_map[c] = 'dom_bid_total'
+        elif 'ask' in lc:
+            col_map[c] = 'dom_ask_total'
+    totals.rename(columns=col_map, inplace=True)
+    for col in ['dom_bid_total', 'dom_ask_total']:
+        if col not in totals.columns:
+            totals[col] = 0.0
+
+    total_sz = totals['dom_bid_total'] + totals['dom_ask_total']
+    totals['dom_imbalance'] = np.where(
+        total_sz > 0,
+        (totals['dom_bid_total'] - totals['dom_ask_total']) / total_sz,
+        0.0,
+    )
+
+    # Top-of-book sizes (position 0)
+    top = df[df['position'] == 0].copy()
+    top_bid = (
+        top[top['side'].str.lower().str.startswith('b')]
+        .groupby('ts_utc')['size'].sum()
+        .rename('dom_top_bid_size')
+    )
+    top_ask = (
+        top[top['side'].str.lower().str.startswith('a')]
+        .groupby('ts_utc')['size'].sum()
+        .rename('dom_top_ask_size')
+    )
+    totals = totals.merge(top_bid, on='ts_utc', how='left')
+    totals = totals.merge(top_ask, on='ts_utc', how='left')
+    totals[['dom_top_bid_size', 'dom_top_ask_size']] = (
+        totals[['dom_top_bid_size', 'dom_top_ask_size']].fillna(0.0)
+    )
+
+    return totals.sort_values('ts_utc').reset_index(drop=True)
+
+
 def load_trades_fast(start_ts=None, end_ts=None):
     """Load trades without side inference (faster, for volume profile etc)."""
     conn = _get_conn()
@@ -235,7 +331,13 @@ def filter_sessions(df, sessions=None, ts_col='ts_utc'):
         return out.copy()
     if isinstance(sessions, str):
         sessions = [sessions]
-    sessions = set(sessions)
+    expanded = []
+    for session in sessions:
+        if session == 'RTH':
+            expanded.extend(RTH_SESSIONS)
+        else:
+            expanded.append(session)
+    sessions = set(expanded)
     return out[out['session'].isin(sessions)].copy()
 
 
