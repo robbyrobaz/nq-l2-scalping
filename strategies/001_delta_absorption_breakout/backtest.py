@@ -1,273 +1,148 @@
-"""Strategy 001: Delta Absorption Breakout
+"""Strategy 001: Delta Absorption Breakout."""
 
-Identifies compression zones where aggressive orders are absorbed (high delta
-but no price movement), then trades the breakout when price escapes the range.
-"""
+from __future__ import annotations
 
-import sys
 import json
-import pandas as pd
-import numpy as np
+import sys
 from pathlib import Path
-from datetime import datetime
+
+import numpy as np
+import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from pipeline.data_loader import (
-    load_trades, build_1min_bars_with_delta, filter_sessions,
-    NQ_TICK_SIZE, MNQ_TICK_VALUE, pnl_mnq, compute_session_breakdown
-)
 
-# Default parameters
+from pipeline.backtest_utils import TradeSpec, compute_trade_metrics, iter_trade_specs
+from pipeline.data_loader import NQ_TICK_SIZE, filter_sessions
+from pipeline.strategy_cache import bars_with_delta, trades_with_nbbo
+
+
 PARAMS = {
-    "range_window": 5,
-    "range_atr_mult": 3.0,
-    "delta_threshold": 40,
-    "absorption_bars": 1,
-    "price_move_max_ticks": 4,
+    "range_window": 10,
+    "range_atr_mult": 1.5,
+    "delta_threshold": 300,
+    "absorption_bars": 2,
+    "entry_offset_ticks": 1,
     "take_profit_ticks": 8,
     "stop_loss_ticks": 12,
     "session_filter": None,
 }
 
 
-def compute_atr(bars, period=14):
-    """Simple ATR on 1-min bars."""
-    highs = bars['high'].values
-    lows = bars['low'].values
-    closes = bars['close'].values
-    tr = np.maximum(highs - lows,
-                    np.maximum(np.abs(highs - np.roll(closes, 1)),
-                               np.abs(lows - np.roll(closes, 1))))
-    tr[0] = highs[0] - lows[0]
-    atr = pd.Series(tr).rolling(period).mean().values
-    return atr
+def _atr(bars: pd.DataFrame, period: int) -> pd.Series:
+    prev_close = bars["close"].shift(1)
+    tr = pd.concat(
+        [
+            bars["high"] - bars["low"],
+            (bars["high"] - prev_close).abs(),
+            (bars["low"] - prev_close).abs(),
+        ],
+        axis=1,
+    ).max(axis=1)
+    return tr.rolling(period, min_periods=period).mean()
 
 
-def find_signals(bars, params=PARAMS):
-    """Scan bars for delta absorption breakout signals."""
-    signals = []
-    n = len(bars)
-    atr = compute_atr(bars, period=params['range_window'])
-    rw = params['range_window']
-    dt = params['delta_threshold']
-    ab = params['absorption_bars']
-    pm = params['price_move_max_ticks'] * NQ_TICK_SIZE
+def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[TradeSpec]:
+    specs: list[TradeSpec] = []
+    atr = _atr(bars, params["range_window"])
+    offset = params["entry_offset_ticks"] * NQ_TICK_SIZE
+    rw = int(params["range_window"])
+    ab = int(params["absorption_bars"])
+    max_absorb_move = NQ_TICK_SIZE * 2
 
-    for i in range(rw + ab, n - 1):
-        # Check compression: last rw bars range < atr_mult * ATR
-        window = bars.iloc[i - rw:i]
-        range_hi = window['high'].max()
-        range_lo = window['low'].min()
-        bar_range = range_hi - range_lo
-
-        if np.isnan(atr[i]) or atr[i] == 0:
-            continue
-        if bar_range > params['range_atr_mult'] * atr[i]:
-            continue
-
-        # Check absorption in recent bars
-        recent = bars.iloc[i - ab:i]
-        sell_absorption = 0
-        buy_absorption = 0
-
-        for _, bar in recent.iterrows():
-            price_move = abs(bar['close'] - bar['open'])
-            if bar['bar_delta'] < -dt and price_move <= pm:
-                sell_absorption += 1  # sellers absorbed → expect long
-            if bar['bar_delta'] > dt and price_move <= pm:
-                buy_absorption += 1   # buyers absorbed → expect short
-
-        # Breakout bar
+    tick_ts = ticks["ts_utc"].astype("int64").to_numpy()
+    for i in range(rw + ab, len(bars) - 1):
+        range_window = bars.iloc[i - rw - ab:i - ab]
+        absorb_window = bars.iloc[i - ab:i]
         breakout = bars.iloc[i]
+        if range_window.empty or absorb_window.empty or pd.isna(atr.iloc[i - 1]):
+            continue
 
-        if sell_absorption >= ab and breakout['close'] > range_hi:
-            signals.append({
-                'bar_idx': i,
-                'ts': breakout['ts_utc'],
-                'direction': 'long',
-                'entry_price': breakout['close'],
-                'range_hi': range_hi,
-                'range_lo': range_lo,
-            })
-        elif buy_absorption >= ab and breakout['close'] < range_lo:
-            signals.append({
-                'bar_idx': i,
-                'ts': breakout['ts_utc'],
-                'direction': 'short',
-                'entry_price': breakout['close'],
-                'range_hi': range_hi,
-                'range_lo': range_lo,
-            })
+        range_hi = float(range_window["high"].max())
+        range_lo = float(range_window["low"].min())
+        if range_hi - range_lo > float(atr.iloc[i - 1]) * float(params["range_atr_mult"]):
+            continue
 
-    return signals
+        long_absorption = True
+        short_absorption = True
+        for bar in absorb_window.itertuples(index=False):
+            close_move = float(bar.close - bar.open)
+            long_absorption &= (
+                float(bar.bar_delta) <= -float(params["delta_threshold"])
+                and close_move >= -max_absorb_move
+                and abs(float(bar.low) - range_lo) <= NQ_TICK_SIZE
+            )
+            short_absorption &= (
+                float(bar.bar_delta) >= float(params["delta_threshold"])
+                and close_move <= max_absorb_move
+                and abs(float(bar.high) - range_hi) <= NQ_TICK_SIZE
+            )
 
+        direction = None
+        trigger = None
+        if long_absorption and float(breakout.close) > range_hi:
+            direction = "long"
+            trigger = float(breakout.close) + offset
+        elif short_absorption and float(breakout.close) < range_lo:
+            direction = "short"
+            trigger = float(breakout.close) - offset
+        if direction is None:
+            continue
 
-def simulate_trades(signals, bars, params=PARAMS):
-    """Simulate entries and exits using TP/SL in ticks."""
-    tp = params['take_profit_ticks'] * NQ_TICK_SIZE
-    sl = params['stop_loss_ticks'] * NQ_TICK_SIZE
-    trades = []
+        start_ts = pd.to_datetime(breakout.ts_utc, utc=True) + pd.Timedelta(minutes=1)
+        start_idx = int(np.searchsorted(tick_ts, start_ts.value, side="left"))
+        future = ticks.iloc[start_idx:]
+        if future.empty:
+            continue
 
-    for sig in signals:
-        idx = sig['bar_idx']
-        entry = sig['entry_price']
-        direction = sig['direction']
+        if direction == "long":
+            fill = future[future["price"] >= trigger].head(1)
+            if fill.empty:
+                continue
+            row = fill.iloc[0]
+            entry_price = max(float(row.get("ask", np.nan)), trigger)
+        else:
+            fill = future[future["price"] <= trigger].head(1)
+            if fill.empty:
+                continue
+            row = fill.iloc[0]
+            entry_price = min(float(row.get("bid", np.nan)), trigger)
 
-        # Walk forward from next bar to find exit
-        exited = False
-        for j in range(idx + 1, len(bars)):
-            bar = bars.iloc[j]
-            if direction == 'long':
-                # Check SL first (worse case)
-                if bar['low'] <= entry - sl:
-                    exit_price = entry - sl
-                    pnl_ticks = -params['stop_loss_ticks']
-                    trades.append(_make_trade(sig, bar, exit_price, pnl_ticks))
-                    exited = True
-                    break
-                if bar['high'] >= entry + tp:
-                    exit_price = entry + tp
-                    pnl_ticks = params['take_profit_ticks']
-                    trades.append(_make_trade(sig, bar, exit_price, pnl_ticks))
-                    exited = True
-                    break
-            else:
-                if bar['high'] >= entry + sl:
-                    exit_price = entry + sl
-                    pnl_ticks = -params['stop_loss_ticks']
-                    trades.append(_make_trade(sig, bar, exit_price, pnl_ticks))
-                    exited = True
-                    break
-                if bar['low'] <= entry - tp:
-                    exit_price = entry - tp
-                    pnl_ticks = params['take_profit_ticks']
-                    trades.append(_make_trade(sig, bar, exit_price, pnl_ticks))
-                    exited = True
-                    break
-
-        if not exited:
-            # Force exit at last bar
-            last = bars.iloc[-1]
-            if direction == 'long':
-                pnl_ticks = (last['close'] - entry) / NQ_TICK_SIZE
-            else:
-                pnl_ticks = (entry - last['close']) / NQ_TICK_SIZE
-            trades.append(_make_trade(sig, last, last['close'], pnl_ticks))
-
-    return trades
+        if not np.isfinite(entry_price):
+            continue
+        specs.append(
+            TradeSpec(
+                entry_ts=pd.to_datetime(row["ts_utc"], utc=True),
+                signal_ts=start_ts,
+                direction=direction,
+                entry_price=entry_price,
+                stop_loss_ticks=float(params["stop_loss_ticks"]),
+                take_profit_ticks=float(params["take_profit_ticks"]),
+                meta={
+                    "breakout_bar_ts": str(breakout.ts_utc),
+                    "defended_range_high": range_hi,
+                    "defended_range_low": range_lo,
+                    "breakout_close": float(breakout.close),
+                },
+            )
+        )
+    return specs
 
 
-def _make_trade(sig, exit_bar, exit_price, pnl_ticks):
-    return {
-        'entry_ts': str(sig['ts']),
-        'exit_ts': str(exit_bar['ts_utc']),
-        'direction': sig['direction'],
-        'entry_price': float(sig['entry_price']),
-        'exit_price': float(exit_price),
-        'pnl_ticks': float(pnl_ticks),
-    }
+def run_backtest(params=PARAMS) -> dict:
+    params = {**PARAMS, **(params or {})}
+    bars = filter_sessions(bars_with_delta(), sessions=params.get("session_filter"))
+    ticks = filter_sessions(trades_with_nbbo(), sessions=params.get("session_filter"))
 
-
-def compute_metrics(trades):
-    if not trades:
-        return {
-            'profit_factor': 0.0, 'sharpe': 0.0, 'win_rate': 0.0,
-            'avg_winner_ticks': 0, 'avg_loser_ticks': 0,
-            'total_trades': 0, 'net_pnl_usd': 0.0, 'max_drawdown_pct': 0.0,
-        }
-
-    pnls = [t['pnl_ticks'] for t in trades]
-    winners = [p for p in pnls if p > 0]
-    losers = [p for p in pnls if p < 0]
-
-    gross_profit = sum(winners) if winners else 0
-    gross_loss = abs(sum(losers)) if losers else 0
-    pf = gross_profit / gross_loss if gross_loss > 0 else float('inf') if gross_profit > 0 else 0.0
-
-    net_pnl = sum(pnls)
-    net_pnl_usd = pnl_mnq(net_pnl)
-
-    # Sharpe (annualized from per-trade)
-    arr = np.array(pnls)
-    sharpe = (arr.mean() / arr.std() * np.sqrt(252)) if arr.std() > 0 else 0.0
-
-    # Max drawdown
-    cum = np.cumsum(arr)
-    peak = np.maximum.accumulate(cum)
-    dd = peak - cum
-    max_dd = dd.max() / peak.max() * 100 if peak.max() > 0 else 0.0
-
-    return {
-        'profit_factor': round(pf, 2),
-        'sharpe': round(float(sharpe), 2),
-        'win_rate': round(len(winners) / len(pnls) * 100, 1),
-        'avg_winner_ticks': round(float(np.mean(winners)), 1) if winners else 0,
-        'avg_loser_ticks': round(float(np.mean(np.abs(losers))), 1) if losers else 0,
-        'total_trades': len(pnls),
-        'net_pnl_usd': round(net_pnl_usd, 2),
-        'max_drawdown_pct': round(float(max_dd), 1),
-    }
+    specs = _build_specs(bars.reset_index(drop=True), ticks.reset_index(drop=True), params)
+    trades = iter_trade_specs(specs, ticks)
+    metrics = compute_trade_metrics(trades, bars)
+    return {"trades": trades, "metrics": {k: v for k, v in metrics.items() if k != "session_breakdown"}, "session_breakdown": metrics.get("session_breakdown", {})}
 
 
 def run(params=None):
-    if params is None:
-        params = PARAMS.copy()
-    else:
-        params = params.copy()
-
-    print("Loading trades...")
-    trades_df = load_trades()
-    print(f"Building 1-min bars from {len(trades_df)} ticks...")
-    bars = build_1min_bars_with_delta(trades_df)
-    bars = filter_sessions(bars, sessions=params.get('session_filter'))
-    print(f"Filtered bars: {len(bars)}")
-
-    print("Scanning for signals...")
-    signals = find_signals(bars, params)
-    print(f"Signals found: {len(signals)}")
-
-    # If no signals with default params, try relaxed params
-    if not signals:
-        print("No signals with default params. Trying relaxed parameters...")
-        relaxed = params.copy()
-        relaxed['delta_threshold'] = 30
-        relaxed['range_atr_mult'] = 4.0
-        relaxed['range_window'] = 3
-        relaxed['absorption_bars'] = 1
-        relaxed['price_move_max_ticks'] = 6
-        signals = find_signals(bars, relaxed)
-        print(f"Signals with relaxed params: {len(signals)}")
-        params = relaxed
-
-    trade_list = simulate_trades(signals, bars, params)
-    print(f"Trades executed: {len(trade_list)}")
-
-    metrics = compute_metrics(trade_list)
-    print(f"Metrics: {metrics}")
-    session_breakdown = compute_session_breakdown(trade_list, bars if 'bars' in locals() else price_bars)
-
-    result = {
-        'strategy_id': '001',
-        'strategy_name': 'Delta Absorption Breakout',
-        'backtest_period': {
-            'start': str(bars['ts_utc'].min()),
-            'end': str(bars['ts_utc'].max()),
-        },
-        'metrics': metrics,
-        'session_breakdown': session_breakdown,
-        'params': params,
-        'trades': trade_list,
-        'notes': f'Data: {len(trades_df)} ticks over Mar 5-6 2026. Session filter driven. Side inferred from bid/ask.',
-    }
-
-    out = Path(__file__).resolve().parents[2] / 'data' / 'results' / '001_2026-03-06.json'
-    out.parent.mkdir(parents=True, exist_ok=True)
-    with open(out, 'w') as f:
-        json.dump(result, f, indent=2, default=str)
-    print(f"Results saved to {out}")
-
-    return result
+    return run_backtest(params=params or PARAMS)
 
 
-if __name__ == '__main__':
-    run()
+if __name__ == "__main__":
+    result = run_backtest()
+    print(json.dumps(result["metrics"], indent=2))

@@ -994,7 +994,9 @@ def run_variation(strategy_id, variation_num, variation_spec):
     try:
         print(f"  [{variation_num}] {variation_spec['name']}...", end=" ", flush=True)
 
-        result = STRATEGIES[strategy_id]['backtest'].run(variation_spec['params'])
+        module = STRATEGIES[strategy_id]['backtest']
+        runner = getattr(module, 'run_backtest', None) or getattr(module, 'run')
+        result = runner(variation_spec['params'])
 
         metrics = result['metrics']
         result['variation'] = variation_num

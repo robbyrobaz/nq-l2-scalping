@@ -1,22 +1,21 @@
-"""Strategy 012: LVN Rebalance
+"""Strategy 012: LVN Rebalance."""
 
-Identifies low-volume nodes and trades returns to them when price trends away.
-Simplified: Uses session-level volume profile instead of recalculating every bar.
-"""
+from __future__ import annotations
 
-import sys
 import json
-import pandas as pd
-import numpy as np
+import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from pipeline.data_loader import (
-    load_trades_fast, build_1min_bars_with_delta, filter_sessions, compute_volume_profile,
-    NQ_TICK_SIZE, MNQ_TICK_VALUE, pnl_mnq, compute_session_breakdown
-)
+import numpy as np
+import pandas as pd
 
-# Default parameters
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+from pipeline.backtest_utils import TradeSpec, compute_trade_metrics, iter_trade_specs, profile_to_levels
+from pipeline.data_loader import NQ_TICK_SIZE, compute_volume_profile, filter_sessions
+from pipeline.strategy_cache import bars_with_delta, trades_with_nbbo
+
+
 PARAMS = {
     "volume_profile_bars": 50,
     "lvn_threshold_ratio": 0.30,
@@ -26,231 +25,89 @@ PARAMS = {
     "session_filter": None,
 }
 
-def find_signals(bars, df_trades, params=PARAMS):
-    """Scan bars for LVN rebalance signals."""
-    signals = []
-    n = len(bars)
-    vp_bars = params['volume_profile_bars']
-    lvn_ratio = params['lvn_threshold_ratio']
-    va_pct = params['value_area_pct']
 
-    # Pre-compute session profile for efficiency
-    session_profile = compute_volume_profile(
-        df_trades,
-        price_lo=bars['low'].min() - 5,
-        price_hi=bars['high'].max() + 5,
-    )
-    if not session_profile:
-        return signals
-
-    # Find POC and VA boundaries
-    poc_price = max(session_profile, key=session_profile.get)
-    poc_volume = session_profile[poc_price]
-    lvn_threshold = poc_volume * lvn_ratio
-
-    # Find LVN (low volume nodes)
-    lvn_prices = [p for p, v in session_profile.items() if v < lvn_threshold]
-    if not lvn_prices:
-        return signals
-
-    # Find VAH and VAL
-    sorted_prices = sorted(session_profile.keys(), key=lambda p: session_profile[p], reverse=True)
-    total_vol = sum(session_profile.values())
-    cumul_vol = 0
-    va_prices = []
-    for p in sorted_prices:
-        cumul_vol += session_profile[p]
-        va_prices.append(p)
-        if cumul_vol >= va_pct * total_vol:
-            break
-
-    if va_prices:
-        vah = max(va_prices)
-        val = min(va_prices)
-
-        # Scan bars for trend + LVN alignment
-        for i in range(vp_bars, n):
-            current_bar = bars.iloc[i]
-
-            # Trend: price above VAH (long) or below VAL (short)
-            if current_bar['close'] > vah:
-                lvn_below_vah = [p for p in lvn_prices if p < current_bar['close']]
-                if lvn_below_vah:
-                    signals.append({
-                        'bar_idx': i,
-                        'ts': current_bar['ts_utc'],
-                        'direction': 'long',
-                        'entry_price': current_bar['close'],
-                        'vah': vah,
-                        'lvn_target': max(lvn_below_vah),
-                    })
-            elif current_bar['close'] < val:
-                lvn_above_val = [p for p in lvn_prices if p > current_bar['close']]
-                if lvn_above_val:
-                    signals.append({
-                        'bar_idx': i,
-                        'ts': current_bar['ts_utc'],
-                        'direction': 'short',
-                        'entry_price': current_bar['close'],
-                        'val': val,
-                        'lvn_target': min(lvn_above_val),
-                    })
-
-    return signals
+def _session_profiles(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> dict:
+    profiles = {}
+    for (date_key, session), group in bars.groupby([bars["ts_utc"].dt.date, "session"]):
+        start_ts = pd.to_datetime(group["ts_utc"].min(), utc=True)
+        end_ts = pd.to_datetime(group["ts_utc"].max(), utc=True) + pd.Timedelta(minutes=1)
+        profile = compute_volume_profile(
+            ticks[["ts_utc", "price", "size"]],
+            float(group["low"].min()) - 5.0,
+            float(group["high"].max()) + 5.0,
+            start_ts=start_ts,
+            end_ts=end_ts,
+        )
+        levels = profile_to_levels(profile, float(params["value_area_pct"]))
+        if levels:
+            profiles[(date_key, session)] = levels
+    return profiles
 
 
-def simulate_trades(signals, bars, params=PARAMS):
-    """Simulate entries and exits using TP/SL in ticks."""
-    tp = params['take_profit_ticks'] * NQ_TICK_SIZE
-    sl = params['stop_loss_ticks'] * NQ_TICK_SIZE
-    trades = []
+def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[TradeSpec]:
+    profiles = _session_profiles(bars, ticks, params)
+    tick_ts = ticks["ts_utc"].astype("int64").to_numpy()
+    specs: list[TradeSpec] = []
 
-    for sig in signals:
-        idx = sig['bar_idx']
-        entry = sig['entry_price']
-        direction = sig['direction']
-
-        # Walk forward from next bar to find exit
-        exited = False
-        for j in range(idx + 1, len(bars)):
-            bar = bars.iloc[j]
-            if direction == 'long':
-                if bar['low'] <= entry - sl:
-                    exit_price = entry - sl
-                    pnl_ticks = -params['stop_loss_ticks']
-                    trades.append(_make_trade(sig, bar, exit_price, pnl_ticks))
-                    exited = True
-                    break
-                if bar['high'] >= entry + tp:
-                    exit_price = entry + tp
-                    pnl_ticks = params['take_profit_ticks']
-                    trades.append(_make_trade(sig, bar, exit_price, pnl_ticks))
-                    exited = True
-                    break
-            else:
-                if bar['high'] >= entry + sl:
-                    exit_price = entry + sl
-                    pnl_ticks = -params['stop_loss_ticks']
-                    trades.append(_make_trade(sig, bar, exit_price, pnl_ticks))
-                    exited = True
-                    break
-                if bar['low'] <= entry - tp:
-                    exit_price = entry - tp
-                    pnl_ticks = params['take_profit_ticks']
-                    trades.append(_make_trade(sig, bar, exit_price, pnl_ticks))
-                    exited = True
-                    break
-
-        if not exited:
-            last = bars.iloc[-1]
-            if direction == 'long':
-                pnl_ticks = (last['close'] - entry) / NQ_TICK_SIZE
-            else:
-                pnl_ticks = (entry - last['close']) / NQ_TICK_SIZE
-            trades.append(_make_trade(sig, last, last['close'], pnl_ticks))
-
-    return trades
-
-
-def _make_trade(sig, exit_bar, exit_price, pnl_ticks):
-    return {
-        'entry_ts': str(sig['ts']),
-        'exit_ts': str(exit_bar['ts_utc']),
-        'direction': sig['direction'],
-        'entry_price': float(sig['entry_price']),
-        'exit_price': float(exit_price),
-        'pnl_ticks': float(pnl_ticks),
-    }
+    for i, row in enumerate(bars.itertuples(index=False)):
+        key = (pd.to_datetime(row.ts_utc, utc=True).date(), row.session)
+        levels = profiles.get(key)
+        if not levels:
+            continue
+        poc_vol = float(levels["poc_volume"])
+        lvns = [price for price, vol in levels["levels"].items() if vol < poc_vol * float(params["lvn_threshold_ratio"])]
+        if not lvns:
+            continue
+        direction = None
+        target_lvn = None
+        if float(row.close) > float(levels["vah"]):
+            below = [price for price in lvns if price <= float(row.close)]
+            if below:
+                direction = "long"
+                target_lvn = max(below)
+        elif float(row.close) < float(levels["val"]):
+            above = [price for price in lvns if price >= float(row.close)]
+            if above:
+                direction = "short"
+                target_lvn = min(above)
+        if direction is None:
+            continue
+        start_ts = pd.to_datetime(row.ts_utc, utc=True)
+        idx = int(np.searchsorted(tick_ts, start_ts.value, side="left"))
+        future = ticks.iloc[idx:]
+        touch = future[(future["price"] - target_lvn).abs() <= NQ_TICK_SIZE].head(1)
+        if touch.empty:
+            continue
+        entry_row = touch.iloc[0]
+        entry_price = float(entry_row["ask"]) if direction == "long" else float(entry_row["bid"])
+        if not np.isfinite(entry_price):
+            continue
+        specs.append(
+            TradeSpec(
+                pd.to_datetime(entry_row["ts_utc"], utc=True),
+                direction,
+                entry_price,
+                float(params["stop_loss_ticks"]),
+                float(params["take_profit_ticks"]),
+                signal_ts=start_ts,
+                meta={"lvn_level": float(target_lvn), "vah": float(levels["vah"]), "val": float(levels["val"])},
+            )
+        )
+    return specs
 
 
-def compute_metrics(trades):
-    if not trades:
-        return {
-            'profit_factor': 0.0, 'sharpe': 0.0, 'win_rate': 0.0,
-            'avg_winner_ticks': 0, 'avg_loser_ticks': 0,
-            'total_trades': 0, 'net_pnl_usd': 0.0, 'max_drawdown_pct': 0.0,
-        }
-
-    pnls = [t['pnl_ticks'] for t in trades]
-    winners = [p for p in pnls if p > 0]
-    losers = [p for p in pnls if p < 0]
-
-    gross_profit = sum(winners) if winners else 0
-    gross_loss = abs(sum(losers)) if losers else 0
-    pf = gross_profit / gross_loss if gross_loss > 0 else float('inf') if gross_profit > 0 else 0.0
-
-    net_pnl = sum(pnls)
-    net_pnl_usd = pnl_mnq(net_pnl)
-
-    arr = np.array(pnls)
-    sharpe = (arr.mean() / arr.std() * np.sqrt(252)) if arr.std() > 0 else 0.0
-
-    cum = np.cumsum(arr)
-    peak = np.maximum.accumulate(cum)
-    dd = peak - cum
-    max_dd = dd.max() / peak.max() * 100 if peak.max() > 0 else 0.0
-
-    return {
-        'profit_factor': round(pf, 2),
-        'sharpe': round(float(sharpe), 2),
-        'win_rate': round(len(winners) / len(pnls) * 100, 1),
-        'avg_winner_ticks': round(float(np.mean(winners)), 1) if winners else 0,
-        'avg_loser_ticks': round(float(np.mean(np.abs(losers))), 1) if losers else 0,
-        'total_trades': len(pnls),
-        'net_pnl_usd': round(net_pnl_usd, 2),
-        'max_drawdown_pct': round(float(max_dd), 1),
-    }
+def run_backtest(params=PARAMS) -> dict:
+    params = {**PARAMS, **(params or {})}
+    bars = filter_sessions(bars_with_delta(), sessions=params.get("session_filter")).reset_index(drop=True)
+    ticks = filter_sessions(trades_with_nbbo(), sessions=params.get("session_filter")).reset_index(drop=True)
+    trades = iter_trade_specs(_build_specs(bars, ticks, params), ticks)
+    metrics = compute_trade_metrics(trades, bars)
+    return {"trades": trades, "metrics": {k: v for k, v in metrics.items() if k != "session_breakdown"}, "session_breakdown": metrics.get("session_breakdown", {})}
 
 
 def run(params=None):
-    if params is None:
-        params = PARAMS.copy()
-    else:
-        params = params.copy()
-
-    print("Loading trades...")
-    trades_df = filter_sessions(load_trades_fast(), sessions=params.get('session_filter'))
-    print(f"Building 1-min bars from {len(trades_df)} ticks...")
-
-    from pipeline.data_loader import load_trades
-    trades_df_delta = load_trades()
-    bars = build_1min_bars_with_delta(trades_df_delta)
-    bars = filter_sessions(bars, sessions=params.get('session_filter'))
-    print(f"Filtered bars: {len(bars)}")
-
-    print("Scanning for signals...")
-    signals = find_signals(bars, trades_df, params)
-    print(f"Signals found: {len(signals)}")
-
-    trade_list = simulate_trades(signals, bars, params)
-    print(f"Trades executed: {len(trade_list)}")
-
-    metrics = compute_metrics(trade_list)
-    print(f"Metrics: {metrics}")
-    session_breakdown = compute_session_breakdown(trade_list, bars if 'bars' in locals() else price_bars)
-
-    result = {
-        'strategy_id': '012',
-        'strategy_name': 'LVN Rebalance',
-        'backtest_period': {
-            'start': str(bars['ts_utc'].min()),
-            'end': str(bars['ts_utc'].max()),
-        },
-        'metrics': metrics,
-        'session_breakdown': session_breakdown,
-        'params': params,
-        'trades': trade_list,
-        'notes': f'Data: {len(trades_df)} ticks over Mar 5-6 2026. Session filter driven.',
-    }
-
-    out = Path(__file__).resolve().parents[2] / 'data' / 'results' / '012_2026-03-06.json'
-    out.parent.mkdir(parents=True, exist_ok=True)
-    with open(out, 'w') as f:
-        json.dump(result, f, indent=2, default=str)
-    print(f"Results saved to {out}")
-
-    return result
+    return run_backtest(params=params or PARAMS)
 
 
-if __name__ == '__main__':
-    run()
+if __name__ == "__main__":
+    print(json.dumps(run_backtest()["metrics"], indent=2))

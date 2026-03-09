@@ -1,22 +1,21 @@
-"""Strategy 002: Volume Profile Fair Value Gap Rejection
+"""Strategy 002: Volume Profile Fair Value Gap Rejection."""
 
-After a significant price leg, builds a tick-level volume profile and finds
-the lowest-volume node within the value area. When price retraces to that
-node, enters a fade trade.
-"""
+from __future__ import annotations
 
-import sys
 import json
-import pandas as pd
-import numpy as np
+import sys
 from pathlib import Path
+
+import numpy as np
+import pandas as pd
 from scipy.signal import find_peaks
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from pipeline.data_loader import (
-    load_trades_fast, load_bars_1min, filter_sessions,
-    compute_volume_profile, NQ_TICK_SIZE, MNQ_TICK_VALUE, pnl_mnq, compute_session_breakdown
-)
+
+from pipeline.backtest_utils import TradeSpec, compute_trade_metrics, iter_trade_specs, profile_to_levels
+from pipeline.data_loader import NQ_TICK_SIZE, compute_volume_profile, filter_sessions
+from pipeline.strategy_cache import bars_with_delta, trades_with_nbbo
+
 
 PARAMS = {
     "swing_lookback": 20,
@@ -25,297 +24,110 @@ PARAMS = {
     "entry_zone_ticks": 2,
     "take_profit_ticks": 12,
     "stop_loss_ticks": 8,
-    "max_retrace_time_bars": 30,
+    "max_retrace_bars": 30,
     "session_filter": None,
 }
 
 
-def find_swings(bars, lookback=20):
-    """Find swing highs and lows using scipy find_peaks."""
-    closes = bars['close'].values
-    highs = bars['high'].values
-    lows = bars['low'].values
-
-    # Swing highs: peaks in highs
-    hi_idx, _ = find_peaks(highs, distance=lookback // 2, prominence=NQ_TICK_SIZE * 5)
-    # Swing lows: peaks in inverted lows
-    lo_idx, _ = find_peaks(-lows, distance=lookback // 2, prominence=NQ_TICK_SIZE * 5)
-
-    swings = []
-    for i in hi_idx:
-        swings.append({'idx': int(i), 'type': 'high', 'price': float(highs[i]), 'ts': bars.iloc[i]['ts_utc']})
-    for i in lo_idx:
-        swings.append({'idx': int(i), 'type': 'low', 'price': float(lows[i]), 'ts': bars.iloc[i]['ts_utc']})
-
-    swings.sort(key=lambda s: s['idx'])
-    return swings
+def _find_swings(bars: pd.DataFrame, lookback: int) -> list[tuple[int, str]]:
+    highs, _ = find_peaks(bars["high"].to_numpy(), distance=lookback)
+    lows, _ = find_peaks(-bars["low"].to_numpy(), distance=lookback)
+    swings = [(int(i), "high") for i in highs] + [(int(i), "low") for i in lows]
+    return sorted(swings, key=lambda item: item[0])
 
 
-def find_fvg_levels(swings, trades_df, bars, params):
-    """For each leg (swing pair), find the lowest-volume node in the value area."""
-    fvg_levels = []
-    min_leg = params['min_leg_size_ticks'] * NQ_TICK_SIZE
-    va_pct = params['value_area_pct']
+def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[TradeSpec]:
+    swings = _find_swings(bars, int(params["swing_lookback"]))
+    specs: list[TradeSpec] = []
+    zone = float(params["entry_zone_ticks"]) * NQ_TICK_SIZE
+    tick_ts = ticks["ts_utc"].astype("int64").to_numpy()
 
-    for i in range(len(swings) - 1):
-        a, b = swings[i], swings[i + 1]
-        if a['type'] == b['type']:
+    for (idx_a, kind_a), (idx_b, kind_b) in zip(swings, swings[1:]):
+        if kind_a == kind_b or idx_b <= idx_a:
+            continue
+        a = bars.iloc[idx_a]
+        b = bars.iloc[idx_b]
+        bullish = kind_a == "low" and kind_b == "high"
+        bearish = kind_a == "high" and kind_b == "low"
+        if not bullish and not bearish:
             continue
 
-        leg_size = abs(b['price'] - a['price'])
-        if leg_size < min_leg:
+        leg_ticks = abs(float(b.close) - float(a.close)) / NQ_TICK_SIZE
+        if leg_ticks < float(params["min_leg_size_ticks"]):
             continue
-
-        price_lo = min(a['price'], b['price'])
-        price_hi = max(a['price'], b['price'])
 
         profile = compute_volume_profile(
-            trades_df, price_lo, price_hi,
-            start_ts=a['ts'], end_ts=b['ts']
+            ticks[["ts_utc", "price", "size"]],
+            price_lo=min(float(a.low), float(b.low)),
+            price_hi=max(float(a.high), float(b.high)),
+            start_ts=pd.to_datetime(a.ts_utc, utc=True),
+            end_ts=pd.to_datetime(b.ts_utc, utc=True) + pd.Timedelta(minutes=1),
         )
-
-        if not profile:
+        levels = profile_to_levels(profile, float(params["value_area_pct"]))
+        if not levels:
             continue
 
-        # Find POC and Value Area
-        total_vol = sum(profile.values())
-        if total_vol == 0:
+        va = levels["value_area_levels"]
+        if bullish:
+            candidates = {p: v for p, v in va.items() if p <= levels["poc"]}
+            direction = "long"
+        else:
+            candidates = {p: v for p, v in va.items() if p >= levels["poc"]}
+            direction = "short"
+        if not candidates:
             continue
 
-        poc_price = max(profile, key=profile.get)
-
-        # Build value area by expanding outward from POC
-        sorted_prices = sorted(profile.keys())
-        poc_idx = sorted_prices.index(poc_price) if poc_price in sorted_prices else 0
-        va_vol = profile[poc_price]
-        lo_ptr = poc_idx - 1
-        hi_ptr = poc_idx + 1
-        va_prices = {poc_price}
-
-        while va_vol / total_vol < va_pct and (lo_ptr >= 0 or hi_ptr < len(sorted_prices)):
-            lo_vol = profile.get(sorted_prices[lo_ptr], 0) if lo_ptr >= 0 else 0
-            hi_vol = profile.get(sorted_prices[hi_ptr], 0) if hi_ptr < len(sorted_prices) else 0
-
-            if lo_vol >= hi_vol and lo_ptr >= 0:
-                va_vol += lo_vol
-                va_prices.add(sorted_prices[lo_ptr])
-                lo_ptr -= 1
-            elif hi_ptr < len(sorted_prices):
-                va_vol += hi_vol
-                va_prices.add(sorted_prices[hi_ptr])
-                hi_ptr += 1
-            else:
-                break
-
-        # Find lowest volume node within value area
-        va_profile = {p: v for p, v in profile.items() if p in va_prices}
-        if not va_profile:
+        fvg_level = min(candidates, key=candidates.get)
+        end_bar = min(idx_b + int(params["max_retrace_bars"]), len(bars) - 1)
+        start_ts = pd.to_datetime(b.ts_utc, utc=True) + pd.Timedelta(minutes=1)
+        start_idx = int(np.searchsorted(tick_ts, start_ts.value, side="left"))
+        end_ts = pd.to_datetime(bars.iloc[end_bar].ts_utc, utc=True) + pd.Timedelta(minutes=1)
+        end_idx = int(np.searchsorted(tick_ts, end_ts.value, side="right"))
+        retrace_ticks = ticks.iloc[start_idx:end_idx]
+        if retrace_ticks.empty:
             continue
 
-        fvg_price = min(va_profile, key=va_profile.get)
-
-        direction = 'long' if b['price'] > a['price'] else 'short'
-
-        fvg_levels.append({
-            'leg_start_idx': a['idx'],
-            'leg_end_idx': b['idx'],
-            'leg_start_ts': a['ts'],
-            'leg_end_ts': b['ts'],
-            'fvg_price': fvg_price,
-            'direction': direction,
-            'poc': poc_price,
-            'leg_size': leg_size,
-        })
-
-    return fvg_levels
-
-
-def find_signals(fvg_levels, bars, params):
-    """Find retracement entries when price touches FVG level."""
-    signals = []
-    zone = params['entry_zone_ticks'] * NQ_TICK_SIZE
-    max_bars = params['max_retrace_time_bars']
-
-    for fvg in fvg_levels:
-        start_idx = fvg['leg_end_idx'] + 1
-        end_idx = min(start_idx + max_bars, len(bars))
-
-        for i in range(start_idx, end_idx):
-            bar = bars.iloc[i]
-            # Price touches FVG level
-            if bar['low'] <= fvg['fvg_price'] + zone and bar['high'] >= fvg['fvg_price'] - zone:
-                signals.append({
-                    'bar_idx': i,
-                    'ts': bar['ts_utc'],
-                    'direction': fvg['direction'],
-                    'entry_price': fvg['fvg_price'],
-                    'fvg_price': fvg['fvg_price'],
-                    'poc': fvg['poc'],
-                })
-                break
-
-    return signals
+        touch = retrace_ticks[(retrace_ticks["price"] - fvg_level).abs() <= zone].head(1)
+        if touch.empty:
+            continue
+        row = touch.iloc[0]
+        entry_price = float(row["ask"]) if direction == "long" else float(row["bid"])
+        if not np.isfinite(entry_price):
+            continue
+        specs.append(
+            TradeSpec(
+                entry_ts=pd.to_datetime(row["ts_utc"], utc=True),
+                signal_ts=start_ts,
+                direction=direction,
+                entry_price=entry_price,
+                stop_loss_ticks=float(params["stop_loss_ticks"]),
+                take_profit_ticks=float(params["take_profit_ticks"]),
+                meta={
+                    "leg_start_ts": str(a.ts_utc),
+                    "leg_end_ts": str(b.ts_utc),
+                    "fvg_level": float(fvg_level),
+                    "poc": float(levels["poc"]),
+                    "vah": float(levels["vah"]),
+                    "val": float(levels["val"]),
+                },
+            )
+        )
+    return specs
 
 
-def simulate_trades(signals, bars, params):
-    """Simulate TP/SL exits."""
-    tp = params['take_profit_ticks'] * NQ_TICK_SIZE
-    sl = params['stop_loss_ticks'] * NQ_TICK_SIZE
-    trades = []
-
-    for sig in signals:
-        idx = sig['bar_idx']
-        entry = sig['entry_price']
-        direction = sig['direction']
-
-        exited = False
-        for j in range(idx + 1, len(bars)):
-            bar = bars.iloc[j]
-            if direction == 'long':
-                if bar['low'] <= entry - sl:
-                    trades.append(_trade(sig, bar, entry - sl, -params['stop_loss_ticks']))
-                    exited = True
-                    break
-                if bar['high'] >= entry + tp:
-                    trades.append(_trade(sig, bar, entry + tp, params['take_profit_ticks']))
-                    exited = True
-                    break
-            else:
-                if bar['high'] >= entry + sl:
-                    trades.append(_trade(sig, bar, entry + sl, -params['stop_loss_ticks']))
-                    exited = True
-                    break
-                if bar['low'] <= entry - tp:
-                    trades.append(_trade(sig, bar, entry - tp, params['take_profit_ticks']))
-                    exited = True
-                    break
-
-        if not exited:
-            last = bars.iloc[-1]
-            pnl = (last['close'] - entry) / NQ_TICK_SIZE if direction == 'long' else (entry - last['close']) / NQ_TICK_SIZE
-            trades.append(_trade(sig, last, last['close'], pnl))
-
-    return trades
-
-
-def _trade(sig, exit_bar, exit_price, pnl_ticks):
-    return {
-        'entry_ts': str(sig['ts']),
-        'exit_ts': str(exit_bar['ts_utc']),
-        'direction': sig['direction'],
-        'entry_price': float(sig['entry_price']),
-        'exit_price': float(exit_price),
-        'pnl_ticks': float(pnl_ticks),
-    }
-
-
-def compute_metrics(trades):
-    if not trades:
-        return {
-            'profit_factor': 0.0, 'sharpe': 0.0, 'win_rate': 0.0,
-            'avg_winner_ticks': 0, 'avg_loser_ticks': 0,
-            'total_trades': 0, 'net_pnl_usd': 0.0, 'max_drawdown_pct': 0.0,
-        }
-
-    pnls = [t['pnl_ticks'] for t in trades]
-    winners = [p for p in pnls if p > 0]
-    losers = [p for p in pnls if p < 0]
-
-    gross_profit = sum(winners) if winners else 0
-    gross_loss = abs(sum(losers)) if losers else 0
-    pf = gross_profit / gross_loss if gross_loss > 0 else float('inf') if gross_profit > 0 else 0.0
-
-    arr = np.array(pnls)
-    sharpe = (arr.mean() / arr.std() * np.sqrt(252)) if arr.std() > 0 else 0.0
-
-    cum = np.cumsum(arr)
-    peak = np.maximum.accumulate(cum)
-    dd = peak - cum
-    max_dd = dd.max() / peak.max() * 100 if peak.max() > 0 else 0.0
-
-    return {
-        'profit_factor': round(pf, 2),
-        'sharpe': round(float(sharpe), 2),
-        'win_rate': round(len(winners) / len(pnls) * 100, 1),
-        'avg_winner_ticks': round(float(np.mean(winners)), 1) if winners else 0,
-        'avg_loser_ticks': round(float(np.mean(np.abs(losers))), 1) if losers else 0,
-        'total_trades': len(pnls),
-        'net_pnl_usd': round(pnl_mnq(sum(pnls)), 2),
-        'max_drawdown_pct': round(float(max_dd), 1),
-    }
+def run_backtest(params=PARAMS) -> dict:
+    params = {**PARAMS, **(params or {})}
+    bars = filter_sessions(bars_with_delta(), sessions=params.get("session_filter")).reset_index(drop=True)
+    ticks = filter_sessions(trades_with_nbbo(), sessions=params.get("session_filter")).reset_index(drop=True)
+    specs = _build_specs(bars, ticks, params)
+    trades = iter_trade_specs(specs, ticks)
+    metrics = compute_trade_metrics(trades, bars)
+    return {"trades": trades, "metrics": {k: v for k, v in metrics.items() if k != "session_breakdown"}, "session_breakdown": metrics.get("session_breakdown", {})}
 
 
 def run(params=None):
-    if params is None:
-        params = PARAMS.copy()
-    else:
-        params = params.copy()
-
-    print("Loading 1-min bars...")
-    bars = load_bars_1min()
-    bars = filter_sessions(bars, sessions=params.get('session_filter'))
-    print(f"Filtered bars: {len(bars)}")
-
-    print("Loading trade ticks for volume profiles...")
-    trades_df = load_trades_fast()
-    print(f"Trade ticks: {len(trades_df)}")
-
-    print("Finding swings...")
-    swings = find_swings(bars, params['swing_lookback'])
-    print(f"Swings found: {len(swings)}")
-
-    # Try with relaxed params if no swings
-    if len(swings) < 2:
-        print("Not enough swings. Trying shorter lookback...")
-        swings = find_swings(bars, lookback=10)
-        print(f"Swings with lookback=10: {len(swings)}")
-        params = params.copy()
-        params['swing_lookback'] = 10
-
-    print("Finding FVG levels...")
-    fvg_levels = find_fvg_levels(swings, trades_df, bars, params)
-    print(f"FVG levels: {len(fvg_levels)}")
-
-    if not fvg_levels:
-        print("No FVG levels found. Trying relaxed min_leg_size...")
-        params = params.copy()
-        params['min_leg_size_ticks'] = 10
-        fvg_levels = find_fvg_levels(swings, trades_df, bars, params)
-        print(f"FVG levels with relaxed leg: {len(fvg_levels)}")
-
-    print("Finding entry signals...")
-    signals = find_signals(fvg_levels, bars, params)
-    print(f"Entry signals: {len(signals)}")
-
-    trade_list = simulate_trades(signals, bars, params)
-    print(f"Trades: {len(trade_list)}")
-
-    metrics = compute_metrics(trade_list)
-    print(f"Metrics: {metrics}")
-    session_breakdown = compute_session_breakdown(trade_list, bars if 'bars' in locals() else price_bars)
-
-    result = {
-        'strategy_id': '002',
-        'strategy_name': 'Volume Profile FVG Rejection',
-        'backtest_period': {
-            'start': str(bars['ts_utc'].min()),
-            'end': str(bars['ts_utc'].max()),
-        },
-        'metrics': metrics,
-        'session_breakdown': session_breakdown,
-        'params': params,
-        'trades': trade_list,
-        'notes': f'Data: {len(trades_df)} ticks, {len(bars)} Filtered bars. Mar 5-6 2026.',
-    }
-
-    out = Path(__file__).resolve().parents[2] / 'data' / 'results' / '002_2026-03-06.json'
-    out.parent.mkdir(parents=True, exist_ok=True)
-    with open(out, 'w') as f:
-        json.dump(result, f, indent=2, default=str)
-    print(f"Results saved to {out}")
-
-    return result
+    return run_backtest(params=params or PARAMS)
 
 
-if __name__ == '__main__':
-    run()
+if __name__ == "__main__":
+    print(json.dumps(run_backtest()["metrics"], indent=2))
