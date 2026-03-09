@@ -3,8 +3,126 @@
     "strategy_id": "011",
     "strategy_name": "Exhaustion Reversal",
     "backtest_period": {
-      "start": "2026-03-05 13:30:00",
-      "end": "2026-03-09 14:00:00"
+      "start": "2026-03-05 14:30:00",
+      "end": "2026-03-09 15:04:00"
+    },
+    "metrics": {
+      "profit_factor": Infinity,
+      "sharpe": 0.0,
+      "win_rate": 100.0,
+      "avg_winner_ticks": 8.0,
+      "avg_loser_ticks": 0,
+      "total_trades": 1,
+      "net_pnl_usd": 4.0,
+      "max_drawdown_pct": 0.0
+    },
+    "session_breakdown": {
+      "MidDay": {
+        "trades": 1,
+        "pf": Infinity,
+        "pnl": 4.0
+      }
+    },
+    "params": {
+      "lookback_bars": 4,
+      "volume_avg_period": 20,
+      "min_volume_ratio": 0.6,
+      "take_profit_ticks": 8,
+      "stop_loss_ticks": 10,
+      "session_filter": [
+        "NYOpen",
+        "MidDay",
+        "PowerHour",
+        "Close"
+      ]
+    },
+    "trades": [
+      {
+        "entry_ts": "2026-03-05 18:53:00",
+        "exit_ts": "2026-03-05 18:54:00",
+        "direction": "short",
+        "entry_price": 25066.5,
+        "exit_price": 25064.5,
+        "pnl_ticks": 8.0
+      }
+    ],
+    "notes": "Data: 3706992 ticks over Mar 5-6 2026. Session filter driven.",
+    "variation": "var_B",
+    "variation_name": "var_B: RTH only",
+    "base_variation": 2,
+    "session_variation": "var_B",
+    "session_filter": [
+      "NYOpen",
+      "MidDay",
+      "PowerHour",
+      "Close"
+    ]
+  },
+  {
+    "strategy_id": "011",
+    "strategy_name": "Exhaustion Reversal",
+    "backtest_period": {
+      "start": "2026-03-05 06:45:00",
+      "end": "2026-03-09 13:29:00"
+    },
+    "metrics": {
+      "profit_factor": Infinity,
+      "sharpe": 0.0,
+      "win_rate": 100.0,
+      "avg_winner_ticks": 8.0,
+      "avg_loser_ticks": 0,
+      "total_trades": 1,
+      "net_pnl_usd": 4.0,
+      "max_drawdown_pct": 0.0
+    },
+    "session_breakdown": {
+      "PreNY": {
+        "trades": 1,
+        "pf": Infinity,
+        "pnl": 4.0
+      }
+    },
+    "params": {
+      "lookback_bars": 4,
+      "volume_avg_period": 20,
+      "min_volume_ratio": 0.6,
+      "take_profit_ticks": 8,
+      "stop_loss_ticks": 10,
+      "session_filter": [
+        "Asia",
+        "London",
+        "LondonNY",
+        "PreNY"
+      ]
+    },
+    "trades": [
+      {
+        "entry_ts": "2026-03-05 14:03:00",
+        "exit_ts": "2026-03-05 14:04:00",
+        "direction": "long",
+        "entry_price": 25027.0,
+        "exit_price": 25029.0,
+        "pnl_ticks": 8.0
+      }
+    ],
+    "notes": "Data: 3706992 ticks over Mar 5-6 2026. Session filter driven.",
+    "variation": "var_D",
+    "variation_name": "var_D: Overnight",
+    "base_variation": 2,
+    "session_variation": "var_D",
+    "session_filter": [
+      "Asia",
+      "London",
+      "LondonNY",
+      "PreNY"
+    ]
+  },
+  {
+    "strategy_id": "011",
+    "strategy_name": "Exhaustion Reversal",
+    "backtest_period": {
+      "start": "2026-03-05 06:45:00",
+      "end": "2026-03-09 15:04:00"
     },
     "metrics": {
       "profit_factor": 1.6,
@@ -16,13 +134,30 @@
       "net_pnl_usd": 3.0,
       "max_drawdown_pct": 125.0
     },
+    "session_breakdown": {
+      "PreNY": {
+        "trades": 1,
+        "pf": Infinity,
+        "pnl": 4.0
+      },
+      "NYOpen": {
+        "trades": 1,
+        "pf": 0.0,
+        "pnl": -5.0
+      },
+      "MidDay": {
+        "trades": 1,
+        "pf": Infinity,
+        "pnl": 4.0
+      }
+    },
     "params": {
       "lookback_bars": 4,
       "volume_avg_period": 20,
       "min_volume_ratio": 0.6,
       "take_profit_ticks": 8,
       "stop_loss_ticks": 10,
-      "session_filter": "RTH"
+      "session_filter": null
     },
     "trades": [
       {
@@ -50,182 +185,19 @@
         "pnl_ticks": 8.0
       }
     ],
-    "notes": "Data: 3703200 ticks over Mar 5-6 2026. RTH only.",
-    "variation": 2,
-    "variation_name": "Default"
+    "notes": "Data: 3706992 ticks over Mar 5-6 2026. Session filter driven.",
+    "variation": "var_A",
+    "variation_name": "var_A: All sessions",
+    "base_variation": 2,
+    "session_variation": "var_A",
+    "session_filter": null
   },
   {
     "strategy_id": "011",
     "strategy_name": "Exhaustion Reversal",
     "backtest_period": {
-      "start": "2026-03-05 13:30:00",
-      "end": "2026-03-09 14:00:00"
-    },
-    "metrics": {
-      "profit_factor": 0.6,
-      "sharpe": -4.1,
-      "win_rate": 37.5,
-      "avg_winner_ticks": 6.0,
-      "avg_loser_ticks": 6.0,
-      "total_trades": 8,
-      "net_pnl_usd": -6.0,
-      "max_drawdown_pct": 0.0
-    },
-    "params": {
-      "lookback_bars": 3,
-      "volume_avg_period": 20,
-      "min_volume_ratio": 0.7,
-      "take_profit_ticks": 6,
-      "stop_loss_ticks": 6,
-      "session_filter": "RTH"
-    },
-    "trades": [
-      {
-        "entry_ts": "2026-03-05 14:02:00",
-        "exit_ts": "2026-03-05 14:03:00",
-        "direction": "long",
-        "entry_price": 25031.75,
-        "exit_price": 25030.25,
-        "pnl_ticks": -6.0
-      },
-      {
-        "entry_ts": "2026-03-05 14:03:00",
-        "exit_ts": "2026-03-05 14:04:00",
-        "direction": "long",
-        "entry_price": 25027.0,
-        "exit_price": 25025.5,
-        "pnl_ticks": -6.0
-      },
-      {
-        "entry_ts": "2026-03-05 14:40:00",
-        "exit_ts": "2026-03-05 14:41:00",
-        "direction": "short",
-        "entry_price": 25012.5,
-        "exit_price": 25011.0,
-        "pnl_ticks": 6.0
-      },
-      {
-        "entry_ts": "2026-03-05 14:41:00",
-        "exit_ts": "2026-03-05 14:42:00",
-        "direction": "short",
-        "entry_price": 25011.25,
-        "exit_price": 25012.75,
-        "pnl_ticks": -6.0
-      },
-      {
-        "entry_ts": "2026-03-05 17:10:00",
-        "exit_ts": "2026-03-05 17:11:00",
-        "direction": "short",
-        "entry_price": 25087.5,
-        "exit_price": 25089.0,
-        "pnl_ticks": -6.0
-      },
-      {
-        "entry_ts": "2026-03-05 18:52:00",
-        "exit_ts": "2026-03-05 18:53:00",
-        "direction": "short",
-        "entry_price": 25067.0,
-        "exit_price": 25065.5,
-        "pnl_ticks": 6.0
-      },
-      {
-        "entry_ts": "2026-03-05 18:53:00",
-        "exit_ts": "2026-03-05 18:54:00",
-        "direction": "short",
-        "entry_price": 25066.5,
-        "exit_price": 25068.0,
-        "pnl_ticks": -6.0
-      },
-      {
-        "entry_ts": "2026-03-06 14:02:00",
-        "exit_ts": "2026-03-06 14:03:00",
-        "direction": "long",
-        "entry_price": 24636.0,
-        "exit_price": 24637.5,
-        "pnl_ticks": 6.0
-      }
-    ],
-    "notes": "Data: 3703200 ticks over Mar 5-6 2026. RTH only.",
-    "variation": 1,
-    "variation_name": "Tight"
-  },
-  {
-    "strategy_id": "011",
-    "strategy_name": "Exhaustion Reversal",
-    "backtest_period": {
-      "start": "2026-03-05 13:30:00",
-      "end": "2026-03-09 14:00:00"
-    },
-    "metrics": {
-      "profit_factor": 0.38,
-      "sharpe": -7.94,
-      "win_rate": 20.0,
-      "avg_winner_ticks": 12.0,
-      "avg_loser_ticks": 8.0,
-      "total_trades": 5,
-      "net_pnl_usd": -10.0,
-      "max_drawdown_pct": 0.0
-    },
-    "params": {
-      "lookback_bars": 3,
-      "volume_avg_period": 20,
-      "min_volume_ratio": 0.5,
-      "take_profit_ticks": 12,
-      "stop_loss_ticks": 8,
-      "session_filter": "RTH"
-    },
-    "trades": [
-      {
-        "entry_ts": "2026-03-05 14:02:00",
-        "exit_ts": "2026-03-05 14:03:00",
-        "direction": "long",
-        "entry_price": 25031.75,
-        "exit_price": 25029.75,
-        "pnl_ticks": -8.0
-      },
-      {
-        "entry_ts": "2026-03-05 14:03:00",
-        "exit_ts": "2026-03-05 14:04:00",
-        "direction": "long",
-        "entry_price": 25027.0,
-        "exit_price": 25025.0,
-        "pnl_ticks": -8.0
-      },
-      {
-        "entry_ts": "2026-03-05 14:40:00",
-        "exit_ts": "2026-03-05 14:41:00",
-        "direction": "short",
-        "entry_price": 25012.5,
-        "exit_price": 25009.5,
-        "pnl_ticks": 12.0
-      },
-      {
-        "entry_ts": "2026-03-05 14:41:00",
-        "exit_ts": "2026-03-05 14:42:00",
-        "direction": "short",
-        "entry_price": 25011.25,
-        "exit_price": 25013.25,
-        "pnl_ticks": -8.0
-      },
-      {
-        "entry_ts": "2026-03-05 18:53:00",
-        "exit_ts": "2026-03-05 18:54:00",
-        "direction": "short",
-        "entry_price": 25066.5,
-        "exit_price": 25068.5,
-        "pnl_ticks": -8.0
-      }
-    ],
-    "notes": "Data: 3703200 ticks over Mar 5-6 2026. RTH only.",
-    "variation": 4,
-    "variation_name": "Aggressive"
-  },
-  {
-    "strategy_id": "011",
-    "strategy_name": "Exhaustion Reversal",
-    "backtest_period": {
-      "start": "2026-03-05 13:30:00",
-      "end": "2026-03-09 14:00:00"
+      "start": "2026-03-05 07:00:00",
+      "end": "2026-03-09 12:29:00"
     },
     "metrics": {
       "profit_factor": 0.0,
@@ -237,72 +209,27 @@
       "net_pnl_usd": 0.0,
       "max_drawdown_pct": 0.0
     },
-    "params": {
-      "lookback_bars": 5,
-      "volume_avg_period": 20,
-      "min_volume_ratio": 0.5,
-      "take_profit_ticks": 12,
-      "stop_loss_ticks": 12,
-      "session_filter": "RTH"
-    },
-    "trades": [],
-    "notes": "Data: 3703200 ticks over Mar 5-6 2026. RTH only.",
-    "variation": 3,
-    "variation_name": "Wide"
-  },
-  {
-    "strategy_id": "011",
-    "strategy_name": "Exhaustion Reversal",
-    "backtest_period": {
-      "start": "2026-03-05 13:30:00",
-      "end": "2026-03-09 14:00:00"
-    },
-    "metrics": {
-      "profit_factor": 0.0,
-      "sharpe": 0.0,
-      "win_rate": 0.0,
-      "avg_winner_ticks": 0,
-      "avg_loser_ticks": 5.0,
-      "total_trades": 3,
-      "net_pnl_usd": -7.5,
-      "max_drawdown_pct": 0.0
-    },
+    "session_breakdown": {},
     "params": {
       "lookback_bars": 4,
       "volume_avg_period": 20,
-      "min_volume_ratio": 0.7,
-      "take_profit_ticks": 5,
-      "stop_loss_ticks": 5,
-      "session_filter": "RTH"
+      "min_volume_ratio": 0.6,
+      "take_profit_ticks": 8,
+      "stop_loss_ticks": 10,
+      "session_filter": [
+        "London",
+        "LondonNY"
+      ]
     },
-    "trades": [
-      {
-        "entry_ts": "2026-03-05 14:03:00",
-        "exit_ts": "2026-03-05 14:04:00",
-        "direction": "long",
-        "entry_price": 25027.0,
-        "exit_price": 25025.75,
-        "pnl_ticks": -5.0
-      },
-      {
-        "entry_ts": "2026-03-05 14:41:00",
-        "exit_ts": "2026-03-05 14:42:00",
-        "direction": "short",
-        "entry_price": 25011.25,
-        "exit_price": 25012.5,
-        "pnl_ticks": -5.0
-      },
-      {
-        "entry_ts": "2026-03-05 18:53:00",
-        "exit_ts": "2026-03-05 18:54:00",
-        "direction": "short",
-        "entry_price": 25066.5,
-        "exit_price": 25067.75,
-        "pnl_ticks": -5.0
-      }
-    ],
-    "notes": "Data: 3703200 ticks over Mar 5-6 2026. RTH only.",
-    "variation": 5,
-    "variation_name": "Scalp"
+    "trades": [],
+    "notes": "Data: 3706992 ticks over Mar 5-6 2026. Session filter driven.",
+    "variation": "var_C",
+    "variation_name": "var_C: London + LondonNY",
+    "base_variation": 2,
+    "session_variation": "var_C",
+    "session_filter": [
+      "London",
+      "LondonNY"
+    ]
   }
 ]

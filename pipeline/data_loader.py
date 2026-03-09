@@ -35,9 +35,25 @@ def _get_conn():
     """Get a read-only DuckDB connection (uses temp copy to avoid lock)."""
     import shutil
     tmp = Path(DB_PATH)
-    if not tmp.exists():
+    src = Path(DB_SOURCE)
+
+    def _copy_fresh():
         shutil.copy2(DB_SOURCE, DB_PATH)
-    return duckdb.connect(DB_PATH, read_only=True)
+        if tmp.stat().st_size < src.stat().st_size:
+            raise IOError("DuckDB temp copy is truncated; source changed during copy")
+
+    if (not tmp.exists()) or (tmp.stat().st_size < src.stat().st_size):
+        _copy_fresh()
+
+    try:
+        conn = duckdb.connect(DB_PATH, read_only=True)
+        conn.execute("SELECT 1")
+        return conn
+    except Exception:
+        if tmp.exists():
+            tmp.unlink()
+        _copy_fresh()
+        return duckdb.connect(DB_PATH, read_only=True)
 
 
 def load_trades(start_ts=None, end_ts=None):

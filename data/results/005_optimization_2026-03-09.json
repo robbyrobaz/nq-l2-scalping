@@ -3,8 +3,8 @@
     "strategy_id": "005",
     "strategy_name": "Large Print Momentum",
     "backtest_period": {
-      "start": "2026-03-05 13:30:00",
-      "end": "2026-03-09 14:00:00"
+      "start": "2026-03-05 14:30:00",
+      "end": "2026-03-09 15:04:00"
     },
     "metrics": {
       "profit_factor": 0.0,
@@ -16,36 +16,57 @@
       "net_pnl_usd": 0.0,
       "max_drawdown_pct": 0.0
     },
+    "session_breakdown": {},
     "params": {
-      "lookback_bars": 30,
+      "lookback_bars": 50,
       "std_dev_threshold": 1.5,
       "min_trade_size": 500,
       "signal_cooldown_bars": 1,
-      "take_profit_ticks": 10,
-      "stop_loss_ticks": 6,
-      "session_filter": "RTH"
+      "take_profit_ticks": 12,
+      "stop_loss_ticks": 8,
+      "session_filter": [
+        "NYOpen",
+        "MidDay",
+        "PowerHour",
+        "Close"
+      ]
     },
     "trades": [],
-    "notes": "Data: 3703200 ticks. RTH only. Block trades > 2 std devs.",
-    "variation": 1,
-    "variation_name": "Sensitive"
+    "notes": "Data: 3706992 ticks. Session filter driven. Block trades > 2 std devs.",
+    "variation": "var_B",
+    "variation_name": "var_B: RTH only",
+    "base_variation": 2,
+    "session_variation": "var_B",
+    "session_filter": [
+      "NYOpen",
+      "MidDay",
+      "PowerHour",
+      "Close"
+    ]
   },
   {
     "strategy_id": "005",
     "strategy_name": "Large Print Momentum",
     "backtest_period": {
-      "start": "2026-03-05 13:30:00",
-      "end": "2026-03-09 14:00:00"
+      "start": "2026-03-05 06:45:00",
+      "end": "2026-03-09 15:04:00"
     },
     "metrics": {
       "profit_factor": 0.0,
       "sharpe": 0.0,
       "win_rate": 0.0,
       "avg_winner_ticks": 0,
-      "avg_loser_ticks": 0,
-      "total_trades": 0,
-      "net_pnl_usd": 0.0,
+      "avg_loser_ticks": 8.0,
+      "total_trades": 1,
+      "net_pnl_usd": -4.0,
       "max_drawdown_pct": 0.0
+    },
+    "session_breakdown": {
+      "London": {
+        "trades": 1,
+        "pf": 0.0,
+        "pnl": -4.0
+      }
     },
     "params": {
       "lookback_bars": 50,
@@ -54,104 +75,139 @@
       "signal_cooldown_bars": 1,
       "take_profit_ticks": 12,
       "stop_loss_ticks": 8,
-      "session_filter": "RTH"
+      "session_filter": null
     },
-    "trades": [],
-    "notes": "Data: 3703200 ticks. RTH only. Block trades > 2 std devs.",
-    "variation": 2,
-    "variation_name": "Default"
+    "trades": [
+      {
+        "entry_ts": "2026-03-06 09:04:00",
+        "exit_ts": "2026-03-06 09:05:00",
+        "direction": "long",
+        "entry_price": 24893.75,
+        "exit_price": 24891.75,
+        "pnl_ticks": -8.0
+      }
+    ],
+    "notes": "Data: 3706992 ticks. Session filter driven. Block trades > 2 std devs.",
+    "variation": "var_A",
+    "variation_name": "var_A: All sessions",
+    "base_variation": 2,
+    "session_variation": "var_A",
+    "session_filter": null
   },
   {
     "strategy_id": "005",
     "strategy_name": "Large Print Momentum",
     "backtest_period": {
-      "start": "2026-03-05 13:30:00",
-      "end": "2026-03-09 14:00:00"
+      "start": "2026-03-05 07:00:00",
+      "end": "2026-03-09 12:29:00"
     },
     "metrics": {
       "profit_factor": 0.0,
       "sharpe": 0.0,
       "win_rate": 0.0,
       "avg_winner_ticks": 0,
-      "avg_loser_ticks": 0,
-      "total_trades": 0,
-      "net_pnl_usd": 0.0,
+      "avg_loser_ticks": 8.0,
+      "total_trades": 1,
+      "net_pnl_usd": -4.0,
       "max_drawdown_pct": 0.0
     },
+    "session_breakdown": {
+      "London": {
+        "trades": 1,
+        "pf": 0.0,
+        "pnl": -4.0
+      }
+    },
     "params": {
-      "lookback_bars": 80,
+      "lookback_bars": 50,
       "std_dev_threshold": 1.5,
       "min_trade_size": 500,
       "signal_cooldown_bars": 1,
-      "take_profit_ticks": 14,
+      "take_profit_ticks": 12,
       "stop_loss_ticks": 8,
-      "session_filter": "RTH"
+      "session_filter": [
+        "London",
+        "LondonNY"
+      ]
     },
-    "trades": [],
-    "notes": "Data: 3703200 ticks. RTH only. Block trades > 2 std devs.",
-    "variation": 3,
-    "variation_name": "Strict"
+    "trades": [
+      {
+        "entry_ts": "2026-03-06 09:04:00",
+        "exit_ts": "2026-03-06 09:05:00",
+        "direction": "long",
+        "entry_price": 24893.75,
+        "exit_price": 24891.75,
+        "pnl_ticks": -8.0
+      }
+    ],
+    "notes": "Data: 3706992 ticks. Session filter driven. Block trades > 2 std devs.",
+    "variation": "var_C",
+    "variation_name": "var_C: London + LondonNY",
+    "base_variation": 2,
+    "session_variation": "var_C",
+    "session_filter": [
+      "London",
+      "LondonNY"
+    ]
   },
   {
     "strategy_id": "005",
     "strategy_name": "Large Print Momentum",
     "backtest_period": {
-      "start": "2026-03-05 13:30:00",
-      "end": "2026-03-09 14:00:00"
+      "start": "2026-03-05 06:45:00",
+      "end": "2026-03-09 13:29:00"
     },
     "metrics": {
       "profit_factor": 0.0,
       "sharpe": 0.0,
       "win_rate": 0.0,
       "avg_winner_ticks": 0,
-      "avg_loser_ticks": 0,
-      "total_trades": 0,
-      "net_pnl_usd": 0.0,
+      "avg_loser_ticks": 8.0,
+      "total_trades": 1,
+      "net_pnl_usd": -4.0,
       "max_drawdown_pct": 0.0
     },
+    "session_breakdown": {
+      "London": {
+        "trades": 1,
+        "pf": 0.0,
+        "pnl": -4.0
+      }
+    },
     "params": {
-      "lookback_bars": 25,
+      "lookback_bars": 50,
       "std_dev_threshold": 1.5,
       "min_trade_size": 500,
       "signal_cooldown_bars": 1,
-      "take_profit_ticks": 16,
+      "take_profit_ticks": 12,
       "stop_loss_ticks": 8,
-      "session_filter": "RTH"
+      "session_filter": [
+        "Asia",
+        "London",
+        "LondonNY",
+        "PreNY"
+      ]
     },
-    "trades": [],
-    "notes": "Data: 3703200 ticks. RTH only. Block trades > 2 std devs.",
-    "variation": 4,
-    "variation_name": "Aggressive"
-  },
-  {
-    "strategy_id": "005",
-    "strategy_name": "Large Print Momentum",
-    "backtest_period": {
-      "start": "2026-03-05 13:30:00",
-      "end": "2026-03-09 14:00:00"
-    },
-    "metrics": {
-      "profit_factor": 0.0,
-      "sharpe": 0.0,
-      "win_rate": 0.0,
-      "avg_winner_ticks": 0,
-      "avg_loser_ticks": 0,
-      "total_trades": 0,
-      "net_pnl_usd": 0.0,
-      "max_drawdown_pct": 0.0
-    },
-    "params": {
-      "lookback_bars": 20,
-      "std_dev_threshold": 1.5,
-      "min_trade_size": 500,
-      "signal_cooldown_bars": 1,
-      "take_profit_ticks": 6,
-      "stop_loss_ticks": 4,
-      "session_filter": "RTH"
-    },
-    "trades": [],
-    "notes": "Data: 3703200 ticks. RTH only. Block trades > 2 std devs.",
-    "variation": 5,
-    "variation_name": "Scalp"
+    "trades": [
+      {
+        "entry_ts": "2026-03-06 09:04:00",
+        "exit_ts": "2026-03-06 09:05:00",
+        "direction": "long",
+        "entry_price": 24893.75,
+        "exit_price": 24891.75,
+        "pnl_ticks": -8.0
+      }
+    ],
+    "notes": "Data: 3706992 ticks. Session filter driven. Block trades > 2 std devs.",
+    "variation": "var_D",
+    "variation_name": "var_D: Overnight",
+    "base_variation": 2,
+    "session_variation": "var_D",
+    "session_filter": [
+      "Asia",
+      "London",
+      "LondonNY",
+      "PreNY"
+    ]
   }
 ]

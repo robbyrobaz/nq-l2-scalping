@@ -2,8 +2,8 @@
   "strategy_id": "008",
   "strategy_name": "Stacked Book Breakout",
   "backtest_period": {
-    "start": "2026-03-05 13:30:00",
-    "end": "2026-03-09 14:00:00"
+    "start": "2026-03-05 06:45:00",
+    "end": "2026-03-09 13:29:00"
   },
   "metrics": {
     "profit_factor": 0.0,
@@ -15,15 +15,21 @@
     "net_pnl_usd": 0.0,
     "max_drawdown_pct": 0.0
   },
+  "session_breakdown": {},
   "params": {
     "stack_threshold": 2.0,
     "stack_lookback_bars": 5,
-    "breakout_min_ticks": 0.5,
+    "breakout_min_ticks": 1,
     "entry_offset_ticks": 1,
-    "take_profit_ticks": 6,
-    "stop_loss_ticks": 4,
-    "session_filter": "RTH"
+    "take_profit_ticks": 12,
+    "stop_loss_ticks": 8,
+    "session_filter": [
+      "Asia",
+      "London",
+      "LondonNY",
+      "PreNY"
+    ]
   },
   "trades": [],
-  "notes": "Data: 3703200 ticks. RTH only. Stacked bid/ask detection."
+  "notes": "Data: 3706992 ticks. Session filter driven. Stacked bid/ask detection."
 }

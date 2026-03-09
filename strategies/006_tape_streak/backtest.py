@@ -31,35 +31,30 @@ def find_signals(trades_df, price_bars, params=PARAMS):
     """Scan for tape streak signals."""
     signals = []
 
-    if trades_df.empty:
+    if trades_df.empty or price_bars.empty:
         return signals
 
     trades_df = trades_df.sort_values('ts_utc').reset_index(drop=True)
     min_consec = params['min_consecutive_trades']
     lookback = params['lookback_bars']
+    ts_values = trades_df['ts_utc'].values
+    side_values = trades_df['side'].values
 
     for bar_idx, price_bar in price_bars.iterrows():
         bar_start = price_bar['ts_utc']
-        bar_end = bar_start + pd.Timedelta(minutes=1)
-
-        # Get trades in current bar and lookback bars
-        lookback_end = bar_start
         lookback_start = bar_start - pd.Timedelta(minutes=lookback)
-        lookback_trades = trades_df[
-            (trades_df['ts_utc'] >= lookback_start) & (trades_df['ts_utc'] <= lookback_end)
-        ].sort_values('ts_utc')
-
-        if lookback_trades.empty:
+        left = np.searchsorted(ts_values, lookback_start.to_datetime64(), side='left')
+        right = np.searchsorted(ts_values, bar_start.to_datetime64(), side='right')
+        if right <= left:
             continue
 
         # Count consecutive same-side trades
-        sides = lookback_trades['side'].values
         current_side = None
         current_count = 0
         max_buy_count = 0
         max_sell_count = 0
 
-        for side in sides:
+        for side in side_values[left:right]:
             if side == 'B':
                 if current_side == 'B':
                     current_count += 1

@@ -52,57 +52,87 @@ def build_1min_volume_stats(trades_df):
 def find_signals(trades_df, price_bars, params=PARAMS):
     """Scan for large print momentum signals."""
     signals = []
-    last_signal_idx = -params['signal_cooldown_bars']  # Allow first signal
-
-    if trades_df.empty:
+    if trades_df.empty or price_bars.empty:
         return signals
 
     trades_df = trades_df.sort_values('ts_utc').reset_index(drop=True)
+    trades_df['bar'] = trades_df['ts_utc'].dt.floor('1min')
 
-    for idx, price_bar in price_bars.iterrows():
-        # Get all trades in this minute
-        bar_start = price_bar['ts_utc']
-        bar_end = bar_start + pd.Timedelta(minutes=1)
-        bar_trades = trades_df[(trades_df['ts_utc'] >= bar_start) & (trades_df['ts_utc'] < bar_end)]
+    # Minute-level cumulative stats based on prior trades only.
+    minute_stats = trades_df.groupby('bar').agg(
+        trade_count=('size', 'count'),
+        size_sum=('size', 'sum'),
+        size_sq_sum=('size', lambda s: float((s.astype(float) ** 2).sum())),
+    ).reset_index().sort_values('bar')
 
-        if bar_trades.empty:
+    minute_stats['cum_count_prev'] = minute_stats['trade_count'].cumsum().shift(1).fillna(0)
+    minute_stats['cum_sum_prev'] = minute_stats['size_sum'].cumsum().shift(1).fillna(0.0)
+    minute_stats['cum_sq_sum_prev'] = minute_stats['size_sq_sum'].cumsum().shift(1).fillna(0.0)
+
+    valid = minute_stats['cum_count_prev'] > 1
+    minute_stats['lookback_mean'] = 0.0
+    minute_stats['lookback_std'] = 0.0
+    minute_stats.loc[valid, 'lookback_mean'] = (
+        minute_stats.loc[valid, 'cum_sum_prev'] / minute_stats.loc[valid, 'cum_count_prev']
+    )
+    variance = 0.0
+    minute_stats.loc[valid, 'lookback_std'] = np.sqrt(
+        np.maximum(
+            (minute_stats.loc[valid, 'cum_sq_sum_prev'] / minute_stats.loc[valid, 'cum_count_prev']) -
+            (minute_stats.loc[valid, 'lookback_mean'] ** 2),
+            variance
+        )
+    )
+    minute_stats['threshold'] = (
+        minute_stats['lookback_mean'] + params['std_dev_threshold'] * minute_stats['lookback_std']
+    )
+    threshold_map = minute_stats.set_index('bar')['threshold']
+
+    trades_with_thr = trades_df.merge(
+        threshold_map.rename('threshold'),
+        left_on='bar',
+        right_index=True,
+        how='left',
+    )
+    trades_with_thr = trades_with_thr[
+        (trades_with_thr['size'] >= params['min_trade_size']) &
+        (trades_with_thr['size'] > trades_with_thr['threshold'].fillna(np.inf))
+    ]
+
+    if trades_with_thr.empty:
+        return signals
+
+    # One candidate signal per bar: first qualifying print.
+    candidates = (
+        trades_with_thr
+        .sort_values('ts_utc')
+        .drop_duplicates(subset='bar', keep='first')
+    )
+    bar_lookup = price_bars.reset_index(drop=True).reset_index().rename(columns={'index': 'bar_idx'})
+    bar_lookup = bar_lookup.set_index('ts_utc')
+
+    last_signal_idx = -params['signal_cooldown_bars']
+    allowed_bars = set(price_bars['ts_utc'])
+    for _, trade in candidates.iterrows():
+        bar_ts = trade['bar']
+        if bar_ts not in allowed_bars or bar_ts not in bar_lookup.index:
             continue
 
-        # Calculate size stats from lookback window (use all previous trades)
-        lookback_trades = trades_df[trades_df['ts_utc'] < bar_start]
-        if lookback_trades.empty:
+        price_bar = bar_lookup.loc[bar_ts]
+        idx = int(price_bar['bar_idx'])
+        if idx - last_signal_idx < params['signal_cooldown_bars']:
             continue
 
-        lookback_mean = lookback_trades['size'].mean()
-        lookback_std = lookback_trades['size'].std()
-
-        if lookback_std == 0:
-            continue
-
-        threshold = lookback_mean + params['std_dev_threshold'] * lookback_std
-
-        # Check for large prints in current bar
-        for _, trade in bar_trades.iterrows():
-            if trade['size'] < params['min_trade_size']:
-                continue
-
-            if trade['size'] > threshold:
-                # Check cooldown
-                if idx - last_signal_idx < params['signal_cooldown_bars']:
-                    continue
-
-                direction = 'long' if trade['side'] == 'B' else 'short'
-
-                signals.append({
-                    'bar_idx': idx,
-                    'ts': price_bar['ts_utc'],
-                    'direction': direction,
-                    'entry_price': price_bar['close'],
-                    'trade_size': trade['size'],
-                    'threshold': threshold,
-                })
-                last_signal_idx = idx
-                break  # One signal per bar
+        direction = 'long' if trade['side'] == 'B' else 'short'
+        signals.append({
+            'bar_idx': idx,
+            'ts': bar_ts,
+            'direction': direction,
+            'entry_price': float(price_bar['close']),
+            'trade_size': float(trade['size']),
+            'threshold': float(trade['threshold']),
+        })
+        last_signal_idx = idx
 
     return signals
 

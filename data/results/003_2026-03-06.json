@@ -2,45 +2,96 @@
   "strategy_id": "003",
   "strategy_name": "CVD Divergence Absorption",
   "backtest_period": {
-    "start": "2026-03-05 13:30:00",
-    "end": "2026-03-09 14:00:00"
+    "start": "2026-03-05 06:45:00",
+    "end": "2026-03-09 13:29:00"
   },
   "metrics": {
-    "profit_factor": 1.25,
-    "sharpe": 1.76,
-    "win_rate": 50.0,
-    "avg_winner_ticks": 5.0,
-    "avg_loser_ticks": 4.0,
-    "total_trades": 2,
-    "net_pnl_usd": 0.5,
-    "max_drawdown_pct": 80.0
+    "profit_factor": Infinity,
+    "sharpe": 0.0,
+    "win_rate": 100.0,
+    "avg_winner_ticks": 10.0,
+    "avg_loser_ticks": 0,
+    "total_trades": 5,
+    "net_pnl_usd": 25.0,
+    "max_drawdown_pct": 0.0
+  },
+  "session_breakdown": {
+    "Asia": {
+      "trades": 1,
+      "pf": Infinity,
+      "pnl": 5.0
+    },
+    "London": {
+      "trades": 1,
+      "pf": Infinity,
+      "pnl": 5.0
+    },
+    "LondonNY": {
+      "trades": 1,
+      "pf": Infinity,
+      "pnl": 5.0
+    },
+    "PreNY": {
+      "trades": 2,
+      "pf": Infinity,
+      "pnl": 10.0
+    }
   },
   "params": {
-    "divergence_window": 3,
-    "min_cvd_move": 200,
+    "divergence_window": 5,
+    "min_cvd_move": 500,
     "confirmation_bars": 1,
     "price_tolerance_ticks": 10,
-    "take_profit_ticks": 5,
-    "stop_loss_ticks": 4,
-    "session_filter": "RTH"
+    "take_profit_ticks": 10,
+    "stop_loss_ticks": 8,
+    "session_filter": [
+      "Asia",
+      "London",
+      "LondonNY",
+      "PreNY"
+    ]
   },
   "trades": [
     {
-      "entry_ts": "2026-03-05 14:15:00",
-      "exit_ts": "2026-03-05 14:16:00",
+      "entry_ts": "2026-03-06 08:11:00",
+      "exit_ts": "2026-03-06 08:12:00",
       "direction": "long",
-      "entry_price": 25030.75,
-      "exit_price": 25032.0,
-      "pnl_ticks": 5.0
+      "entry_price": 24672.25,
+      "exit_price": 24674.75,
+      "pnl_ticks": 10.0
     },
     {
-      "entry_ts": "2026-03-05 17:33:00",
-      "exit_ts": "2026-03-05 17:34:00",
+      "entry_ts": "2026-03-09 05:01:00",
+      "exit_ts": "2026-03-09 05:02:00",
       "direction": "long",
-      "entry_price": 25071.5,
-      "exit_price": 25070.5,
-      "pnl_ticks": -4.0
+      "entry_price": 24383.0,
+      "exit_price": 24385.5,
+      "pnl_ticks": 10.0
+    },
+    {
+      "entry_ts": "2026-03-09 09:23:00",
+      "exit_ts": "2026-03-09 09:24:00",
+      "direction": "long",
+      "entry_price": 24640.0,
+      "exit_price": 24642.5,
+      "pnl_ticks": 10.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:01:00",
+      "exit_ts": "2026-03-06 14:02:00",
+      "direction": "short",
+      "entry_price": 24652.5,
+      "exit_price": 24650.0,
+      "pnl_ticks": 10.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:15:00",
+      "exit_ts": "2026-03-06 14:16:00",
+      "direction": "short",
+      "entry_price": 24657.75,
+      "exit_price": 24655.25,
+      "pnl_ticks": 10.0
     }
   ],
-  "notes": "Data: 3703200 ticks. RTH only. CVD reset at session open. Mar 5-6 2026."
+  "notes": "Data: 3704424 ticks. Session filter driven. CVD reset at session open. Mar 5-6 2026."
 }

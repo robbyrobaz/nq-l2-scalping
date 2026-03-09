@@ -61,6 +61,11 @@ spec_008 = importlib.util.spec_from_file_location("backtest_008",
 s008_backtest = importlib.util.module_from_spec(spec_008)
 spec_008.loader.exec_module(s008_backtest)
 
+spec_009 = importlib.util.spec_from_file_location("backtest_009",
+    Path(__file__).resolve().parents[1] / 'strategies' / '009_absorption' / 'backtest.py')
+s009_backtest = importlib.util.module_from_spec(spec_009)
+spec_009.loader.exec_module(s009_backtest)
+
 spec_010 = importlib.util.spec_from_file_location("backtest_010",
     Path(__file__).resolve().parents[1] / 'strategies' / '010_initiative_auction' / 'backtest.py')
 s010_backtest = importlib.util.module_from_spec(spec_010)
@@ -630,6 +635,22 @@ STRATEGIES = {
             },
         }
     },
+    '009': {
+        'name': 'Absorption',
+        'backtest': s009_backtest,
+        'variations': {
+            1: {
+                'name': 'Default',
+                'params': {
+                    'delta_threshold': 250,
+                    'close_move_required_ticks': 1,
+                    'take_profit_ticks': 12,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+        }
+    },
     '010': {
         'name': 'Initiative Auction',
         'backtest': s010_backtest,
@@ -944,18 +965,27 @@ STRATEGIES = {
 
 
 def _expand_session_variations(variations):
-    """Expand each base variation into session-aware variants A/B/C/D."""
+    """Build the 4 required session variations from the strategy default/base params."""
+    # Prefer variation named "Default", otherwise use the first variation.
+    default_key = None
+    for k, v in sorted(variations.items()):
+        if v.get('name', '').lower() == 'default':
+            default_key = k
+            break
+    if default_key is None:
+        default_key = sorted(variations.keys())[0]
+
+    base_spec = variations[default_key]
     expanded = []
-    for base_num, base_spec in sorted(variations.items()):
-        for session_var_id, session_var in SESSION_VARIATIONS.items():
-            params = deepcopy(base_spec['params'])
-            params['session_filter'] = session_var['sessions']
-            expanded.append({
-                'base_variation': base_num,
-                'session_variation': session_var_id,
-                'name': f"{base_spec['name']} [{session_var_id}: {session_var['name']}]",
-                'params': params,
-            })
+    for session_var_id, session_var in SESSION_VARIATIONS.items():
+        params = deepcopy(base_spec['params'])
+        params['session_filter'] = session_var['sessions']
+        expanded.append({
+            'base_variation': default_key,
+            'session_variation': session_var_id,
+            'name': f"{session_var_id}: {session_var['name']}",
+            'params': params,
+        })
     return expanded
 
 
@@ -996,8 +1026,8 @@ def run_optimization(strategy_id):
 
     results = []
     expanded_variations = _expand_session_variations(strat['variations'])
-    for idx, var_spec in enumerate(expanded_variations, 1):
-        var_num = f"{var_spec['base_variation']}_{var_spec['session_variation']}"
+    for var_spec in expanded_variations:
+        var_num = var_spec['session_variation']
         result = run_variation(strategy_id, var_num, var_spec)
         if result:
             result['base_variation'] = var_spec['base_variation']
@@ -1034,13 +1064,13 @@ def run_optimization(strategy_id):
 
 def main():
     parser = argparse.ArgumentParser(description='Optimize strategy parameters')
-    parser.add_argument('--strategy-id', type=str, choices=['001', '002', '003', '004', '005', '006', '007', '008', '010', '011', '012', '013', '014', 'all'],
+    parser.add_argument('--strategy-id', type=str, choices=['001', '002', '003', '004', '005', '006', '007', '008', '009', '010', '011', '012', '013', '014', 'all'],
                         default='all', help='Strategy ID to optimize')
     args = parser.parse_args()
 
     if args.strategy_id == 'all':
         all_results = {}
-        for sid in ['001', '002', '003', '004', '005', '006', '007', '008', '010', '011', '012', '013', '014']:
+        for sid in ['001', '002', '003', '004', '005', '006', '007', '008', '009', '010', '011', '012', '013', '014']:
             all_results[sid] = run_optimization(sid)
         return all_results
     else:
