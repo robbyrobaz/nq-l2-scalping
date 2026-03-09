@@ -11,6 +11,7 @@ import importlib.util
 from pathlib import Path
 from datetime import datetime
 from itertools import product
+from copy import deepcopy
 
 import pandas as pd
 
@@ -84,6 +85,25 @@ spec_014 = importlib.util.spec_from_file_location("backtest_014",
     Path(__file__).resolve().parents[1] / 'strategies' / '014_failed_auction_hook' / 'backtest.py')
 s014_backtest = importlib.util.module_from_spec(spec_014)
 spec_014.loader.exec_module(s014_backtest)
+
+SESSION_VARIATIONS = {
+    "var_A": {
+        "name": "All sessions",
+        "sessions": None,
+    },
+    "var_B": {
+        "name": "RTH only",
+        "sessions": ["NYOpen", "MidDay", "PowerHour", "Close"],
+    },
+    "var_C": {
+        "name": "London + LondonNY",
+        "sessions": ["London", "LondonNY"],
+    },
+    "var_D": {
+        "name": "Overnight",
+        "sessions": ["Asia", "London", "LondonNY", "PreNY"],
+    },
+}
 
 
 STRATEGIES = {
@@ -923,6 +943,22 @@ STRATEGIES = {
 }
 
 
+def _expand_session_variations(variations):
+    """Expand each base variation into session-aware variants A/B/C/D."""
+    expanded = []
+    for base_num, base_spec in sorted(variations.items()):
+        for session_var_id, session_var in SESSION_VARIATIONS.items():
+            params = deepcopy(base_spec['params'])
+            params['session_filter'] = session_var['sessions']
+            expanded.append({
+                'base_variation': base_num,
+                'session_variation': session_var_id,
+                'name': f"{base_spec['name']} [{session_var_id}: {session_var['name']}]",
+                'params': params,
+            })
+    return expanded
+
+
 def run_variation(strategy_id, variation_num, variation_spec):
     """Run a single parameter variation and return results."""
     try:
@@ -959,9 +995,14 @@ def run_optimization(strategy_id):
     print(f"{'='*70}")
 
     results = []
-    for var_num, var_spec in sorted(strat['variations'].items()):
+    expanded_variations = _expand_session_variations(strat['variations'])
+    for idx, var_spec in enumerate(expanded_variations, 1):
+        var_num = f"{var_spec['base_variation']}_{var_spec['session_variation']}"
         result = run_variation(strategy_id, var_num, var_spec)
         if result:
+            result['base_variation'] = var_spec['base_variation']
+            result['session_variation'] = var_spec['session_variation']
+            result['session_filter'] = var_spec['params']['session_filter']
             results.append(result)
 
     # Sort by profit factor (desc), then net_pnl (desc)

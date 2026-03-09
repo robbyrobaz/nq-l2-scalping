@@ -4,6 +4,7 @@ import duckdb
 import pandas as pd
 import numpy as np
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 DB_PATH = "/tmp/nq_feed_readonly.duckdb"
 DB_SOURCE = "/home/rob/infrastructure/ibkr/data/nq_feed.duckdb"
@@ -13,11 +14,21 @@ NQ_TICK_SIZE = 0.25  # NQ tick = 0.25 points
 MNQ_TICK_VALUE = 0.50  # MNQ $0.50 per tick
 NQ_TICK_VALUE = 5.00
 
-# RTH session: 08:30-15:15 CT = 13:30-20:15 UTC (CT = UTC-5 in March CDT)
-RTH_START_UTC_HOUR = 13
-RTH_START_UTC_MIN = 30
-RTH_END_UTC_HOUR = 20
-RTH_END_UTC_MIN = 15
+# Session definitions in ET minute_of_day. Asia wraps midnight.
+SESSION_DEFS = [
+    ("Asia", 18 * 60, 2 * 60, 8 * 60),
+    ("London", 2 * 60, 5 * 60, 3 * 60),
+    ("LondonNY", 5 * 60, 8 * 60 + 30, 3 * 60 + 30),
+    ("PreNY", 8 * 60 + 30, 9 * 60 + 30, 60),
+    ("NYOpen", 9 * 60 + 30, 10 * 60 + 30, 60),
+    ("MidDay", 10 * 60 + 30, 14 * 60, 3 * 60 + 30),
+    ("PowerHour", 14 * 60, 15 * 60, 60),
+    ("Close", 15 * 60, 16 * 60, 60),
+    ("PostMarket", 16 * 60, 18 * 60, 2 * 60),
+]
+
+SESSION_NAMES = [s[0] for s in SESSION_DEFS]
+RTH_SESSIONS = ["NYOpen", "MidDay", "PowerHour", "Close"]
 
 
 def _get_conn():
@@ -113,6 +124,7 @@ def build_1min_bars_with_delta(df_trades):
     ).reset_index().rename(columns={'bar': 'ts_utc'})
 
     bars['cumulative_delta'] = bars['bar_delta'].cumsum()
+    bars = tag_sessions(bars, ts_col='ts_utc')
     return bars
 
 
@@ -128,14 +140,6 @@ def compute_cvd(df_bars):
     df['date'] = df['ts_utc'].dt.date
     df['time'] = df['ts_utc'].dt.time
 
-    from datetime import time as dtime
-    rth_start = dtime(RTH_START_UTC_HOUR, RTH_START_UTC_MIN)
-
-    # Create session IDs: increment when we hit RTH start
-    df['is_session_start'] = (df['time'] >= rth_start) & (df['time'] < dtime(RTH_START_UTC_HOUR, RTH_START_UTC_MIN + 1))
-    # Group by date for session reset
-    df['session'] = df['date'].astype(str)
-
     cvd = []
     running = 0.0
     prev_date = None
@@ -147,7 +151,7 @@ def compute_cvd(df_bars):
         cvd.append(running)
     df['cvd'] = cvd
 
-    df.drop(columns=['date', 'time', 'is_session_start', 'session'], inplace=True)
+    df.drop(columns=['date', 'time'], inplace=True)
     return df
 
 
@@ -175,13 +179,96 @@ def compute_volume_profile(df_trades, price_lo, price_hi, start_ts=None, end_ts=
     return profile
 
 
+def _get_session(minute_of_day):
+    """Return session name for ET minute_of_day."""
+    if minute_of_day >= 18 * 60 or minute_of_day < 2 * 60:
+        return "Asia"
+    if 2 * 60 <= minute_of_day < 5 * 60:
+        return "London"
+    if 5 * 60 <= minute_of_day < 8 * 60 + 30:
+        return "LondonNY"
+    if 8 * 60 + 30 <= minute_of_day < 9 * 60 + 30:
+        return "PreNY"
+    if 9 * 60 + 30 <= minute_of_day < 10 * 60 + 30:
+        return "NYOpen"
+    if 10 * 60 + 30 <= minute_of_day < 14 * 60:
+        return "MidDay"
+    if 14 * 60 <= minute_of_day < 15 * 60:
+        return "PowerHour"
+    if 15 * 60 <= minute_of_day < 16 * 60:
+        return "Close"
+    return "PostMarket"
+
+
+def tag_sessions(df, ts_col='ts_utc'):
+    """Tag rows with ET session metadata based on UTC timestamps."""
+    out = df.copy()
+    ts_utc = pd.to_datetime(out[ts_col], utc=True, errors='coerce')
+    dt_et = ts_utc.dt.tz_convert(ZoneInfo("America/New_York")).dt.tz_localize(None)
+
+    out['datetime_et'] = dt_et
+    out['minute_of_day'] = dt_et.dt.hour * 60 + dt_et.dt.minute
+    out['session'] = out['minute_of_day'].map(_get_session)
+    return out
+
+
+def filter_sessions(df, sessions=None, ts_col='ts_utc'):
+    """Filter to requested sessions. None means no filter (all sessions)."""
+    out = df if 'session' in df.columns else tag_sessions(df, ts_col=ts_col)
+    if sessions is None:
+        return out.copy()
+    if isinstance(sessions, str):
+        sessions = [sessions]
+    sessions = set(sessions)
+    return out[out['session'].isin(sessions)].copy()
+
+
 def filter_rth(df, ts_col='ts_utc'):
-    """Filter to RTH hours only (13:30-20:15 UTC)."""
-    from datetime import time as dtime
-    t = df[ts_col].dt.time
-    start = dtime(RTH_START_UTC_HOUR, RTH_START_UTC_MIN)
-    end = dtime(RTH_END_UTC_HOUR, RTH_END_UTC_MIN)
-    return df[(t >= start) & (t <= end)].copy()
+    """Backward-compatible RTH filter (opt-in)."""
+    return filter_sessions(df, sessions=RTH_SESSIONS, ts_col=ts_col)
+
+
+def compute_session_breakdown(trades, bars, entry_ts_col='entry_ts'):
+    """Compute per-session trade count, PF, and PnL (USD)."""
+    if not trades:
+        return {}
+
+    trades_df = pd.DataFrame(trades)
+    if trades_df.empty or entry_ts_col not in trades_df.columns:
+        return {}
+
+    bars_with_session = bars if 'session' in bars.columns else tag_sessions(bars, ts_col='ts_utc')
+    session_map = bars_with_session[['ts_utc', 'session']].copy()
+    session_map['_entry_ts'] = pd.to_datetime(session_map['ts_utc'], utc=True, errors='coerce')
+
+    trades_df['_entry_ts'] = pd.to_datetime(trades_df[entry_ts_col], utc=True, errors='coerce')
+    merged = trades_df.merge(
+        session_map[['_entry_ts', 'session']],
+        on='_entry_ts',
+        how='left',
+    )
+    merged['session'] = merged['session'].fillna('Unknown')
+
+    breakdown = {}
+    for session_name, grp in merged.groupby('session'):
+        pnls = grp['pnl_ticks'].astype(float).tolist()
+        winners = [p for p in pnls if p > 0]
+        losers = [p for p in pnls if p < 0]
+        gross_profit = sum(winners) if winners else 0.0
+        gross_loss = abs(sum(losers)) if losers else 0.0
+        pf = gross_profit / gross_loss if gross_loss > 0 else (float('inf') if gross_profit > 0 else 0.0)
+        pnl_usd = pnl_mnq(sum(pnls))
+        breakdown[session_name] = {
+            'trades': int(len(pnls)),
+            'pf': round(float(pf), 2) if np.isfinite(pf) else float('inf'),
+            'pnl': round(float(pnl_usd), 2),
+        }
+
+    ordered = {}
+    for s in SESSION_NAMES + ['Unknown']:
+        if s in breakdown:
+            ordered[s] = breakdown[s]
+    return ordered
 
 
 def ticks_to_points(ticks):

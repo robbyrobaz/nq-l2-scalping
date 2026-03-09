@@ -12,8 +12,8 @@ from datetime import datetime
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from pipeline.data_loader import (
-    load_trades, build_1min_bars_with_delta, filter_rth,
-    NQ_TICK_SIZE, MNQ_TICK_VALUE, pnl_mnq, _get_conn
+    load_trades, build_1min_bars_with_delta, filter_sessions,
+    NQ_TICK_SIZE, MNQ_TICK_VALUE, pnl_mnq, _get_conn, compute_session_breakdown
 )
 
 # Default parameters
@@ -24,7 +24,7 @@ PARAMS = {
     "entry_offset_ticks": 1,
     "take_profit_ticks": 12,
     "stop_loss_ticks": 8,
-    "session_filter": "RTH",
+    "session_filter": None,
 }
 
 
@@ -215,7 +215,9 @@ def compute_metrics(trades):
 
 def run(params=None):
     if params is None:
-        params = PARAMS
+        params = PARAMS.copy()
+    else:
+        params = params.copy()
 
     print("Loading quotes and building book depth bars...")
     book_bars = build_1min_book_depth_bars()
@@ -223,7 +225,7 @@ def run(params=None):
     print("Loading trades and building price bars...")
     trades_df = load_trades()
     price_bars = build_1min_bars_with_delta(trades_df)
-    price_bars = filter_rth(price_bars)
+    price_bars = filter_sessions(price_bars, sessions=params.get('session_filter'))
 
     if book_bars.empty or price_bars.empty:
         print("No data available")
@@ -249,6 +251,7 @@ def run(params=None):
 
     metrics = compute_metrics(trade_list)
     print(f"Metrics: {metrics}")
+    session_breakdown = compute_session_breakdown(trade_list, bars if 'bars' in locals() else price_bars)
 
     result = {
         'strategy_id': '008',
@@ -258,9 +261,10 @@ def run(params=None):
             'end': str(price_bars['ts_utc'].max()),
         },
         'metrics': metrics,
+        'session_breakdown': session_breakdown,
         'params': params,
         'trades': trade_list,
-        'notes': f'Data: {len(trades_df)} ticks. RTH only. Stacked bid/ask detection.',
+        'notes': f'Data: {len(trades_df)} ticks. Session filter driven. Stacked bid/ask detection.',
     }
 
     out = Path(__file__).resolve().parents[2] / 'data' / 'results' / '008_2026-03-06.json'

@@ -14,8 +14,8 @@ from scipy.signal import find_peaks
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from pipeline.data_loader import (
-    load_trades_fast, load_bars_1min, filter_rth,
-    compute_volume_profile, NQ_TICK_SIZE, MNQ_TICK_VALUE, pnl_mnq
+    load_trades_fast, load_bars_1min, filter_sessions,
+    compute_volume_profile, NQ_TICK_SIZE, MNQ_TICK_VALUE, pnl_mnq, compute_session_breakdown
 )
 
 PARAMS = {
@@ -26,6 +26,7 @@ PARAMS = {
     "take_profit_ticks": 12,
     "stop_loss_ticks": 8,
     "max_retrace_time_bars": 30,
+    "session_filter": None,
 }
 
 
@@ -246,12 +247,14 @@ def compute_metrics(trades):
 
 def run(params=None):
     if params is None:
-        params = PARAMS
+        params = PARAMS.copy()
+    else:
+        params = params.copy()
 
     print("Loading 1-min bars...")
     bars = load_bars_1min()
-    bars = filter_rth(bars)
-    print(f"RTH bars: {len(bars)}")
+    bars = filter_sessions(bars, sessions=params.get('session_filter'))
+    print(f"Filtered bars: {len(bars)}")
 
     print("Loading trade ticks for volume profiles...")
     trades_df = load_trades_fast()
@@ -289,6 +292,7 @@ def run(params=None):
 
     metrics = compute_metrics(trade_list)
     print(f"Metrics: {metrics}")
+    session_breakdown = compute_session_breakdown(trade_list, bars if 'bars' in locals() else price_bars)
 
     result = {
         'strategy_id': '002',
@@ -298,9 +302,10 @@ def run(params=None):
             'end': str(bars['ts_utc'].max()),
         },
         'metrics': metrics,
+        'session_breakdown': session_breakdown,
         'params': params,
         'trades': trade_list,
-        'notes': f'Data: {len(trades_df)} ticks, {len(bars)} RTH bars. Mar 5-6 2026.',
+        'notes': f'Data: {len(trades_df)} ticks, {len(bars)} Filtered bars. Mar 5-6 2026.',
     }
 
     out = Path(__file__).resolve().parents[2] / 'data' / 'results' / '002_2026-03-06.json'

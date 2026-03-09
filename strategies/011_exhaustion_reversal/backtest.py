@@ -11,8 +11,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from pipeline.data_loader import (
-    load_trades, build_1min_bars_with_delta, filter_rth,
-    NQ_TICK_SIZE, MNQ_TICK_VALUE, pnl_mnq
+    load_trades, build_1min_bars_with_delta, filter_sessions,
+    NQ_TICK_SIZE, MNQ_TICK_VALUE, pnl_mnq, compute_session_breakdown
 )
 
 # Default parameters
@@ -22,7 +22,7 @@ PARAMS = {
     "min_volume_ratio": 0.6,
     "take_profit_ticks": 8,
     "stop_loss_ticks": 10,
-    "session_filter": "RTH",
+    "session_filter": None,
 }
 
 
@@ -201,14 +201,16 @@ def compute_metrics(trades):
 
 def run(params=None):
     if params is None:
-        params = PARAMS
+        params = PARAMS.copy()
+    else:
+        params = params.copy()
 
     print("Loading trades...")
     trades_df = load_trades()
     print(f"Building 1-min bars from {len(trades_df)} ticks...")
     bars = build_1min_bars_with_delta(trades_df)
-    bars = filter_rth(bars)
-    print(f"RTH bars: {len(bars)}")
+    bars = filter_sessions(bars, sessions=params.get('session_filter'))
+    print(f"Filtered bars: {len(bars)}")
 
     print("Scanning for signals...")
     signals = find_signals(bars, params)
@@ -219,6 +221,7 @@ def run(params=None):
 
     metrics = compute_metrics(trade_list)
     print(f"Metrics: {metrics}")
+    session_breakdown = compute_session_breakdown(trade_list, bars if 'bars' in locals() else price_bars)
 
     result = {
         'strategy_id': '011',
@@ -228,9 +231,10 @@ def run(params=None):
             'end': str(bars['ts_utc'].max()),
         },
         'metrics': metrics,
+        'session_breakdown': session_breakdown,
         'params': params,
         'trades': trade_list,
-        'notes': f'Data: {len(trades_df)} ticks over Mar 5-6 2026. RTH only.',
+        'notes': f'Data: {len(trades_df)} ticks over Mar 5-6 2026. Session filter driven.',
     }
 
     out = Path(__file__).resolve().parents[2] / 'data' / 'results' / '011_2026-03-06.json'

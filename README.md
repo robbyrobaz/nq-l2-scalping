@@ -1,6 +1,6 @@
 # NQ L2 Scalping — Order Flow Strategy Library
 
-📊 **[Full Results & Comparison Report](data/results/comparison_report.md)** ← Click for detailed analysis
+📊 **[Latest Report (2026-03-09)](data/results/comparison_report_2026-03-09.md)** | **[Baseline (2026-03-06)](data/results/comparison_report.md)**
 
 A video-driven research pipeline that:
 1. Ingests trading education videos → extracts strategies
@@ -9,90 +9,132 @@ A video-driven research pipeline that:
 4. Ranks strategies by live-tradeable edge
 
 ## Data Source
-- **Trades**: IBKR tick data — `/home/rob/infrastructure/ibkr/data/nq_feed.duckdb` (1.18M+ trade ticks)
-- **L2 Quotes**: IBKR quote ticks — bid/ask size up to 10 levels
-- **1-min bars**: `/home/rob/infrastructure/ibkr/data/NQ_ibkr_1min.csv`
+- **Feed**: IBKR live tick stream via `ibkr-nq-feed.service`
+- **Trades**: `nq_feed.duckdb` — 3.7M+ trade ticks, 67.9M+ quote ticks
+- **1-min bars**: `NQ_ibkr_1min.csv` — 2,531+ bars (growing daily)
+- **Session tagger**: NQ v3 `ZoneInfo("America/New_York")` approach — DST-aware, all 9 sessions
+
+## ⚠️ Important Context: Sample Size
+
+All results below are from **RTH-only backtests on limited IBKR history** (feed live since Mar 6).
+Low trade counts are expected — one RTH session = ~6.5 hours of data.
+A **session-aware backtest across all 9 sessions** (Asia, London, LondonNY, etc.) is running now
+to get statistically meaningful sample sizes. Results will supersede these.
+
+---
+
+## Strategy Rankings — 2026-03-09 (RTH backtest, post-DST fix)
+
+> RTH filter corrected for DST: was 14:30–21:15 UTC (EST), now 13:30–20:15 UTC (EDT)
+
+### ✅ Tier 1: Real Edge (PF > 1.5, Trades ≥ 10)
+| ID | Strategy | Variation | PF | WR | Trades | PnL | Sharpe |
+|----|----------|-----------|----|----|--------|-----|--------|
+| 014 | **Failed Auction Hook** | **Aggressive** | **2.50** | **58.8%** | **17** | **+$42** | **7.24** |
+| 014 | Failed Auction Hook | Tight | 1.79 | 58.8% | 17 | +$22 | 4.64 |
+
+**014 is the only strategy with both meaningful trade count AND positive edge in today's RTH session.**
+The Aggressive variant is the lead candidate for forward testing.
+
+### ⚠️ Tier 2: Insufficient Sample (PF looks good but trades < 10)
+| ID | Strategy | Variation | PF | Trades | Note |
+|----|----------|-----------|-----|--------|------|
+| 003 | CVD Divergence | Momentum | ∞ | 3 | 3 trades — not meaningful |
+| 001 | Delta Absorption | Aggressive TP | 2.00 | 4 | Degraded from PF 4.00 (Mar 6) |
+| 014 | Failed Auction Hook | Default | 1.40 | 13 | Borderline — below 1.5 threshold |
+
+### ❌ Tier 3: Not Working (RTH)
+| ID | Strategy | Best PF | Trades | Note |
+|----|----------|---------|--------|------|
+| 013 | Value Area Rejection | 0.29 | 71 | Was #1 on Mar 6 (PF 3.60) — completely collapsed |
+| 007 | Sweep Fade | 0.48 | 867 | Highest signal count, consistent loser |
+| 012 | LVN Rebalance | 0.52 | 47 | Below breakeven across all variants |
+| 010 | Initiative Auction | 0.32 | 17 | No edge RTH |
+| 006 | Tape Streak | 0.89 | 466 | High frequency, marginal loser |
+| 002 | Volume Profile FVG | 0.95 | 82 | Near breakeven, not there yet |
+
+---
+
+## Key Findings — 2026-03-09
+
+### What Changed vs 2026-03-06
+| Strategy | Mar 6 PF | Mar 9 PF | Verdict |
+|----------|----------|----------|---------|
+| 013 Value Area Rejection | 3.60 | 0.29 | ❌ Regime-dependent — was edge, now isn't |
+| 001 Delta Absorption | 4.00 | 2.00 | ⚠️ Degraded, still positive but low samples |
+| 014 Failed Auction Hook | ∞ (1 trade) | 2.50 (17 trades) | ✅ Scaled up, held edge |
+
+### Critical Insight: RTH-Only Is Not Enough
+With only one day of IBKR data, RTH = ~400 bars. Most strategies fire 1–17 times.
+**You cannot make deployment decisions on this sample size.**
+
+Strategy 013 (Value Area Rejection) went from #1 on Mar 6 to near-zero on Mar 9. 
+That's not the strategy changing — that's two different market days producing different regimes.
+Without 100+ trades per variant, every ranking is provisional.
+
+**Session-aware backtest (all 9 sessions)** is running now — will give 3–5x more data
+and per-session PF breakdown (London killzone, Asia, overnight, etc.).
+
+### Where to Look Next
+- **014 Aggressive** → candidate for forward test (paper trade with 1 MNQ)
+- **London Killzone (02:00–05:00 ET)** → sweep fade and bid-ask imbalance strategies are
+  built for exactly this session — institutional flow, cleaner sweeps. Session-aware results
+  expected to change the picture significantly.
+- **007 Sweep Fade** → fires 867 times in one RTH session (overfit to noise?). Parameter
+  tightening or London-only filter may fix it.
+
+---
 
 ## Strategy Library
 
-**Total Strategies:** 17 | **Parameter Variations:** TBD | **High Potential Configs:** 6 (PF > 2.0)
+**Total Strategies:** 17 | **Active Backtests:** 014 (Aggressive), session-aware run pending
 
-### Tier 1: Tradeable (Deploy Now) 🚀
-| ID | Strategy | Best Variation | Trades | WR | PF | Sharpe | PnL | Status |
-|----|----------|-----------------|--------|-----|--------|---------|---------|---------|
-| ✅ 013 | **Value Area Rejection** | **Wide** | **8** | **75.0%** | **3.60** | **10.83** | **+$26** | 🚀 GOLD STANDARD |
-| ✅ 001 | Delta Absorption Breakout | Aggressive TP | 6 | 66.7% | 4.00 | 11.22 | +$24 | 🚀 TRADEABLE |
-| ✅ 013 | Value Area Rejection | Default | 7 | 71.4% | 3.12 | 9.48 | +$17 | 🚀 HIGH POTENTIAL |
-| ✅ 001 | Delta Absorption Breakout | Wide Range | 6 | 66.7% | 2.50 | 7.48 | +$12 | 🚀 HIGH POTENTIAL |
+| ID | Strategy | Description | Source | Status |
+|----|----------|-------------|--------|--------|
+| 001 | Delta Absorption Breakout | Large absorbed volume → direction signal | Video | ⚠️ Degrading |
+| 002 | Volume Profile FVG | FVG fill + volume confirmation | Video | ❌ Below edge |
+| 003 | CVD Divergence | CVD vs price divergence | Video | ⚠️ Low samples |
+| 004 | Bid-Ask Imbalance | Order book skew entry | Video | 🔬 Research |
+| 005 | Large Print Momentum | Aggressive large-lot entry | Video | 🔬 Research |
+| 006 | Tape Streak | Consecutive same-side prints | Video | ❌ Consistent loser |
+| 007 | Sweep Fade | Sweep → reversal | Video | ❌ RTH loser (London?) |
+| 008 | Stacked Book Breakout | Layered book breaks | Video | 🔬 Research |
+| 009 | (reserved) | — | — | — |
+| 010 | Initiative Auction | Auction theory breakout | Video | ❌ No edge |
+| 011 | Exhaustion Reversal | Momentum exhaustion | Video | ⚠️ Low samples |
+| 012 | LVN Rebalance | Low volume node fill | Video | ❌ Below edge |
+| 013 | Value Area Rejection | VAH/VAL fade | Video | ❌ Regime-dependent |
+| 014 | **Failed Auction Hook** | Failed breakout reversal | Video | ✅ **LEAD CANDIDATE** |
+| 015 | Order Flow Market Structure | Multi-timeframe orderflow | Video | 🔬 Partial build |
+| 016 | Orderflow Auction Theory Framework | Full auction cycle | Video | 🔬 Partial build |
+| 017 | Simple Order Flow Delta Setups | Basic delta patterns | Video | 🔬 Partial build |
 
-### Tier 2: Viable (Needs Refinement) ✓
-| ID | Strategy | Best Variation | Trades | WR | PF | Sharpe | PnL | Status |
-|----|----------|-----------------|--------|-----|--------|---------|---------|---------|
-| ✓ 003 | CVD Divergence | Momentum | 4 | 50.0% | 2.00 | 5.29 | +$8 | ✓ VIABLE |
-| ✓ 002 | Volume Profile FVG | Aggressive | 42 | 38.1% | 1.54 | 3.06 | +$56 | ✓ VIABLE |
+---
 
-### Tier 3: Signal-Sparse (Forward Test) ⚠️
-| ID | Strategy | Best Variation | Trades | WR | PF | Sharpe | PnL | Status |
-|----|----------|-----------------|--------|-----|--------|---------|---------|---------|
-| ⚠️ 010 | Initiative Auction | Default | 2 | 100% | ∞ | 0.00 | +$12 | ⚠️ LIMITED SIGNALS |
-| ⚠️ 011 | Exhaustion Reversal | Default | 1 | 100% | ∞ | 0.00 | +$4 | ⚠️ LIMITED SIGNALS |
-| ⚠️ 012 | LVN Rebalance | Default | 1 | 100% | ∞ | 0.00 | +$5 | ⚠️ LIMITED SIGNALS |
-| ⚠️ 014 | Failed Auction Hook | Wide | 1 | 100% | ∞ | 0.00 | +$7 | ⚠️ LIMITED SIGNALS |
+## Backtests Log
+| Date | Data | Strategies | Winner | Notes |
+|------|------|------------|--------|-------|
+| 2026-03-06 | IBKR RTH (EST, day 1) | 001–014 | 013 Aggressive (PF 3.60) | EST hours, limited history |
+| 2026-03-09 | IBKR RTH (EDT, day 3) | 001–014 | **014 Aggressive (PF 2.50)** | DST fix applied, 1.28M ticks |
+| 2026-03-09 | All 9 sessions (pending) | 001–014 | TBD | Session-aware run in progress |
 
-### Tier 4: Not Viable ❌
-| ID | Strategy | Trades | WR | PF | Issue |
-|----|----------|--------|-----|--------|---------|
-| ❌ 004 | Bid/Ask Imbalance | 0 | — | 0.00 | No signals |
-| ❌ 005 | Large Print Momentum | 0 | — | 0.00 | No signals |
-| ❌ 006 | Aggressive Tape Streak | 375 | 3.5% | 0.00 | Overfitting (-$282k) |
-| ❌ 007 | Sweep & Fade | 652 | 41.1% | 0.56 | Unprofitable |
-| ❌ 008 | Stacked Book Breakout | 0 | — | 0.00 | No signals |
-| ❌ 009 | Absorption v2 | 0 | — | 0.00 | No signals |
+---
 
-### Tier 5: Under Discovery (Week of Mar 8, 2026) 🔬
-| ID | Strategy | Source | Status |
-|----|----------|--------|---------|
-| 🔬 015 | Order Flow Market Structure | Bear Bull Traders | 🔬 Awaiting Implementation |
-| 🔬 016 | Orderflow Auction Theory Framework | Fabervaale ENG | 🔬 Awaiting Implementation |
-| 🔬 017 | Simple Order Flow Delta Setups | Carmine Rosato | 🔬 Awaiting Implementation |
+## Running a Backtest
 
-**Backtest Period:** Mar 5-6 2026 (2 RTH sessions, 376 1-min bars)
-**Data:** 2,347,158 IBKR ticks
-**PnL Basis:** MNQ $0.50 per tick
-**Report:** **[📊 Full Comparison Report](data/results/comparison_report.md)** — ranked results, top configs, verdicts
+```bash
+cd nq-l2-scalping
 
-### ⭐ Top Recommendation
-**013 - Value Area Rejection (Wide)**: All 5 variants are HIGH POTENTIAL (PF > 2.0).
-- Best balanced: $26 PnL, 75% win rate, 8 trades, Sharpe 10.83
-- Most robust strategy tested — ready for live deployment
-- Deploy: 013 Wide + 001 Aggressive TP (complementary signals)
+# Refresh DuckDB copy (gets latest IBKR data)
+rm -f /tmp/nq_feed_readonly.duckdb
 
-## Pipeline
+# Full optimization sweep (all strategies, all variants)
+# Long-running — use background
+nohup python3 pipeline/optimize.py --strategy-id all > /tmp/nq_l2_backtest.log 2>&1 &
 
-```
-Video URL → transcript → strategy_spec.md → implementation → backtest → results/YYYY-MM-DD_<id>.json
-```
+# Single strategy
+python3 pipeline/optimize.py --strategy-id 014
 
-Add a new video: `python3 pipeline/process_video.py --url <youtube_url>`
-
-## Comparison Schema
-Each strategy result stored in `data/results/<strategy_id>_<date>.json`:
-```json
-{
-  "strategy_id": "001",
-  "version": "1.0",
-  "source_video": "https://youtube.com/watch?v=...",
-  "backtest_period": {"start": "2026-03-01", "end": "2026-03-06"},
-  "metrics": {
-    "profit_factor": 0.0,
-    "sharpe": 0.0,
-    "win_rate": 0.0,
-    "avg_winner_ticks": 0,
-    "avg_loser_ticks": 0,
-    "total_trades": 0,
-    "net_pnl_usd": 0.0,
-    "max_drawdown_pct": 0.0
-  },
-  "params": {}
-}
+# Generate summary from existing results
+python3 run_all_optimizations.py
 ```
