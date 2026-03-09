@@ -4,7 +4,7 @@
     "strategy_name": "Exhaustion Reversal",
     "backtest_period": {
       "start": "2026-03-05 14:30:00",
-      "end": "2026-03-09 15:04:00"
+      "end": "2026-03-09 15:45:00"
     },
     "metrics": {
       "profit_factor": Infinity,
@@ -46,7 +46,7 @@
         "pnl_ticks": 8.0
       }
     ],
-    "notes": "Data: 3706992 ticks over Mar 5-6 2026. Session filter driven.",
+    "notes": "Data: 3725481 ticks over Mar 5-6 2026. Session filter driven.",
     "variation": "var_B",
     "variation_name": "var_B: RTH only",
     "base_variation": 2,
@@ -105,7 +105,7 @@
         "pnl_ticks": 8.0
       }
     ],
-    "notes": "Data: 3706992 ticks over Mar 5-6 2026. Session filter driven.",
+    "notes": "Data: 3725481 ticks over Mar 5-6 2026. Session filter driven.",
     "variation": "var_D",
     "variation_name": "var_D: Overnight",
     "base_variation": 2,
@@ -122,7 +122,7 @@
     "strategy_name": "Exhaustion Reversal",
     "backtest_period": {
       "start": "2026-03-05 06:45:00",
-      "end": "2026-03-09 15:04:00"
+      "end": "2026-03-09 15:45:00"
     },
     "metrics": {
       "profit_factor": 1.6,
@@ -185,7 +185,7 @@
         "pnl_ticks": 8.0
       }
     ],
-    "notes": "Data: 3706992 ticks over Mar 5-6 2026. Session filter driven.",
+    "notes": "Data: 3725481 ticks over Mar 5-6 2026. Session filter driven.",
     "variation": "var_A",
     "variation_name": "var_A: All sessions",
     "base_variation": 2,
@@ -222,7 +222,7 @@
       ]
     },
     "trades": [],
-    "notes": "Data: 3706992 ticks over Mar 5-6 2026. Session filter driven.",
+    "notes": "Data: 3725481 ticks over Mar 5-6 2026. Session filter driven.",
     "variation": "var_C",
     "variation_name": "var_C: London + LondonNY",
     "base_variation": 2,

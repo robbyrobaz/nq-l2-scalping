@@ -6,14 +6,14 @@
     "end": "2026-03-09 13:29:00"
   },
   "metrics": {
-    "profit_factor": 0.22,
-    "sharpe": -12.83,
-    "win_rate": 25.0,
+    "profit_factor": 0.12,
+    "sharpe": -19.25,
+    "win_rate": 15.8,
     "avg_winner_ticks": 8.0,
     "avg_loser_ticks": 12.0,
-    "total_trades": 20,
-    "net_pnl_usd": -70.0,
-    "max_drawdown_pct": 1850.0
+    "total_trades": 19,
+    "net_pnl_usd": -84.0,
+    "max_drawdown_pct": 0.0
   },
   "session_breakdown": {
     "Asia": {
@@ -22,14 +22,14 @@
       "pnl": -32.0
     },
     "London": {
-      "trades": 4,
-      "pf": 0.67,
-      "pnl": -4.0
+      "trades": 3,
+      "pf": 0.33,
+      "pnl": -8.0
     },
     "LondonNY": {
       "trades": 8,
-      "pf": 0.22,
-      "pnl": -28.0
+      "pf": 0.1,
+      "pnl": -38.0
     },
     "PreNY": {
       "trades": 1,
@@ -54,12 +54,12 @@
   },
   "trades": [
     {
-      "entry_ts": "2026-03-05 11:25:00",
-      "exit_ts": "2026-03-05 11:26:00",
-      "direction": "short",
-      "entry_price": 24806.5,
-      "exit_price": 24804.5,
-      "pnl_ticks": 8.0
+      "entry_ts": "2026-03-05 09:13:00",
+      "exit_ts": "2026-03-05 09:14:00",
+      "direction": "long",
+      "entry_price": 25005.5,
+      "exit_price": 25002.5,
+      "pnl_ticks": -12.0
     },
     {
       "entry_ts": "2026-03-05 12:25:00",
@@ -67,6 +67,14 @@
       "direction": "short",
       "entry_price": 24819.25,
       "exit_price": 24822.25,
+      "pnl_ticks": -12.0
+    },
+    {
+      "entry_ts": "2026-03-05 12:46:00",
+      "exit_ts": "2026-03-05 12:47:00",
+      "direction": "long",
+      "entry_price": 24856.75,
+      "exit_price": 24853.75,
       "pnl_ticks": -12.0
     },
     {
@@ -94,14 +102,6 @@
       "pnl_ticks": -12.0
     },
     {
-      "entry_ts": "2026-03-05 23:02:00",
-      "exit_ts": "2026-03-05 23:03:00",
-      "direction": "long",
-      "entry_price": 25131.0,
-      "exit_price": 25133.0,
-      "pnl_ticks": 8.0
-    },
-    {
       "entry_ts": "2026-03-05 23:28:00",
       "exit_ts": "2026-03-05 23:29:00",
       "direction": "short",
@@ -110,11 +110,19 @@
       "pnl_ticks": -12.0
     },
     {
+      "entry_ts": "2026-03-05 23:41:00",
+      "exit_ts": "2026-03-05 23:42:00",
+      "direction": "long",
+      "entry_price": 25114.5,
+      "exit_price": 25116.5,
+      "pnl_ticks": 8.0
+    },
+    {
       "entry_ts": "2026-03-06 06:30:00",
       "exit_ts": "2026-03-06 06:31:00",
       "direction": "short",
-      "entry_price": 24762.5,
-      "exit_price": 24765.5,
+      "entry_price": 24761.5,
+      "exit_price": 24764.5,
       "pnl_ticks": -12.0
     },
     {
@@ -134,22 +142,6 @@
       "pnl_ticks": 8.0
     },
     {
-      "entry_ts": "2026-03-06 09:10:00",
-      "exit_ts": "2026-03-06 09:11:00",
-      "direction": "short",
-      "entry_price": 24843.75,
-      "exit_price": 24841.75,
-      "pnl_ticks": 8.0
-    },
-    {
-      "entry_ts": "2026-03-08 22:15:00",
-      "exit_ts": "2026-03-08 22:16:00",
-      "direction": "short",
-      "entry_price": 24129.5,
-      "exit_price": 24132.5,
-      "pnl_ticks": -12.0
-    },
-    {
       "entry_ts": "2026-03-08 23:08:00",
       "exit_ts": "2026-03-08 23:09:00",
       "direction": "long",
@@ -166,11 +158,11 @@
       "pnl_ticks": -12.0
     },
     {
-      "entry_ts": "2026-03-09 06:39:00",
-      "exit_ts": "2026-03-09 06:40:00",
+      "entry_ts": "2026-03-09 03:14:00",
+      "exit_ts": "2026-03-09 03:15:00",
       "direction": "short",
-      "entry_price": 24400.25,
-      "exit_price": 24403.25,
+      "entry_price": 24381.0,
+      "exit_price": 24384.0,
       "pnl_ticks": -12.0
     },
     {
@@ -201,8 +193,8 @@
       "entry_ts": "2026-03-09 11:34:00",
       "exit_ts": "2026-03-09 11:35:00",
       "direction": "long",
-      "entry_price": 24693.75,
-      "exit_price": 24690.75,
+      "entry_price": 24694.0,
+      "exit_price": 24691.0,
       "pnl_ticks": -12.0
     },
     {
@@ -214,5 +206,5 @@
       "pnl_ticks": -12.0
     }
   ],
-  "notes": "Data: 3704424 ticks over Mar 5-6 2026. Session filter driven. Side inferred from bid/ask."
+  "notes": "Data: 3722544 ticks over Mar 5-6 2026. Session filter driven. Side inferred from bid/ask."
 }

@@ -9,11 +9,10 @@ import json
 import pandas as pd
 import numpy as np
 from pathlib import Path
-from collections import defaultdict
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from pipeline.data_loader import (
-    load_trades_fast, build_1min_bars_with_delta, filter_sessions,
+    load_trades_fast, build_1min_bars_with_delta, filter_sessions, compute_volume_profile,
     NQ_TICK_SIZE, MNQ_TICK_VALUE, pnl_mnq, compute_session_breakdown
 )
 
@@ -27,18 +26,7 @@ PARAMS = {
     "session_filter": None,
 }
 
-
-def build_volume_profile_fast(bars, price_bucket=0.25):
-    """Build volume profile from bars (bucketed by price) - very fast."""
-    profile = defaultdict(int)
-    for _, bar in bars.iterrows():
-        for price_level in [bar['high'], bar['open'], bar['close'], bar['low']]:
-            bucket = round(price_level / price_bucket) * price_bucket
-            profile[bucket] += int(bar['volume'] / 4)
-    return profile
-
-
-def find_signals(bars, params=PARAMS):
+def find_signals(bars, df_trades, params=PARAMS):
     """Scan bars for value area rejection signals."""
     signals = []
     n = len(bars)
@@ -46,7 +34,11 @@ def find_signals(bars, params=PARAMS):
     boundary_ticks = params['boundary_touch_ticks'] * NQ_TICK_SIZE
 
     # Pre-compute session profile
-    session_profile = build_volume_profile_fast(bars)
+    session_profile = compute_volume_profile(
+        df_trades,
+        price_lo=bars['low'].min() - 5,
+        price_hi=bars['high'].max() + 5,
+    )
     if not session_profile:
         return signals
 
@@ -205,7 +197,7 @@ def run(params=None):
         params = params.copy()
 
     print("Loading trades...")
-    trades_df = load_trades_fast()
+    trades_df = filter_sessions(load_trades_fast(), sessions=params.get('session_filter'))
     print(f"Building 1-min bars from {len(trades_df)} ticks...")
 
     from pipeline.data_loader import load_trades
@@ -215,7 +207,7 @@ def run(params=None):
     print(f"Filtered bars: {len(bars)}")
 
     print("Scanning for signals...")
-    signals = find_signals(bars, params)
+    signals = find_signals(bars, trades_df, params)
     print(f"Signals found: {len(signals)}")
 
     trade_list = simulate_trades(signals, bars, params)

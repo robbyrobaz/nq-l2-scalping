@@ -19,9 +19,11 @@ from pipeline.data_loader import (
 
 # Default parameters
 PARAMS = {
-    "lookback_bars": 50,
-    "std_dev_threshold": 2.0,
-    "min_trade_size": 1000,
+    "lookback_ticks": 200,
+    "size_multiplier": 5.0,
+    "cluster_window_seconds": 30,
+    "min_cluster_prints": 1,
+    "min_trade_size": 0,
     "signal_cooldown_bars": 5,
     "take_profit_ticks": 12,
     "stop_loss_ticks": 8,
@@ -29,24 +31,54 @@ PARAMS = {
 }
 
 
-def build_1min_volume_stats(trades_df):
-    """Build 1-min bars with trade size stats."""
-    if trades_df.empty:
+def _resolve_large_print_params(params):
+    legacy_lookback = int(params.get('lookback_bars', 50))
+    legacy_threshold = float(params.get('std_dev_threshold', 2.0))
+    return {
+        'lookback_ticks': int(params.get('lookback_ticks', max(200, legacy_lookback * 4))),
+        'size_multiplier': float(params.get('size_multiplier', max(3.0, legacy_threshold * 2.0))),
+        'cluster_window_seconds': float(params.get('cluster_window_seconds', 30)),
+        'min_cluster_prints': int(params.get('min_cluster_prints', 1)),
+        'min_trade_size': float(params.get('min_trade_size', 0)),
+        'signal_cooldown_bars': int(params.get('signal_cooldown_bars', 5)),
+    }
+
+
+def find_large_prints(df_trades, params):
+    """Find large individual prints and same-direction clusters."""
+    if df_trades.empty:
         return pd.DataFrame()
 
-    trades_df['bar'] = trades_df['ts_utc'].dt.floor('1min')
+    cfg = _resolve_large_print_params(params)
+    trades = df_trades[df_trades['side'].isin(['B', 'S'])].sort_values('ts_utc').reset_index(drop=True).copy()
+    if trades.empty:
+        return trades
 
-    bars = trades_df.groupby('bar').agg(
-        volume=('size', 'sum'),
-        max_size=('size', 'max'),
-        mean_size=('size', 'mean'),
-    ).reset_index().rename(columns={'bar': 'ts_utc'})
+    trades['rolling_mean_size'] = trades['size'].rolling(
+        window=cfg['lookback_ticks'],
+        min_periods=max(20, min(cfg['lookback_ticks'], 50)),
+    ).mean().shift(1)
+    trades['large_print'] = (
+        trades['rolling_mean_size'].notna() &
+        (trades['size'] >= trades['rolling_mean_size'] * cfg['size_multiplier']) &
+        (trades['size'] >= cfg['min_trade_size'])
+    )
 
-    # Rolling stats
-    bars['rolling_mean'] = bars['mean_size'].rolling(window=PARAMS['lookback_bars'], min_periods=1).mean()
-    bars['rolling_std'] = bars['mean_size'].rolling(window=PARAMS['lookback_bars'], min_periods=1).std()
+    candidates = trades[trades['large_print']].copy()
+    if candidates.empty:
+        return candidates
 
-    return bars
+    cluster_counts = []
+    for _, row in candidates.iterrows():
+        window_start = row['ts_utc'] - pd.Timedelta(seconds=cfg['cluster_window_seconds'])
+        count = candidates[
+            (candidates['side'] == row['side']) &
+            (candidates['ts_utc'] >= window_start) &
+            (candidates['ts_utc'] <= row['ts_utc'])
+        ].shape[0]
+        cluster_counts.append(count)
+    candidates['cluster_count'] = cluster_counts
+    return candidates[candidates['cluster_count'] >= cfg['min_cluster_prints']].copy()
 
 
 def find_signals(trades_df, price_bars, params=PARAMS):
@@ -55,84 +87,37 @@ def find_signals(trades_df, price_bars, params=PARAMS):
     if trades_df.empty or price_bars.empty:
         return signals
 
+    cfg = _resolve_large_print_params(params)
     trades_df = trades_df.sort_values('ts_utc').reset_index(drop=True)
-    trades_df['bar'] = trades_df['ts_utc'].dt.floor('1min')
-
-    # Minute-level cumulative stats based on prior trades only.
-    minute_stats = trades_df.groupby('bar').agg(
-        trade_count=('size', 'count'),
-        size_sum=('size', 'sum'),
-        size_sq_sum=('size', lambda s: float((s.astype(float) ** 2).sum())),
-    ).reset_index().sort_values('bar')
-
-    minute_stats['cum_count_prev'] = minute_stats['trade_count'].cumsum().shift(1).fillna(0)
-    minute_stats['cum_sum_prev'] = minute_stats['size_sum'].cumsum().shift(1).fillna(0.0)
-    minute_stats['cum_sq_sum_prev'] = minute_stats['size_sq_sum'].cumsum().shift(1).fillna(0.0)
-
-    valid = minute_stats['cum_count_prev'] > 1
-    minute_stats['lookback_mean'] = 0.0
-    minute_stats['lookback_std'] = 0.0
-    minute_stats.loc[valid, 'lookback_mean'] = (
-        minute_stats.loc[valid, 'cum_sum_prev'] / minute_stats.loc[valid, 'cum_count_prev']
-    )
-    variance = 0.0
-    minute_stats.loc[valid, 'lookback_std'] = np.sqrt(
-        np.maximum(
-            (minute_stats.loc[valid, 'cum_sq_sum_prev'] / minute_stats.loc[valid, 'cum_count_prev']) -
-            (minute_stats.loc[valid, 'lookback_mean'] ** 2),
-            variance
-        )
-    )
-    minute_stats['threshold'] = (
-        minute_stats['lookback_mean'] + params['std_dev_threshold'] * minute_stats['lookback_std']
-    )
-    threshold_map = minute_stats.set_index('bar')['threshold']
-
-    trades_with_thr = trades_df.merge(
-        threshold_map.rename('threshold'),
-        left_on='bar',
-        right_index=True,
-        how='left',
-    )
-    trades_with_thr = trades_with_thr[
-        (trades_with_thr['size'] >= params['min_trade_size']) &
-        (trades_with_thr['size'] > trades_with_thr['threshold'].fillna(np.inf))
-    ]
-
-    if trades_with_thr.empty:
+    large_prints = find_large_prints(trades_df, params)
+    if large_prints.empty:
         return signals
 
-    # One candidate signal per bar: first qualifying print.
-    candidates = (
-        trades_with_thr
-        .sort_values('ts_utc')
-        .drop_duplicates(subset='bar', keep='first')
-    )
-    bar_lookup = price_bars.reset_index(drop=True).reset_index().rename(columns={'index': 'bar_idx'})
-    bar_lookup = bar_lookup.set_index('ts_utc')
+    bar_ts = price_bars['ts_utc'].to_numpy()
+    trade_ts = trades_df['ts_utc'].to_numpy()
+    last_signal_idx = -cfg['signal_cooldown_bars']
 
-    last_signal_idx = -params['signal_cooldown_bars']
-    allowed_bars = set(price_bars['ts_utc'])
-    for _, trade in candidates.iterrows():
-        bar_ts = trade['bar']
-        if bar_ts not in allowed_bars or bar_ts not in bar_lookup.index:
+    for _, print_tick in large_prints.iterrows():
+        next_trade_idx = np.searchsorted(trade_ts, print_tick['ts_utc'].to_datetime64(), side='right')
+        if next_trade_idx >= len(trades_df):
             continue
 
-        price_bar = bar_lookup.loc[bar_ts]
-        idx = int(price_bar['bar_idx'])
-        if idx - last_signal_idx < params['signal_cooldown_bars']:
+        entry_trade = trades_df.iloc[next_trade_idx]
+        idx = np.searchsorted(bar_ts, entry_trade['ts_utc'].to_datetime64(), side='right') - 1
+        if idx < 0 or idx >= len(price_bars) or idx - last_signal_idx < cfg['signal_cooldown_bars']:
             continue
 
-        direction = 'long' if trade['side'] == 'B' else 'short'
+        direction = 'long' if print_tick['side'] == 'B' else 'short'
         signals.append({
-            'bar_idx': idx,
-            'ts': bar_ts,
+            'bar_idx': int(idx),
+            'ts': entry_trade['ts_utc'],
             'direction': direction,
-            'entry_price': float(price_bar['close']),
-            'trade_size': float(trade['size']),
-            'threshold': float(trade['threshold']),
+            'entry_price': float(entry_trade['price']),
+            'trade_size': float(print_tick['size']),
+            'threshold': float(print_tick['rolling_mean_size'] * cfg['size_multiplier']),
+            'cluster_count': int(print_tick['cluster_count']),
         })
-        last_signal_idx = idx
+        last_signal_idx = int(idx)
 
     return signals
 
@@ -248,9 +233,9 @@ def run(params=None):
 
     print("Loading trades...")
     trades_df = load_trades()
+    trades_df = filter_sessions(trades_df, sessions=params.get('session_filter'))
     print(f"Building price bars from {len(trades_df)} ticks...")
     price_bars = build_1min_bars_with_delta(trades_df)
-    price_bars = filter_sessions(price_bars, sessions=params.get('session_filter'))
     print(f"Filtered bars: {len(price_bars)}")
 
     print("Scanning for large print signals...")
@@ -260,8 +245,8 @@ def run(params=None):
     if not signals:
         print("No signals. Trying relaxed parameters...")
         relaxed = params.copy()
-        relaxed['std_dev_threshold'] = 1.5
-        relaxed['min_trade_size'] = 500
+        relaxed['size_multiplier'] = 4.0
+        relaxed['min_trade_size'] = 1
         relaxed['signal_cooldown_bars'] = 1
         signals = find_signals(trades_df, price_bars, relaxed)
         print(f"Signals with relaxed params: {len(signals)}")
@@ -285,7 +270,7 @@ def run(params=None):
         'session_breakdown': session_breakdown,
         'params': params,
         'trades': trade_list,
-        'notes': f'Data: {len(trades_df)} ticks. Session filter driven. Block trades > 2 std devs.',
+        'notes': f'Data: {len(trades_df)} filtered ticks. Large-print detection uses raw tick outliers and same-direction clustering.',
     }
 
     out = Path(__file__).resolve().parents[2] / 'data' / 'results' / '005_2026-03-06.json'

@@ -19,7 +19,7 @@ from pipeline.data_loader import (
 # Default parameters
 PARAMS = {
     "min_consecutive_trades": 5,
-    "lookback_bars": 3,
+    "allowed_opposite_ticks": 3,
     "min_total_volume": 0,
     "take_profit_ticks": 10,
     "stop_loss_ticks": 8,
@@ -27,69 +27,110 @@ PARAMS = {
 }
 
 
-def find_signals(trades_df, price_bars, params=PARAMS):
-    """Scan for tape streak signals."""
-    signals = []
+def _resolve_streak_params(params):
+    return {
+        'min_consecutive_trades': int(params.get('min_consecutive_trades', 5)),
+        'allowed_opposite_ticks': int(params.get('allowed_opposite_ticks', min(3, int(params.get('lookback_bars', 3))))),
+        'min_total_volume': float(params.get('min_total_volume', 0)),
+    }
 
-    if trades_df.empty or price_bars.empty:
+
+def find_tape_streaks(df_trades, params):
+    """Walk the full tick stream and confirm continuation after a short pause."""
+    cfg = _resolve_streak_params(params)
+    trades = df_trades[df_trades['side'].isin(['B', 'S'])].sort_values('ts_utc').reset_index(drop=True)
+    signals = []
+    if trades.empty:
         return signals
 
-    trades_df = trades_df.sort_values('ts_utc').reset_index(drop=True)
-    min_consec = params['min_consecutive_trades']
-    lookback = params['lookback_bars']
-    ts_values = trades_df['ts_utc'].values
-    side_values = trades_df['side'].values
+    streak = None
+    pending = None
 
-    for bar_idx, price_bar in price_bars.iterrows():
-        bar_start = price_bar['ts_utc']
-        lookback_start = bar_start - pd.Timedelta(minutes=lookback)
-        left = np.searchsorted(ts_values, lookback_start.to_datetime64(), side='left')
-        right = np.searchsorted(ts_values, bar_start.to_datetime64(), side='right')
-        if right <= left:
+    for row in trades.itertuples(index=False):
+        if streak is None:
+            streak = {
+                'direction': row.side,
+                'count': 1,
+                'start_price': float(row.price),
+                'total_volume': float(row.size),
+                'end_ts': row.ts_utc,
+            }
             continue
 
-        # Count consecutive same-side trades
-        current_side = None
-        current_count = 0
-        max_buy_count = 0
-        max_sell_count = 0
+        if row.side == streak['direction']:
+            streak['count'] += 1
+            streak['total_volume'] += float(row.size)
+            streak['end_ts'] = row.ts_utc
+            if pending and pending['direction'] != row.side:
+                pending['opposite_ticks'] += 1
+                if pending['opposite_ticks'] > cfg['allowed_opposite_ticks']:
+                    pending = None
+            if pending and pending['direction'] == row.side:
+                if pending['opposite_ticks'] <= cfg['allowed_opposite_ticks']:
+                    signals.append({
+                        'ts': row.ts_utc,
+                        'direction': 'long' if row.side == 'B' else 'short',
+                        'entry_price': float(row.price),
+                        'streak_count': int(pending['count']),
+                        'streak_volume': float(pending['total_volume']),
+                    })
+                pending = None
+            continue
 
-        for side in side_values[left:right]:
-            if side == 'B':
-                if current_side == 'B':
-                    current_count += 1
-                else:
-                    current_count = 1
-                    current_side = 'B'
-                max_buy_count = max(max_buy_count, current_count)
-            elif side == 'S':
-                if current_side == 'S':
-                    current_count += 1
-                else:
-                    current_count = 1
-                    current_side = 'S'
-                max_sell_count = max(max_sell_count, current_count)
+        qualifies = (
+            streak['count'] >= cfg['min_consecutive_trades'] and
+            streak['total_volume'] >= cfg['min_total_volume']
+        )
+        if qualifies:
+            if pending is None or pending['direction'] != streak['direction']:
+                pending = {
+                    'direction': streak['direction'],
+                    'count': streak['count'],
+                    'total_volume': streak['total_volume'],
+                    'opposite_ticks': 1,
+                }
+        elif pending and row.side != pending['direction']:
+            pending['opposite_ticks'] += 1
 
-        # Check for long signal
-        if max_buy_count >= min_consec:
-            signals.append({
-                'bar_idx': bar_idx,
-                'ts': price_bar['ts_utc'],
-                'direction': 'long',
-                'entry_price': price_bar['close'],
-                'streak_count': max_buy_count,
-            })
+        if pending and pending['opposite_ticks'] > cfg['allowed_opposite_ticks']:
+            pending = None
 
-        # Check for short signal
-        elif max_sell_count >= min_consec:
-            signals.append({
-                'bar_idx': bar_idx,
-                'ts': price_bar['ts_utc'],
-                'direction': 'short',
-                'entry_price': price_bar['close'],
-                'streak_count': max_sell_count,
-            })
+        streak = {
+            'direction': row.side,
+            'count': 1,
+            'start_price': float(row.price),
+            'total_volume': float(row.size),
+            'end_ts': row.ts_utc,
+        }
 
+    return signals
+
+
+def find_signals(trades_df, price_bars, params=PARAMS):
+    """Map confirmed tape streak continuations to bar indexes for simulation."""
+    if trades_df.empty or price_bars.empty:
+        return []
+
+    raw_signals = find_tape_streaks(trades_df, params)
+    if not raw_signals:
+        return []
+
+    bar_ts = price_bars['ts_utc'].to_numpy()
+    signals = []
+    last_bar_idx = -1
+    for sig in raw_signals:
+        bar_idx = np.searchsorted(bar_ts, sig['ts'].to_datetime64(), side='right') - 1
+        if bar_idx < 0 or bar_idx >= len(price_bars) or bar_idx == last_bar_idx:
+            continue
+        signals.append({
+            'bar_idx': int(bar_idx),
+            'ts': sig['ts'],
+            'direction': sig['direction'],
+            'entry_price': sig['entry_price'],
+            'streak_count': sig['streak_count'],
+            'streak_volume': sig['streak_volume'],
+        })
+        last_bar_idx = int(bar_idx)
     return signals
 
 
@@ -203,9 +244,9 @@ def run(params=None):
 
     print("Loading trades...")
     trades_df = load_trades()
+    trades_df = filter_sessions(trades_df, sessions=params.get('session_filter'))
     print(f"Building price bars from {len(trades_df)} ticks...")
     price_bars = build_1min_bars_with_delta(trades_df)
-    price_bars = filter_sessions(price_bars, sessions=params.get('session_filter'))
     print(f"Filtered bars: {len(price_bars)}")
 
     print("Scanning for tape streak signals...")
@@ -216,7 +257,7 @@ def run(params=None):
         print("No signals. Trying relaxed parameters...")
         relaxed = params.copy()
         relaxed['min_consecutive_trades'] = 3
-        relaxed['lookback_bars'] = 5
+        relaxed['allowed_opposite_ticks'] = 3
         signals = find_signals(trades_df, price_bars, relaxed)
         print(f"Signals with relaxed params: {len(signals)}")
         params = relaxed
@@ -239,7 +280,7 @@ def run(params=None):
         'session_breakdown': session_breakdown,
         'params': params,
         'trades': trade_list,
-        'notes': f'Data: {len(trades_df)} ticks. Session filter driven. Consecutive same-side trades.',
+        'notes': f'Data: {len(trades_df)} filtered ticks. Tape streaks run across the full stream and confirm continuation after a brief counterflow pause.',
     }
 
     out = Path(__file__).resolve().parents[2] / 'data' / 'results' / '006_2026-03-06.json'

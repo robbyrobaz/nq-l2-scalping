@@ -31,20 +31,22 @@ PARAMS = {
 def build_1min_book_depth_bars():
     """Build 1-min bars with stacked bid/ask detection."""
     conn = _get_conn()
-
-    q = "SELECT ts_utc, bid_size, ask_size FROM nq_quotes ORDER BY ts_utc"
+    q = """
+        SELECT
+            date_trunc('minute', ts_utc) AS ts_utc,
+            avg(bid_size) AS bid_size,
+            avg(ask_size) AS ask_size
+        FROM nq_quotes
+        GROUP BY 1
+        ORDER BY 1
+    """
     quotes = conn.execute(q).fetchdf()
     conn.close()
 
     if quotes.empty:
         return pd.DataFrame()
 
-    # Resample to 1-min bars
-    quotes['bar'] = quotes['ts_utc'].dt.floor('1min')
-    bars = quotes.groupby('bar').agg(
-        bid_size=('bid_size', 'mean'),
-        ask_size=('ask_size', 'mean'),
-    ).reset_index().rename(columns={'bar': 'ts_utc'})
+    bars = quotes.copy()
 
     # Rolling average
     bars['avg_bid_size'] = bars['bid_size'].rolling(window=PARAMS['stack_lookback_bars'], min_periods=1).mean()
@@ -55,6 +57,50 @@ def build_1min_book_depth_bars():
     bars['ask_stacked'] = bars['ask_size'] > (bars['avg_ask_size'] * PARAMS['stack_threshold'])
 
     return bars
+
+
+def load_dom_snapshots():
+    conn = _get_conn()
+    df = conn.execute(
+        "SELECT ts_utc, side, position, price, size FROM nq_depth ORDER BY ts_utc"
+    ).fetchdf()
+    conn.close()
+    return df
+
+
+def compute_dom_imbalance_series(df_depth, freq='1min'):
+    """Collapse 5-level DOM snapshots into a resampled imbalance series."""
+    if df_depth.empty:
+        return pd.DataFrame(columns=['ts_utc', 'dom_bid_total', 'dom_ask_total', 'dom_imbalance'])
+
+    df = df_depth[df_depth['position'].between(0, 4)].copy()
+    snapshot = (
+        df.groupby(['ts_utc', 'side'])['size']
+        .sum()
+        .unstack(fill_value=0)
+        .rename(columns={'bid': 'dom_bid_total', 'ask': 'dom_ask_total'})
+        .reset_index()
+        .sort_values('ts_utc')
+    )
+    for col in ['dom_bid_total', 'dom_ask_total']:
+        if col not in snapshot.columns:
+            snapshot[col] = 0.0
+
+    total = snapshot['dom_bid_total'] + snapshot['dom_ask_total']
+    snapshot['dom_imbalance'] = np.where(
+        total > 0,
+        (snapshot['dom_bid_total'] - snapshot['dom_ask_total']) / total,
+        0.0,
+    )
+
+    resampled = (
+        snapshot.set_index('ts_utc')[['dom_bid_total', 'dom_ask_total', 'dom_imbalance']]
+        .resample(freq)
+        .last()
+        .ffill()
+        .reset_index()
+    )
+    return resampled
 
 
 def find_signals(book_bars, price_bars, params=PARAMS):
@@ -72,11 +118,20 @@ def find_signals(book_bars, price_bars, params=PARAMS):
         avg_ask = book_bar['avg_ask_size']
         avg_bid = book_bar['avg_bid_size']
 
+        dom_imbalance = book_bar.get('dom_imbalance', 0.0)
+        dom_available = bool(book_bar.get('dom_available', False))
+
         # Stacked ask level → price breakout above = buyers win
-        if book_bar['ask_stacked'] and avg_ask > 0:
+        ask_condition = book_bar['ask_stacked'] and avg_ask > 0
+        if dom_available:
+            ask_condition = ask_condition and dom_imbalance < -0.3
+        if ask_condition:
             # Check if there was a stacked ask level in recent bars
             recent_book = book_bars.iloc[max(0, i - lookback):i]
-            if (recent_book['ask_stacked']).any():
+            recent_ask = recent_book['ask_stacked']
+            if dom_available:
+                recent_ask = recent_ask & (recent_book['dom_imbalance'] < -0.3)
+            if recent_ask.any():
                 # Entry on breakout
                 signals.append({
                     'bar_idx': i,
@@ -84,18 +139,26 @@ def find_signals(book_bars, price_bars, params=PARAMS):
                     'direction': 'long',
                     'entry_price': price_bar['close'],
                     'stack_size': book_bar['ask_size'],
+                    'dom_imbalance': float(dom_imbalance),
                 })
 
         # Stacked bid level → price breakout below = sellers win
-        if book_bar['bid_stacked'] and avg_bid > 0:
+        bid_condition = book_bar['bid_stacked'] and avg_bid > 0
+        if dom_available:
+            bid_condition = bid_condition and dom_imbalance > 0.3
+        if bid_condition:
             recent_book = book_bars.iloc[max(0, i - lookback):i]
-            if (recent_book['bid_stacked']).any():
+            recent_bid = recent_book['bid_stacked']
+            if dom_available:
+                recent_bid = recent_bid & (recent_book['dom_imbalance'] > 0.3)
+            if recent_bid.any():
                 signals.append({
                     'bar_idx': i,
                     'ts': price_bar['ts_utc'],
                     'direction': 'short',
                     'entry_price': price_bar['close'],
                     'stack_size': book_bar['bid_size'],
+                    'dom_imbalance': float(dom_imbalance),
                 })
 
     # Remove duplicates (same direction within N bars)
@@ -221,6 +284,26 @@ def run(params=None):
 
     print("Loading quotes and building book depth bars...")
     book_bars = build_1min_book_depth_bars()
+    book_bars = filter_sessions(book_bars, sessions=params.get('session_filter'))
+
+    df_depth = filter_sessions(load_dom_snapshots(), sessions=params.get('session_filter'))
+    dom_available = len(df_depth) >= 100
+    if dom_available:
+        dom_series = compute_dom_imbalance_series(df_depth)
+        dom_series = filter_sessions(dom_series, sessions=params.get('session_filter'))
+        book_bars = book_bars.merge(dom_series, on='ts_utc', how='left')
+        book_bars[['dom_bid_total', 'dom_ask_total', 'dom_imbalance']] = (
+            book_bars[['dom_bid_total', 'dom_ask_total', 'dom_imbalance']]
+            .ffill()
+            .fillna(0.0)
+        )
+        book_bars['dom_available'] = True
+    else:
+        print(f"Warning: nq_depth sparse for session filter {params.get('session_filter')}; falling back to NBBO-only stacking.")
+        book_bars['dom_bid_total'] = 0.0
+        book_bars['dom_ask_total'] = 0.0
+        book_bars['dom_imbalance'] = 0.0
+        book_bars['dom_available'] = False
 
     print("Loading trades and building price bars...")
     trades_df = load_trades()

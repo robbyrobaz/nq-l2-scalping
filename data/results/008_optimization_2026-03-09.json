@@ -4,7 +4,7 @@
     "strategy_name": "Stacked Book Breakout",
     "backtest_period": {
       "start": "2026-03-05 06:45:00",
-      "end": "2026-03-09 15:04:00"
+      "end": "2026-03-09 15:45:00"
     },
     "metrics": {
       "profit_factor": 0.0,
@@ -27,7 +27,7 @@
       "session_filter": null
     },
     "trades": [],
-    "notes": "Data: 3706992 ticks. Session filter driven. Stacked bid/ask detection.",
+    "notes": "Data: 3725481 ticks. Session filter driven. Stacked bid/ask detection.",
     "variation": "var_A",
     "variation_name": "var_A: All sessions",
     "base_variation": 2,
@@ -39,7 +39,7 @@
     "strategy_name": "Stacked Book Breakout",
     "backtest_period": {
       "start": "2026-03-05 14:30:00",
-      "end": "2026-03-09 15:04:00"
+      "end": "2026-03-09 15:45:00"
     },
     "metrics": {
       "profit_factor": 0.0,
@@ -67,7 +67,7 @@
       ]
     },
     "trades": [],
-    "notes": "Data: 3706992 ticks. Session filter driven. Stacked bid/ask detection.",
+    "notes": "Data: 3725481 ticks. Session filter driven. Stacked bid/ask detection.",
     "variation": "var_B",
     "variation_name": "var_B: RTH only",
     "base_variation": 2,
@@ -110,7 +110,7 @@
       ]
     },
     "trades": [],
-    "notes": "Data: 3706992 ticks. Session filter driven. Stacked bid/ask detection.",
+    "notes": "Data: 3725481 ticks. Session filter driven. Stacked bid/ask detection.",
     "variation": "var_C",
     "variation_name": "var_C: London + LondonNY",
     "base_variation": 2,
@@ -153,7 +153,7 @@
       ]
     },
     "trades": [],
-    "notes": "Data: 3706992 ticks. Session filter driven. Stacked bid/ask detection.",
+    "notes": "Data: 3725481 ticks. Session filter driven. Stacked bid/ask detection.",
     "variation": "var_D",
     "variation_name": "var_D: Overnight",
     "base_variation": 2,
