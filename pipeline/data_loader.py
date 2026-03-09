@@ -13,10 +13,10 @@ NQ_TICK_SIZE = 0.25  # NQ tick = 0.25 points
 MNQ_TICK_VALUE = 0.50  # MNQ $0.50 per tick
 NQ_TICK_VALUE = 5.00
 
-# RTH session: 08:30-15:15 CT = 14:30-21:15 UTC (CT = UTC-6 in March CST)
-RTH_START_UTC_HOUR = 14
+# RTH session: 08:30-15:15 CT = 13:30-20:15 UTC (CT = UTC-5 in March CDT)
+RTH_START_UTC_HOUR = 13
 RTH_START_UTC_MIN = 30
-RTH_END_UTC_HOUR = 21
+RTH_END_UTC_HOUR = 20
 RTH_END_UTC_MIN = 15
 
 
@@ -117,7 +117,7 @@ def build_1min_bars_with_delta(df_trades):
 
 
 def compute_cvd(df_bars):
-    """Add CVD column to bars, reset at each RTH session open (14:30 UTC = 08:30 CT).
+    """Add CVD column to bars, reset at each RTH session open (13:30 UTC = 08:30 CT).
 
     Args:
         df_bars: DataFrame with ts_utc and bar_delta columns
@@ -176,7 +176,7 @@ def compute_volume_profile(df_trades, price_lo, price_hi, start_ts=None, end_ts=
 
 
 def filter_rth(df, ts_col='ts_utc'):
-    """Filter to RTH hours only (14:30-21:15 UTC)."""
+    """Filter to RTH hours only (13:30-20:15 UTC)."""
     from datetime import time as dtime
     t = df[ts_col].dt.time
     start = dtime(RTH_START_UTC_HOUR, RTH_START_UTC_MIN)

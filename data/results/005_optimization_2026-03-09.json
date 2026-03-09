@@ -1,0 +1,157 @@
+[
+  {
+    "strategy_id": "005",
+    "strategy_name": "Large Print Momentum",
+    "backtest_period": {
+      "start": "2026-03-05 13:30:00",
+      "end": "2026-03-09 14:00:00"
+    },
+    "metrics": {
+      "profit_factor": 0.0,
+      "sharpe": 0.0,
+      "win_rate": 0.0,
+      "avg_winner_ticks": 0,
+      "avg_loser_ticks": 0,
+      "total_trades": 0,
+      "net_pnl_usd": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "params": {
+      "lookback_bars": 30,
+      "std_dev_threshold": 1.5,
+      "min_trade_size": 500,
+      "signal_cooldown_bars": 1,
+      "take_profit_ticks": 10,
+      "stop_loss_ticks": 6,
+      "session_filter": "RTH"
+    },
+    "trades": [],
+    "notes": "Data: 3703200 ticks. RTH only. Block trades > 2 std devs.",
+    "variation": 1,
+    "variation_name": "Sensitive"
+  },
+  {
+    "strategy_id": "005",
+    "strategy_name": "Large Print Momentum",
+    "backtest_period": {
+      "start": "2026-03-05 13:30:00",
+      "end": "2026-03-09 14:00:00"
+    },
+    "metrics": {
+      "profit_factor": 0.0,
+      "sharpe": 0.0,
+      "win_rate": 0.0,
+      "avg_winner_ticks": 0,
+      "avg_loser_ticks": 0,
+      "total_trades": 0,
+      "net_pnl_usd": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "params": {
+      "lookback_bars": 50,
+      "std_dev_threshold": 1.5,
+      "min_trade_size": 500,
+      "signal_cooldown_bars": 1,
+      "take_profit_ticks": 12,
+      "stop_loss_ticks": 8,
+      "session_filter": "RTH"
+    },
+    "trades": [],
+    "notes": "Data: 3703200 ticks. RTH only. Block trades > 2 std devs.",
+    "variation": 2,
+    "variation_name": "Default"
+  },
+  {
+    "strategy_id": "005",
+    "strategy_name": "Large Print Momentum",
+    "backtest_period": {
+      "start": "2026-03-05 13:30:00",
+      "end": "2026-03-09 14:00:00"
+    },
+    "metrics": {
+      "profit_factor": 0.0,
+      "sharpe": 0.0,
+      "win_rate": 0.0,
+      "avg_winner_ticks": 0,
+      "avg_loser_ticks": 0,
+      "total_trades": 0,
+      "net_pnl_usd": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "params": {
+      "lookback_bars": 80,
+      "std_dev_threshold": 1.5,
+      "min_trade_size": 500,
+      "signal_cooldown_bars": 1,
+      "take_profit_ticks": 14,
+      "stop_loss_ticks": 8,
+      "session_filter": "RTH"
+    },
+    "trades": [],
+    "notes": "Data: 3703200 ticks. RTH only. Block trades > 2 std devs.",
+    "variation": 3,
+    "variation_name": "Strict"
+  },
+  {
+    "strategy_id": "005",
+    "strategy_name": "Large Print Momentum",
+    "backtest_period": {
+      "start": "2026-03-05 13:30:00",
+      "end": "2026-03-09 14:00:00"
+    },
+    "metrics": {
+      "profit_factor": 0.0,
+      "sharpe": 0.0,
+      "win_rate": 0.0,
+      "avg_winner_ticks": 0,
+      "avg_loser_ticks": 0,
+      "total_trades": 0,
+      "net_pnl_usd": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "params": {
+      "lookback_bars": 25,
+      "std_dev_threshold": 1.5,
+      "min_trade_size": 500,
+      "signal_cooldown_bars": 1,
+      "take_profit_ticks": 16,
+      "stop_loss_ticks": 8,
+      "session_filter": "RTH"
+    },
+    "trades": [],
+    "notes": "Data: 3703200 ticks. RTH only. Block trades > 2 std devs.",
+    "variation": 4,
+    "variation_name": "Aggressive"
+  },
+  {
+    "strategy_id": "005",
+    "strategy_name": "Large Print Momentum",
+    "backtest_period": {
+      "start": "2026-03-05 13:30:00",
+      "end": "2026-03-09 14:00:00"
+    },
+    "metrics": {
+      "profit_factor": 0.0,
+      "sharpe": 0.0,
+      "win_rate": 0.0,
+      "avg_winner_ticks": 0,
+      "avg_loser_ticks": 0,
+      "total_trades": 0,
+      "net_pnl_usd": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "params": {
+      "lookback_bars": 20,
+      "std_dev_threshold": 1.5,
+      "min_trade_size": 500,
+      "signal_cooldown_bars": 1,
+      "take_profit_ticks": 6,
+      "stop_loss_ticks": 4,
+      "session_filter": "RTH"
+    },
+    "trades": [],
+    "notes": "Data: 3703200 ticks. RTH only. Block trades > 2 std devs.",
+    "variation": 5,
+    "variation_name": "Scalp"
+  }
+]

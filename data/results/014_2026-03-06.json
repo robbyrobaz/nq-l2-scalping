@@ -2,18 +2,18 @@
   "strategy_id": "014",
   "strategy_name": "Failed Auction Hook",
   "backtest_period": {
-    "start": "2026-03-05 14:30:00",
-    "end": "2026-03-06 14:59:00"
+    "start": "2026-03-05 13:30:00",
+    "end": "2026-03-09 14:00:00"
   },
   "metrics": {
-    "profit_factor": Infinity,
-    "sharpe": 0.0,
-    "win_rate": 100.0,
+    "profit_factor": 1.14,
+    "sharpe": 1.05,
+    "win_rate": 46.2,
     "avg_winner_ticks": 8.0,
-    "avg_loser_ticks": 0,
-    "total_trades": 1,
-    "net_pnl_usd": 4.0,
-    "max_drawdown_pct": 0.0
+    "avg_loser_ticks": 6.0,
+    "total_trades": 13,
+    "net_pnl_usd": 3.0,
+    "max_drawdown_pct": 333.3
   },
   "params": {
     "volume_profile_bars": 50,
@@ -26,13 +26,109 @@
   },
   "trades": [
     {
-      "entry_ts": "2026-03-06 14:33:00",
-      "exit_ts": "2026-03-06 14:34:00",
-      "direction": "long",
-      "entry_price": 24638.75,
-      "exit_price": 24640.75,
+      "entry_ts": "2026-03-05 17:10:00",
+      "exit_ts": "2026-03-05 17:11:00",
+      "direction": "short",
+      "entry_price": 25087.5,
+      "exit_price": 25089.0,
+      "pnl_ticks": -6.0
+    },
+    {
+      "entry_ts": "2026-03-05 17:15:00",
+      "exit_ts": "2026-03-05 17:16:00",
+      "direction": "short",
+      "entry_price": 25081.0,
+      "exit_price": 25082.5,
+      "pnl_ticks": -6.0
+    },
+    {
+      "entry_ts": "2026-03-05 17:16:00",
+      "exit_ts": "2026-03-05 17:17:00",
+      "direction": "short",
+      "entry_price": 25088.25,
+      "exit_price": 25089.75,
+      "pnl_ticks": -6.0
+    },
+    {
+      "entry_ts": "2026-03-05 17:49:00",
+      "exit_ts": "2026-03-05 17:50:00",
+      "direction": "short",
+      "entry_price": 25087.25,
+      "exit_price": 25085.25,
+      "pnl_ticks": 8.0
+    },
+    {
+      "entry_ts": "2026-03-05 18:16:00",
+      "exit_ts": "2026-03-05 18:17:00",
+      "direction": "short",
+      "entry_price": 25083.5,
+      "exit_price": 25085.0,
+      "pnl_ticks": -6.0
+    },
+    {
+      "entry_ts": "2026-03-05 18:17:00",
+      "exit_ts": "2026-03-05 18:18:00",
+      "direction": "short",
+      "entry_price": 25087.0,
+      "exit_price": 25085.0,
+      "pnl_ticks": 8.0
+    },
+    {
+      "entry_ts": "2026-03-05 19:35:00",
+      "exit_ts": "2026-03-05 19:36:00",
+      "direction": "short",
+      "entry_price": 25089.0,
+      "exit_price": 25090.5,
+      "pnl_ticks": -6.0
+    },
+    {
+      "entry_ts": "2026-03-05 19:40:00",
+      "exit_ts": "2026-03-05 19:41:00",
+      "direction": "short",
+      "entry_price": 25087.0,
+      "exit_price": 25088.5,
+      "pnl_ticks": -6.0
+    },
+    {
+      "entry_ts": "2026-03-05 19:51:00",
+      "exit_ts": "2026-03-05 19:52:00",
+      "direction": "short",
+      "entry_price": 25087.25,
+      "exit_price": 25088.75,
+      "pnl_ticks": -6.0
+    },
+    {
+      "entry_ts": "2026-03-05 19:52:00",
+      "exit_ts": "2026-03-05 19:53:00",
+      "direction": "short",
+      "entry_price": 25088.75,
+      "exit_price": 25086.75,
+      "pnl_ticks": 8.0
+    },
+    {
+      "entry_ts": "2026-03-05 19:53:00",
+      "exit_ts": "2026-03-05 19:54:00",
+      "direction": "short",
+      "entry_price": 25081.0,
+      "exit_price": 25079.0,
+      "pnl_ticks": 8.0
+    },
+    {
+      "entry_ts": "2026-03-05 20:13:00",
+      "exit_ts": "2026-03-05 20:14:00",
+      "direction": "short",
+      "entry_price": 25088.25,
+      "exit_price": 25086.25,
+      "pnl_ticks": 8.0
+    },
+    {
+      "entry_ts": "2026-03-05 20:14:00",
+      "exit_ts": "2026-03-05 20:15:00",
+      "direction": "short",
+      "entry_price": 25085.0,
+      "exit_price": 25083.0,
       "pnl_ticks": 8.0
     }
   ],
-  "notes": "Data: 2347158 ticks over Mar 5-6 2026. RTH only."
+  "notes": "Data: 3703200 ticks over Mar 5-6 2026. RTH only."
 }

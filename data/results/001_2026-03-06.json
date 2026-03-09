@@ -2,18 +2,18 @@
   "strategy_id": "001",
   "strategy_name": "Delta Absorption Breakout",
   "backtest_period": {
-    "start": "2026-03-05 14:30:00",
-    "end": "2026-03-06 14:59:00"
+    "start": "2026-03-05 13:30:00",
+    "end": "2026-03-09 14:00:00"
   },
   "metrics": {
-    "profit_factor": 0.67,
-    "sharpe": -3.21,
-    "win_rate": 33.3,
+    "profit_factor": 0.44,
+    "sharpe": -6.55,
+    "win_rate": 25.0,
     "avg_winner_ticks": 4.0,
     "avg_loser_ticks": 3.0,
-    "total_trades": 6,
-    "net_pnl_usd": -2.0,
-    "max_drawdown_pct": 300.0
+    "total_trades": 4,
+    "net_pnl_usd": -2.5,
+    "max_drawdown_pct": 0.0
   },
   "params": {
     "delta_threshold": 30,
@@ -27,28 +27,20 @@
   },
   "trades": [
     {
+      "entry_ts": "2026-03-05 13:48:00",
+      "exit_ts": "2026-03-05 13:49:00",
+      "direction": "long",
+      "entry_price": 24980.0,
+      "exit_price": 24979.25,
+      "pnl_ticks": -3.0
+    },
+    {
       "entry_ts": "2026-03-05 16:24:00",
       "exit_ts": "2026-03-05 16:25:00",
       "direction": "short",
       "entry_price": 25037.25,
       "exit_price": 25038.0,
       "pnl_ticks": -3.0
-    },
-    {
-      "entry_ts": "2026-03-05 17:44:00",
-      "exit_ts": "2026-03-05 17:45:00",
-      "direction": "long",
-      "entry_price": 25085.5,
-      "exit_price": 25084.75,
-      "pnl_ticks": -3.0
-    },
-    {
-      "entry_ts": "2026-03-05 18:34:00",
-      "exit_ts": "2026-03-05 18:35:00",
-      "direction": "long",
-      "entry_price": 25073.75,
-      "exit_price": 25074.75,
-      "pnl_ticks": 4.0
     },
     {
       "entry_ts": "2026-03-05 19:53:00",
@@ -59,21 +51,13 @@
       "pnl_ticks": 4.0
     },
     {
-      "entry_ts": "2026-03-05 20:45:00",
-      "exit_ts": "2026-03-05 20:46:00",
+      "entry_ts": "2026-03-09 13:32:00",
+      "exit_ts": "2026-03-09 13:33:00",
       "direction": "long",
-      "entry_price": 25102.75,
-      "exit_price": 25102.0,
-      "pnl_ticks": -3.0
-    },
-    {
-      "entry_ts": "2026-03-06 14:35:00",
-      "exit_ts": "2026-03-06 14:36:00",
-      "direction": "long",
-      "entry_price": 24648.25,
-      "exit_price": 24647.5,
+      "entry_price": 24975.0,
+      "exit_price": 24974.25,
       "pnl_ticks": -3.0
     }
   ],
-  "notes": "Data: 2347158 ticks over Mar 5-6 2026. RTH only. Side inferred from bid/ask."
+  "notes": "Data: 3703200 ticks over Mar 5-6 2026. RTH only. Side inferred from bid/ask."
 }

@@ -2,18 +2,18 @@
   "strategy_id": "007",
   "strategy_name": "Sweep & Fade",
   "backtest_period": {
-    "start": "2026-03-05 14:30:00",
-    "end": "2026-03-06 14:59:00"
+    "start": "2026-03-05 13:30:00",
+    "end": "2026-03-09 14:00:00"
   },
   "metrics": {
-    "profit_factor": 0.32,
-    "sharpe": -9.15,
-    "win_rate": 34.1,
-    "avg_winner_ticks": 3.1,
+    "profit_factor": 0.28,
+    "sharpe": -10.4,
+    "win_rate": 31.8,
+    "avg_winner_ticks": 3.0,
     "avg_loser_ticks": 5.0,
-    "total_trades": 672,
-    "net_pnl_usd": -763.0,
-    "max_drawdown_pct": 50966.7
+    "total_trades": 867,
+    "net_pnl_usd": -1058.5,
+    "max_drawdown_pct": 0.0
   },
   "params": {
     "sweep_tick_threshold": 4,
@@ -24,6 +24,926 @@
     "session_filter": "RTH"
   },
   "trades": [
+    {
+      "entry_ts": "2026-03-05 13:31:00",
+      "exit_ts": "2026-03-05 13:33:00",
+      "direction": "short",
+      "entry_price": 24970.5,
+      "exit_price": 24971.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:31:00",
+      "exit_ts": "2026-03-05 13:33:00",
+      "direction": "long",
+      "entry_price": 24970.5,
+      "exit_price": 24969.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:32:00",
+      "exit_ts": "2026-03-05 13:34:00",
+      "direction": "short",
+      "entry_price": 24982.0,
+      "exit_price": 24983.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:32:00",
+      "exit_ts": "2026-03-05 13:34:00",
+      "direction": "long",
+      "entry_price": 24982.0,
+      "exit_price": 24980.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:33:00",
+      "exit_ts": "2026-03-05 13:35:00",
+      "direction": "short",
+      "entry_price": 24978.0,
+      "exit_price": 24979.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:33:00",
+      "exit_ts": "2026-03-05 13:35:00",
+      "direction": "long",
+      "entry_price": 24978.0,
+      "exit_price": 24978.75,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:34:00",
+      "exit_ts": "2026-03-05 13:36:00",
+      "direction": "short",
+      "entry_price": 24984.5,
+      "exit_price": 24985.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:34:00",
+      "exit_ts": "2026-03-05 13:36:00",
+      "direction": "long",
+      "entry_price": 24984.5,
+      "exit_price": 24983.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:35:00",
+      "exit_ts": "2026-03-05 13:37:00",
+      "direction": "short",
+      "entry_price": 24986.5,
+      "exit_price": 24987.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:35:00",
+      "exit_ts": "2026-03-05 13:37:00",
+      "direction": "long",
+      "entry_price": 24986.5,
+      "exit_price": 24985.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:36:00",
+      "exit_ts": "2026-03-05 13:38:00",
+      "direction": "short",
+      "entry_price": 24983.25,
+      "exit_price": 24984.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:36:00",
+      "exit_ts": "2026-03-05 13:38:00",
+      "direction": "long",
+      "entry_price": 24983.25,
+      "exit_price": 24984.0,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:37:00",
+      "exit_ts": "2026-03-05 13:39:00",
+      "direction": "long",
+      "entry_price": 24991.5,
+      "exit_price": 24990.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:38:00",
+      "exit_ts": "2026-03-05 13:40:00",
+      "direction": "long",
+      "entry_price": 24999.0,
+      "exit_price": 24997.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:39:00",
+      "exit_ts": "2026-03-05 13:41:00",
+      "direction": "short",
+      "entry_price": 24979.5,
+      "exit_price": 24978.75,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:39:00",
+      "exit_ts": "2026-03-05 13:41:00",
+      "direction": "long",
+      "entry_price": 24979.5,
+      "exit_price": 24978.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:40:00",
+      "exit_ts": "2026-03-05 13:42:00",
+      "direction": "short",
+      "entry_price": 24976.5,
+      "exit_price": 24977.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:40:00",
+      "exit_ts": "2026-03-05 13:42:00",
+      "direction": "long",
+      "entry_price": 24976.5,
+      "exit_price": 24975.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:41:00",
+      "exit_ts": "2026-03-05 13:43:00",
+      "direction": "short",
+      "entry_price": 24972.75,
+      "exit_price": 24974.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:41:00",
+      "exit_ts": "2026-03-05 13:43:00",
+      "direction": "long",
+      "entry_price": 24972.75,
+      "exit_price": 24971.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:42:00",
+      "exit_ts": "2026-03-05 13:44:00",
+      "direction": "short",
+      "entry_price": 24976.75,
+      "exit_price": 24976.0,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:42:00",
+      "exit_ts": "2026-03-05 13:44:00",
+      "direction": "long",
+      "entry_price": 24976.75,
+      "exit_price": 24975.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:43:00",
+      "exit_ts": "2026-03-05 13:45:00",
+      "direction": "short",
+      "entry_price": 24962.75,
+      "exit_price": 24964.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:43:00",
+      "exit_ts": "2026-03-05 13:45:00",
+      "direction": "long",
+      "entry_price": 24962.75,
+      "exit_price": 24961.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:44:00",
+      "exit_ts": "2026-03-05 13:46:00",
+      "direction": "short",
+      "entry_price": 24967.25,
+      "exit_price": 24966.5,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:44:00",
+      "exit_ts": "2026-03-05 13:46:00",
+      "direction": "long",
+      "entry_price": 24967.25,
+      "exit_price": 24966.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:45:00",
+      "exit_ts": "2026-03-05 13:47:00",
+      "direction": "short",
+      "entry_price": 24958.75,
+      "exit_price": 24960.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:45:00",
+      "exit_ts": "2026-03-05 13:47:00",
+      "direction": "long",
+      "entry_price": 24958.75,
+      "exit_price": 24957.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:46:00",
+      "exit_ts": "2026-03-05 13:48:00",
+      "direction": "short",
+      "entry_price": 24956.5,
+      "exit_price": 24957.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:46:00",
+      "exit_ts": "2026-03-05 13:48:00",
+      "direction": "long",
+      "entry_price": 24956.5,
+      "exit_price": 24955.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:47:00",
+      "exit_ts": "2026-03-05 13:49:00",
+      "direction": "short",
+      "entry_price": 24956.5,
+      "exit_price": 24957.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:47:00",
+      "exit_ts": "2026-03-05 13:49:00",
+      "direction": "long",
+      "entry_price": 24956.5,
+      "exit_price": 24957.25,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:48:00",
+      "exit_ts": "2026-03-05 13:50:00",
+      "direction": "short",
+      "entry_price": 24980.0,
+      "exit_price": 24981.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:48:00",
+      "exit_ts": "2026-03-05 13:50:00",
+      "direction": "long",
+      "entry_price": 24980.0,
+      "exit_price": 24980.75,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:49:00",
+      "exit_ts": "2026-03-05 13:51:00",
+      "direction": "long",
+      "entry_price": 24990.0,
+      "exit_price": 24990.75,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:50:00",
+      "exit_ts": "2026-03-05 13:52:00",
+      "direction": "short",
+      "entry_price": 25010.25,
+      "exit_price": 25011.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:50:00",
+      "exit_ts": "2026-03-05 13:52:00",
+      "direction": "long",
+      "entry_price": 25010.25,
+      "exit_price": 25009.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:51:00",
+      "exit_ts": "2026-03-05 13:53:00",
+      "direction": "short",
+      "entry_price": 25005.75,
+      "exit_price": 25007.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:51:00",
+      "exit_ts": "2026-03-05 13:53:00",
+      "direction": "long",
+      "entry_price": 25005.75,
+      "exit_price": 25006.5,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:52:00",
+      "exit_ts": "2026-03-05 13:54:00",
+      "direction": "short",
+      "entry_price": 25015.75,
+      "exit_price": 25017.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:52:00",
+      "exit_ts": "2026-03-05 13:54:00",
+      "direction": "long",
+      "entry_price": 25015.75,
+      "exit_price": 25014.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:53:00",
+      "exit_ts": "2026-03-05 13:55:00",
+      "direction": "short",
+      "entry_price": 25013.75,
+      "exit_price": 25015.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:53:00",
+      "exit_ts": "2026-03-05 13:55:00",
+      "direction": "long",
+      "entry_price": 25013.75,
+      "exit_price": 25014.5,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:54:00",
+      "exit_ts": "2026-03-05 13:56:00",
+      "direction": "short",
+      "entry_price": 25027.0,
+      "exit_price": 25028.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:54:00",
+      "exit_ts": "2026-03-05 13:56:00",
+      "direction": "long",
+      "entry_price": 25027.0,
+      "exit_price": 25025.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:55:00",
+      "exit_ts": "2026-03-05 13:57:00",
+      "direction": "short",
+      "entry_price": 25019.5,
+      "exit_price": 25020.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:55:00",
+      "exit_ts": "2026-03-05 13:57:00",
+      "direction": "long",
+      "entry_price": 25019.5,
+      "exit_price": 25020.25,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:56:00",
+      "exit_ts": "2026-03-05 13:58:00",
+      "direction": "short",
+      "entry_price": 25035.25,
+      "exit_price": 25036.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:56:00",
+      "exit_ts": "2026-03-05 13:58:00",
+      "direction": "long",
+      "entry_price": 25035.25,
+      "exit_price": 25036.0,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:57:00",
+      "exit_ts": "2026-03-05 13:59:00",
+      "direction": "short",
+      "entry_price": 25047.25,
+      "exit_price": 25048.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:57:00",
+      "exit_ts": "2026-03-05 13:59:00",
+      "direction": "long",
+      "entry_price": 25047.25,
+      "exit_price": 25046.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:58:00",
+      "exit_ts": "2026-03-05 14:00:00",
+      "direction": "short",
+      "entry_price": 25048.75,
+      "exit_price": 25050.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:58:00",
+      "exit_ts": "2026-03-05 14:00:00",
+      "direction": "long",
+      "entry_price": 25048.75,
+      "exit_price": 25047.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:59:00",
+      "exit_ts": "2026-03-05 14:01:00",
+      "direction": "short",
+      "entry_price": 25047.5,
+      "exit_price": 25046.75,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 13:59:00",
+      "exit_ts": "2026-03-05 14:01:00",
+      "direction": "long",
+      "entry_price": 25047.5,
+      "exit_price": 25046.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:00:00",
+      "exit_ts": "2026-03-05 14:02:00",
+      "direction": "short",
+      "entry_price": 25038.75,
+      "exit_price": 25038.0,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:00:00",
+      "exit_ts": "2026-03-05 14:02:00",
+      "direction": "long",
+      "entry_price": 25038.75,
+      "exit_price": 25037.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:01:00",
+      "exit_ts": "2026-03-05 14:03:00",
+      "direction": "short",
+      "entry_price": 25032.75,
+      "exit_price": 25034.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:01:00",
+      "exit_ts": "2026-03-05 14:03:00",
+      "direction": "long",
+      "entry_price": 25032.75,
+      "exit_price": 25031.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:02:00",
+      "exit_ts": "2026-03-05 14:04:00",
+      "direction": "short",
+      "entry_price": 25030.25,
+      "exit_price": 25031.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:02:00",
+      "exit_ts": "2026-03-05 14:04:00",
+      "direction": "long",
+      "entry_price": 25030.25,
+      "exit_price": 25029.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:03:00",
+      "exit_ts": "2026-03-05 14:05:00",
+      "direction": "short",
+      "entry_price": 25026.75,
+      "exit_price": 25028.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:03:00",
+      "exit_ts": "2026-03-05 14:05:00",
+      "direction": "long",
+      "entry_price": 25026.75,
+      "exit_price": 25027.5,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:04:00",
+      "exit_ts": "2026-03-05 14:06:00",
+      "direction": "short",
+      "entry_price": 25034.0,
+      "exit_price": 25035.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:04:00",
+      "exit_ts": "2026-03-05 14:06:00",
+      "direction": "long",
+      "entry_price": 25034.0,
+      "exit_price": 25032.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:05:00",
+      "exit_ts": "2026-03-05 14:07:00",
+      "direction": "short",
+      "entry_price": 25038.0,
+      "exit_price": 25037.25,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:05:00",
+      "exit_ts": "2026-03-05 14:07:00",
+      "direction": "long",
+      "entry_price": 25038.0,
+      "exit_price": 25036.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:06:00",
+      "exit_ts": "2026-03-05 14:08:00",
+      "direction": "short",
+      "entry_price": 25030.5,
+      "exit_price": 25031.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:06:00",
+      "exit_ts": "2026-03-05 14:08:00",
+      "direction": "long",
+      "entry_price": 25030.5,
+      "exit_price": 25029.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:07:00",
+      "exit_ts": "2026-03-05 14:09:00",
+      "direction": "short",
+      "entry_price": 25029.0,
+      "exit_price": 25030.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:07:00",
+      "exit_ts": "2026-03-05 14:09:00",
+      "direction": "long",
+      "entry_price": 25029.0,
+      "exit_price": 25027.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:08:00",
+      "exit_ts": "2026-03-05 14:10:00",
+      "direction": "short",
+      "entry_price": 25025.0,
+      "exit_price": 25026.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:09:00",
+      "exit_ts": "2026-03-05 14:11:00",
+      "direction": "short",
+      "entry_price": 25035.75,
+      "exit_price": 25035.0,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:09:00",
+      "exit_ts": "2026-03-05 14:11:00",
+      "direction": "long",
+      "entry_price": 25035.75,
+      "exit_price": 25034.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:10:00",
+      "exit_ts": "2026-03-05 14:12:00",
+      "direction": "short",
+      "entry_price": 25033.0,
+      "exit_price": 25032.25,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:10:00",
+      "exit_ts": "2026-03-05 14:12:00",
+      "direction": "long",
+      "entry_price": 25033.0,
+      "exit_price": 25031.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:11:00",
+      "exit_ts": "2026-03-05 14:13:00",
+      "direction": "short",
+      "entry_price": 25025.0,
+      "exit_price": 25026.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:11:00",
+      "exit_ts": "2026-03-05 14:13:00",
+      "direction": "long",
+      "entry_price": 25025.0,
+      "exit_price": 25023.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:12:00",
+      "exit_ts": "2026-03-05 14:14:00",
+      "direction": "short",
+      "entry_price": 25025.25,
+      "exit_price": 25026.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:12:00",
+      "exit_ts": "2026-03-05 14:14:00",
+      "direction": "long",
+      "entry_price": 25025.25,
+      "exit_price": 25026.0,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:13:00",
+      "exit_ts": "2026-03-05 14:15:00",
+      "direction": "short",
+      "entry_price": 25026.25,
+      "exit_price": 25027.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:13:00",
+      "exit_ts": "2026-03-05 14:15:00",
+      "direction": "long",
+      "entry_price": 25026.25,
+      "exit_price": 25027.0,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:14:00",
+      "exit_ts": "2026-03-05 14:16:00",
+      "direction": "short",
+      "entry_price": 25030.75,
+      "exit_price": 25032.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:14:00",
+      "exit_ts": "2026-03-05 14:16:00",
+      "direction": "long",
+      "entry_price": 25030.75,
+      "exit_price": 25031.5,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:15:00",
+      "exit_ts": "2026-03-05 14:17:00",
+      "direction": "short",
+      "entry_price": 25036.75,
+      "exit_price": 25038.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:15:00",
+      "exit_ts": "2026-03-05 14:17:00",
+      "direction": "long",
+      "entry_price": 25036.75,
+      "exit_price": 25035.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:16:00",
+      "exit_ts": "2026-03-05 14:18:00",
+      "direction": "short",
+      "entry_price": 25032.75,
+      "exit_price": 25034.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:16:00",
+      "exit_ts": "2026-03-05 14:18:00",
+      "direction": "long",
+      "entry_price": 25032.75,
+      "exit_price": 25033.5,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:17:00",
+      "exit_ts": "2026-03-05 14:19:00",
+      "direction": "short",
+      "entry_price": 25043.5,
+      "exit_price": 25042.75,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:17:00",
+      "exit_ts": "2026-03-05 14:19:00",
+      "direction": "long",
+      "entry_price": 25043.5,
+      "exit_price": 25042.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:18:00",
+      "exit_ts": "2026-03-05 14:20:00",
+      "direction": "short",
+      "entry_price": 25032.75,
+      "exit_price": 25034.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:18:00",
+      "exit_ts": "2026-03-05 14:20:00",
+      "direction": "long",
+      "entry_price": 25032.75,
+      "exit_price": 25031.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:19:00",
+      "exit_ts": "2026-03-05 14:21:00",
+      "direction": "short",
+      "entry_price": 25032.5,
+      "exit_price": 25031.75,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:19:00",
+      "exit_ts": "2026-03-05 14:21:00",
+      "direction": "long",
+      "entry_price": 25032.5,
+      "exit_price": 25031.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:20:00",
+      "exit_ts": "2026-03-05 14:22:00",
+      "direction": "short",
+      "entry_price": 25031.5,
+      "exit_price": 25030.75,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:20:00",
+      "exit_ts": "2026-03-05 14:22:00",
+      "direction": "long",
+      "entry_price": 25031.5,
+      "exit_price": 25030.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:21:00",
+      "exit_ts": "2026-03-05 14:23:00",
+      "direction": "short",
+      "entry_price": 25027.25,
+      "exit_price": 25026.5,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:21:00",
+      "exit_ts": "2026-03-05 14:23:00",
+      "direction": "long",
+      "entry_price": 25027.25,
+      "exit_price": 25026.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:22:00",
+      "exit_ts": "2026-03-05 14:24:00",
+      "direction": "short",
+      "entry_price": 25019.5,
+      "exit_price": 25020.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:22:00",
+      "exit_ts": "2026-03-05 14:24:00",
+      "direction": "long",
+      "entry_price": 25019.5,
+      "exit_price": 25018.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:23:00",
+      "exit_ts": "2026-03-05 14:25:00",
+      "direction": "short",
+      "entry_price": 25021.75,
+      "exit_price": 25021.0,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:23:00",
+      "exit_ts": "2026-03-05 14:25:00",
+      "direction": "long",
+      "entry_price": 25021.75,
+      "exit_price": 25020.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:24:00",
+      "exit_ts": "2026-03-05 14:26:00",
+      "direction": "short",
+      "entry_price": 25017.75,
+      "exit_price": 25019.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:24:00",
+      "exit_ts": "2026-03-05 14:26:00",
+      "direction": "long",
+      "entry_price": 25017.75,
+      "exit_price": 25016.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:25:00",
+      "exit_ts": "2026-03-05 14:27:00",
+      "direction": "short",
+      "entry_price": 25019.25,
+      "exit_price": 25020.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:25:00",
+      "exit_ts": "2026-03-05 14:27:00",
+      "direction": "long",
+      "entry_price": 25019.25,
+      "exit_price": 25018.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:26:00",
+      "exit_ts": "2026-03-05 14:28:00",
+      "direction": "short",
+      "entry_price": 25020.0,
+      "exit_price": 25019.25,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:26:00",
+      "exit_ts": "2026-03-05 14:28:00",
+      "direction": "long",
+      "entry_price": 25020.0,
+      "exit_price": 25018.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:27:00",
+      "exit_ts": "2026-03-05 14:29:00",
+      "direction": "short",
+      "entry_price": 25018.5,
+      "exit_price": 25019.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:27:00",
+      "exit_ts": "2026-03-05 14:29:00",
+      "direction": "long",
+      "entry_price": 25018.5,
+      "exit_price": 25017.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:28:00",
+      "exit_ts": "2026-03-05 14:30:00",
+      "direction": "short",
+      "entry_price": 25014.5,
+      "exit_price": 25015.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:28:00",
+      "exit_ts": "2026-03-05 14:30:00",
+      "direction": "long",
+      "entry_price": 25014.5,
+      "exit_price": 25015.25,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:29:00",
+      "exit_ts": "2026-03-05 14:31:00",
+      "direction": "short",
+      "entry_price": 25029.5,
+      "exit_price": 25028.75,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:29:00",
+      "exit_ts": "2026-03-05 14:31:00",
+      "direction": "long",
+      "entry_price": 25029.5,
+      "exit_price": 25028.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:30:00",
+      "exit_ts": "2026-03-05 14:32:00",
+      "direction": "short",
+      "entry_price": 25019.5,
+      "exit_price": 25018.75,
+      "pnl_ticks": 3.0
+    },
     {
       "entry_ts": "2026-03-05 14:31:00",
       "exit_ts": "2026-03-05 14:33:00",
@@ -188,16 +1108,16 @@
       "entry_ts": "2026-03-05 14:42:00",
       "exit_ts": "2026-03-05 14:44:00",
       "direction": "short",
-      "entry_price": 25009.75,
-      "exit_price": 25011.0,
-      "pnl_ticks": -5.0
+      "entry_price": 25010.0,
+      "exit_price": 25009.25,
+      "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-05 14:42:00",
       "exit_ts": "2026-03-05 14:44:00",
       "direction": "long",
-      "entry_price": 25009.75,
-      "exit_price": 25008.5,
+      "entry_price": 25010.0,
+      "exit_price": 25008.75,
       "pnl_ticks": -5.0
     },
     {
@@ -219,9 +1139,17 @@
     {
       "entry_ts": "2026-03-05 14:44:00",
       "exit_ts": "2026-03-05 14:46:00",
+      "direction": "short",
+      "entry_price": 25010.75,
+      "exit_price": 25010.0,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-05 14:44:00",
+      "exit_ts": "2026-03-05 14:46:00",
       "direction": "long",
-      "entry_price": 25011.75,
-      "exit_price": 25010.5,
+      "entry_price": 25010.75,
+      "exit_price": 25009.5,
       "pnl_ticks": -5.0
     },
     {
@@ -316,16 +1244,16 @@
       "entry_ts": "2026-03-05 14:51:00",
       "exit_ts": "2026-03-05 14:53:00",
       "direction": "short",
-      "entry_price": 25017.5,
-      "exit_price": 25016.75,
+      "entry_price": 25017.75,
+      "exit_price": 25017.0,
       "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-05 14:51:00",
       "exit_ts": "2026-03-05 14:53:00",
       "direction": "long",
-      "entry_price": 25017.5,
-      "exit_price": 25016.25,
+      "entry_price": 25017.75,
+      "exit_price": 25016.5,
       "pnl_ticks": -5.0
     },
     {
@@ -356,16 +1284,16 @@
       "entry_ts": "2026-03-05 14:54:00",
       "exit_ts": "2026-03-05 14:56:00",
       "direction": "short",
-      "entry_price": 25010.5,
-      "exit_price": 25011.75,
+      "entry_price": 25011.25,
+      "exit_price": 25012.5,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 14:54:00",
       "exit_ts": "2026-03-05 14:56:00",
       "direction": "long",
-      "entry_price": 25010.5,
-      "exit_price": 25009.25,
+      "entry_price": 25011.25,
+      "exit_price": 25010.0,
       "pnl_ticks": -5.0
     },
     {
@@ -404,16 +1332,16 @@
       "entry_ts": "2026-03-05 14:57:00",
       "exit_ts": "2026-03-05 14:59:00",
       "direction": "short",
-      "entry_price": 25009.0,
-      "exit_price": 25010.25,
+      "entry_price": 25008.75,
+      "exit_price": 25010.0,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 14:57:00",
       "exit_ts": "2026-03-05 14:59:00",
       "direction": "long",
-      "entry_price": 25009.0,
-      "exit_price": 25007.75,
+      "entry_price": 25008.75,
+      "exit_price": 25007.5,
       "pnl_ticks": -5.0
     },
     {
@@ -436,8 +1364,8 @@
       "entry_ts": "2026-03-05 14:59:00",
       "exit_ts": "2026-03-05 16:01:00",
       "direction": "long",
-      "entry_price": 25019.75,
-      "exit_price": 25018.5,
+      "entry_price": 25014.0,
+      "exit_price": 25012.75,
       "pnl_ticks": -5.0
     },
     {
@@ -604,8 +1532,8 @@
       "entry_ts": "2026-03-05 16:10:00",
       "exit_ts": "2026-03-05 16:12:00",
       "direction": "short",
-      "entry_price": 25032.0,
-      "exit_price": 25033.25,
+      "entry_price": 25032.25,
+      "exit_price": 25033.5,
       "pnl_ticks": -5.0
     },
     {
@@ -732,8 +1660,8 @@
       "entry_ts": "2026-03-05 16:19:00",
       "exit_ts": "2026-03-05 16:21:00",
       "direction": "long",
-      "entry_price": 25039.75,
-      "exit_price": 25040.5,
+      "entry_price": 25038.5,
+      "exit_price": 25039.25,
       "pnl_ticks": 3.0
     },
     {
@@ -1139,9 +2067,17 @@
     {
       "entry_ts": "2026-03-05 16:45:00",
       "exit_ts": "2026-03-05 16:47:00",
+      "direction": "short",
+      "entry_price": 25059.75,
+      "exit_price": 25061.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 16:45:00",
+      "exit_ts": "2026-03-05 16:47:00",
       "direction": "long",
-      "entry_price": 25061.0,
-      "exit_price": 25059.75,
+      "entry_price": 25059.75,
+      "exit_price": 25058.5,
       "pnl_ticks": -5.0
     },
     {
@@ -1204,16 +2140,16 @@
       "entry_ts": "2026-03-05 16:50:00",
       "exit_ts": "2026-03-05 16:52:00",
       "direction": "short",
-      "entry_price": 25052.75,
-      "exit_price": 25054.0,
+      "entry_price": 25053.5,
+      "exit_price": 25054.75,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 16:50:00",
       "exit_ts": "2026-03-05 16:52:00",
       "direction": "long",
-      "entry_price": 25052.75,
-      "exit_price": 25053.5,
+      "entry_price": 25053.5,
+      "exit_price": 25054.25,
       "pnl_ticks": 3.0
     },
     {
@@ -1308,16 +2244,16 @@
       "entry_ts": "2026-03-05 16:57:00",
       "exit_ts": "2026-03-05 16:59:00",
       "direction": "short",
-      "entry_price": 25063.75,
-      "exit_price": 25065.0,
+      "entry_price": 25064.25,
+      "exit_price": 25065.5,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 16:57:00",
       "exit_ts": "2026-03-05 16:59:00",
       "direction": "long",
-      "entry_price": 25063.75,
-      "exit_price": 25062.5,
+      "entry_price": 25064.25,
+      "exit_price": 25063.0,
       "pnl_ticks": -5.0
     },
     {
@@ -1332,16 +2268,16 @@
       "entry_ts": "2026-03-05 16:59:00",
       "exit_ts": "2026-03-05 17:01:00",
       "direction": "short",
-      "entry_price": 25059.5,
-      "exit_price": 25060.75,
+      "entry_price": 25060.75,
+      "exit_price": 25062.0,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 16:59:00",
       "exit_ts": "2026-03-05 17:01:00",
       "direction": "long",
-      "entry_price": 25059.5,
-      "exit_price": 25060.25,
+      "entry_price": 25060.75,
+      "exit_price": 25061.5,
       "pnl_ticks": 3.0
     },
     {
@@ -1380,16 +2316,16 @@
       "entry_ts": "2026-03-05 17:02:00",
       "exit_ts": "2026-03-05 17:04:00",
       "direction": "short",
-      "entry_price": 25069.75,
-      "exit_price": 25071.0,
+      "entry_price": 25070.0,
+      "exit_price": 25071.25,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 17:02:00",
       "exit_ts": "2026-03-05 17:04:00",
       "direction": "long",
-      "entry_price": 25069.75,
-      "exit_price": 25070.5,
+      "entry_price": 25070.0,
+      "exit_price": 25070.75,
       "pnl_ticks": 3.0
     },
     {
@@ -1532,16 +2468,16 @@
       "entry_ts": "2026-03-05 17:12:00",
       "exit_ts": "2026-03-05 17:14:00",
       "direction": "short",
-      "entry_price": 25090.5,
-      "exit_price": 25091.75,
+      "entry_price": 25091.5,
+      "exit_price": 25092.75,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 17:12:00",
       "exit_ts": "2026-03-05 17:14:00",
       "direction": "long",
-      "entry_price": 25090.5,
-      "exit_price": 25091.25,
+      "entry_price": 25091.5,
+      "exit_price": 25092.25,
       "pnl_ticks": 3.0
     },
     {
@@ -1723,9 +2659,17 @@
     {
       "entry_ts": "2026-03-05 17:26:00",
       "exit_ts": "2026-03-05 17:28:00",
+      "direction": "short",
+      "entry_price": 25074.0,
+      "exit_price": 25075.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-05 17:26:00",
+      "exit_ts": "2026-03-05 17:28:00",
       "direction": "long",
-      "entry_price": 25075.0,
-      "exit_price": 25075.75,
+      "entry_price": 25074.0,
+      "exit_price": 25074.75,
       "pnl_ticks": 3.0
     },
     {
@@ -1843,49 +2787,41 @@
     {
       "entry_ts": "2026-03-05 17:34:00",
       "exit_ts": "2026-03-05 17:36:00",
-      "direction": "short",
-      "entry_price": 25076.0,
-      "exit_price": 25077.25,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 17:34:00",
-      "exit_ts": "2026-03-05 17:36:00",
       "direction": "long",
-      "entry_price": 25076.0,
-      "exit_price": 25074.75,
+      "entry_price": 25076.25,
+      "exit_price": 25075.0,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 17:35:00",
       "exit_ts": "2026-03-05 17:37:00",
       "direction": "short",
-      "entry_price": 25074.75,
-      "exit_price": 25076.0,
+      "entry_price": 25074.5,
+      "exit_price": 25075.75,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 17:35:00",
       "exit_ts": "2026-03-05 17:37:00",
       "direction": "long",
-      "entry_price": 25074.75,
-      "exit_price": 25075.5,
+      "entry_price": 25074.5,
+      "exit_price": 25075.25,
       "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-05 17:36:00",
       "exit_ts": "2026-03-05 17:38:00",
       "direction": "short",
-      "entry_price": 25078.25,
-      "exit_price": 25079.5,
+      "entry_price": 25079.0,
+      "exit_price": 25080.25,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 17:36:00",
       "exit_ts": "2026-03-05 17:38:00",
       "direction": "long",
-      "entry_price": 25078.25,
-      "exit_price": 25077.0,
+      "entry_price": 25079.0,
+      "exit_price": 25077.75,
       "pnl_ticks": -5.0
     },
     {
@@ -1988,16 +2924,16 @@
       "entry_ts": "2026-03-05 17:43:00",
       "exit_ts": "2026-03-05 17:45:00",
       "direction": "short",
-      "entry_price": 25080.5,
-      "exit_price": 25081.75,
+      "entry_price": 25080.0,
+      "exit_price": 25081.25,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 17:43:00",
       "exit_ts": "2026-03-05 17:45:00",
       "direction": "long",
-      "entry_price": 25080.5,
-      "exit_price": 25081.25,
+      "entry_price": 25080.0,
+      "exit_price": 25080.75,
       "pnl_ticks": 3.0
     },
     {
@@ -2068,16 +3004,16 @@
       "entry_ts": "2026-03-05 17:48:00",
       "exit_ts": "2026-03-05 17:50:00",
       "direction": "short",
-      "entry_price": 25090.25,
-      "exit_price": 25089.5,
+      "entry_price": 25089.75,
+      "exit_price": 25089.0,
       "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-05 17:48:00",
       "exit_ts": "2026-03-05 17:50:00",
       "direction": "long",
-      "entry_price": 25090.25,
-      "exit_price": 25089.0,
+      "entry_price": 25089.75,
+      "exit_price": 25088.5,
       "pnl_ticks": -5.0
     },
     {
@@ -2163,17 +3099,9 @@
     {
       "entry_ts": "2026-03-05 17:55:00",
       "exit_ts": "2026-03-05 17:57:00",
-      "direction": "short",
-      "entry_price": 25072.5,
-      "exit_price": 25073.75,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 17:55:00",
-      "exit_ts": "2026-03-05 17:57:00",
       "direction": "long",
-      "entry_price": 25072.5,
-      "exit_price": 25071.25,
+      "entry_price": 25072.75,
+      "exit_price": 25071.5,
       "pnl_ticks": -5.0
     },
     {
@@ -2316,16 +3244,16 @@
       "entry_ts": "2026-03-05 18:05:00",
       "exit_ts": "2026-03-05 18:07:00",
       "direction": "short",
-      "entry_price": 25087.75,
-      "exit_price": 25087.0,
+      "entry_price": 25088.75,
+      "exit_price": 25088.0,
       "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-05 18:05:00",
       "exit_ts": "2026-03-05 18:07:00",
       "direction": "long",
-      "entry_price": 25087.75,
-      "exit_price": 25086.5,
+      "entry_price": 25088.75,
+      "exit_price": 25087.5,
       "pnl_ticks": -5.0
     },
     {
@@ -2556,40 +3484,40 @@
       "entry_ts": "2026-03-05 18:21:00",
       "exit_ts": "2026-03-05 18:23:00",
       "direction": "short",
-      "entry_price": 25073.25,
-      "exit_price": 25072.5,
+      "entry_price": 25073.75,
+      "exit_price": 25073.0,
       "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-05 18:21:00",
       "exit_ts": "2026-03-05 18:23:00",
       "direction": "long",
-      "entry_price": 25073.25,
-      "exit_price": 25072.0,
+      "entry_price": 25073.75,
+      "exit_price": 25072.5,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 18:22:00",
       "exit_ts": "2026-03-05 18:24:00",
       "direction": "short",
-      "entry_price": 25059.75,
-      "exit_price": 25061.0,
+      "entry_price": 25059.0,
+      "exit_price": 25060.25,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 18:22:00",
       "exit_ts": "2026-03-05 18:24:00",
       "direction": "long",
-      "entry_price": 25059.75,
-      "exit_price": 25060.5,
+      "entry_price": 25059.0,
+      "exit_price": 25059.75,
       "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-05 18:23:00",
       "exit_ts": "2026-03-05 18:25:00",
       "direction": "long",
-      "entry_price": 25064.75,
-      "exit_price": 25063.5,
+      "entry_price": 25064.5,
+      "exit_price": 25063.25,
       "pnl_ticks": -5.0
     },
     {
@@ -2612,16 +3540,16 @@
       "entry_ts": "2026-03-05 18:25:00",
       "exit_ts": "2026-03-05 18:27:00",
       "direction": "short",
-      "entry_price": 25056.0,
-      "exit_price": 25057.25,
+      "entry_price": 25055.75,
+      "exit_price": 25057.0,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 18:25:00",
       "exit_ts": "2026-03-05 18:27:00",
       "direction": "long",
-      "entry_price": 25056.0,
-      "exit_price": 25054.75,
+      "entry_price": 25055.75,
+      "exit_price": 25054.5,
       "pnl_ticks": -5.0
     },
     {
@@ -2668,8 +3596,8 @@
       "entry_ts": "2026-03-05 18:29:00",
       "exit_ts": "2026-03-05 18:31:00",
       "direction": "long",
-      "entry_price": 25053.0,
-      "exit_price": 25053.75,
+      "entry_price": 25053.75,
+      "exit_price": 25054.5,
       "pnl_ticks": 3.0
     },
     {
@@ -2692,32 +3620,32 @@
       "entry_ts": "2026-03-05 18:31:00",
       "exit_ts": "2026-03-05 18:33:00",
       "direction": "short",
-      "entry_price": 25060.0,
-      "exit_price": 25059.25,
+      "entry_price": 25059.75,
+      "exit_price": 25059.0,
       "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-05 18:31:00",
       "exit_ts": "2026-03-05 18:33:00",
       "direction": "long",
-      "entry_price": 25060.0,
-      "exit_price": 25058.75,
+      "entry_price": 25059.75,
+      "exit_price": 25058.5,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 18:32:00",
       "exit_ts": "2026-03-05 18:34:00",
       "direction": "short",
-      "entry_price": 25058.75,
-      "exit_price": 25060.0,
+      "entry_price": 25059.25,
+      "exit_price": 25060.5,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 18:32:00",
       "exit_ts": "2026-03-05 18:34:00",
       "direction": "long",
-      "entry_price": 25058.75,
-      "exit_price": 25057.5,
+      "entry_price": 25059.25,
+      "exit_price": 25058.0,
       "pnl_ticks": -5.0
     },
     {
@@ -2860,16 +3788,16 @@
       "entry_ts": "2026-03-05 18:43:00",
       "exit_ts": "2026-03-05 18:45:00",
       "direction": "short",
-      "entry_price": 25065.5,
-      "exit_price": 25064.75,
+      "entry_price": 25065.25,
+      "exit_price": 25064.5,
       "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-05 18:43:00",
       "exit_ts": "2026-03-05 18:45:00",
       "direction": "long",
-      "entry_price": 25065.5,
-      "exit_price": 25064.25,
+      "entry_price": 25065.25,
+      "exit_price": 25064.0,
       "pnl_ticks": -5.0
     },
     {
@@ -3044,16 +3972,16 @@
       "entry_ts": "2026-03-05 18:56:00",
       "exit_ts": "2026-03-05 18:58:00",
       "direction": "short",
-      "entry_price": 25078.5,
-      "exit_price": 25077.75,
+      "entry_price": 25078.75,
+      "exit_price": 25078.0,
       "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-05 18:56:00",
       "exit_ts": "2026-03-05 18:58:00",
       "direction": "long",
-      "entry_price": 25078.5,
-      "exit_price": 25077.25,
+      "entry_price": 25078.75,
+      "exit_price": 25077.5,
       "pnl_ticks": -5.0
     },
     {
@@ -3180,16 +4108,16 @@
       "entry_ts": "2026-03-05 19:06:00",
       "exit_ts": "2026-03-05 19:08:00",
       "direction": "short",
-      "entry_price": 25077.0,
-      "exit_price": 25078.25,
+      "entry_price": 25076.0,
+      "exit_price": 25077.25,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 19:06:00",
       "exit_ts": "2026-03-05 19:08:00",
       "direction": "long",
-      "entry_price": 25077.0,
-      "exit_price": 25077.75,
+      "entry_price": 25076.0,
+      "exit_price": 25076.75,
       "pnl_ticks": 3.0
     },
     {
@@ -3228,16 +4156,16 @@
       "entry_ts": "2026-03-05 19:09:00",
       "exit_ts": "2026-03-05 19:11:00",
       "direction": "short",
-      "entry_price": 25075.5,
-      "exit_price": 25076.75,
+      "entry_price": 25075.75,
+      "exit_price": 25077.0,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 19:09:00",
       "exit_ts": "2026-03-05 19:11:00",
       "direction": "long",
-      "entry_price": 25075.5,
-      "exit_price": 25076.25,
+      "entry_price": 25075.75,
+      "exit_price": 25076.5,
       "pnl_ticks": 3.0
     },
     {
@@ -3316,32 +4244,32 @@
       "entry_ts": "2026-03-05 19:15:00",
       "exit_ts": "2026-03-05 19:17:00",
       "direction": "short",
-      "entry_price": 25108.0,
-      "exit_price": 25107.25,
+      "entry_price": 25108.25,
+      "exit_price": 25107.5,
       "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-05 19:15:00",
       "exit_ts": "2026-03-05 19:17:00",
       "direction": "long",
-      "entry_price": 25108.0,
-      "exit_price": 25106.75,
+      "entry_price": 25108.25,
+      "exit_price": 25107.0,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 19:16:00",
       "exit_ts": "2026-03-05 19:18:00",
       "direction": "short",
-      "entry_price": 25105.75,
-      "exit_price": 25105.0,
+      "entry_price": 25105.25,
+      "exit_price": 25104.5,
       "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-05 19:16:00",
       "exit_ts": "2026-03-05 19:18:00",
       "direction": "long",
-      "entry_price": 25105.75,
-      "exit_price": 25104.5,
+      "entry_price": 25105.25,
+      "exit_price": 25104.0,
       "pnl_ticks": -5.0
     },
     {
@@ -3660,16 +4588,16 @@
       "entry_ts": "2026-03-05 19:38:00",
       "exit_ts": "2026-03-05 19:40:00",
       "direction": "short",
-      "entry_price": 25091.0,
-      "exit_price": 25092.25,
+      "entry_price": 25090.5,
+      "exit_price": 25091.75,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 19:38:00",
       "exit_ts": "2026-03-05 19:40:00",
       "direction": "long",
-      "entry_price": 25091.0,
-      "exit_price": 25089.75,
+      "entry_price": 25090.5,
+      "exit_price": 25089.25,
       "pnl_ticks": -5.0
     },
     {
@@ -3852,32 +4780,32 @@
       "entry_ts": "2026-03-05 19:51:00",
       "exit_ts": "2026-03-05 19:53:00",
       "direction": "short",
-      "entry_price": 25089.5,
-      "exit_price": 25088.75,
+      "entry_price": 25089.75,
+      "exit_price": 25089.0,
       "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-05 19:51:00",
       "exit_ts": "2026-03-05 19:53:00",
       "direction": "long",
-      "entry_price": 25089.5,
-      "exit_price": 25088.25,
+      "entry_price": 25089.75,
+      "exit_price": 25088.5,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 19:52:00",
       "exit_ts": "2026-03-05 19:54:00",
       "direction": "short",
-      "entry_price": 25087.75,
-      "exit_price": 25087.0,
+      "entry_price": 25088.0,
+      "exit_price": 25087.25,
       "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-05 19:52:00",
       "exit_ts": "2026-03-05 19:54:00",
       "direction": "long",
-      "entry_price": 25087.75,
-      "exit_price": 25086.5,
+      "entry_price": 25088.0,
+      "exit_price": 25086.75,
       "pnl_ticks": -5.0
     },
     {
@@ -4012,8 +4940,8 @@
       "entry_ts": "2026-03-05 20:04:00",
       "exit_ts": "2026-03-05 20:06:00",
       "direction": "long",
-      "entry_price": 25099.0,
-      "exit_price": 25097.75,
+      "entry_price": 25099.5,
+      "exit_price": 25098.25,
       "pnl_ticks": -5.0
     },
     {
@@ -4052,16 +4980,16 @@
       "entry_ts": "2026-03-05 20:07:00",
       "exit_ts": "2026-03-05 20:09:00",
       "direction": "short",
-      "entry_price": 25098.25,
-      "exit_price": 25097.5,
+      "entry_price": 25098.5,
+      "exit_price": 25097.75,
       "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-05 20:07:00",
       "exit_ts": "2026-03-05 20:09:00",
       "direction": "long",
-      "entry_price": 25098.25,
-      "exit_price": 25097.0,
+      "entry_price": 25098.5,
+      "exit_price": 25097.25,
       "pnl_ticks": -5.0
     },
     {
@@ -4092,24 +5020,24 @@
       "entry_ts": "2026-03-05 20:10:00",
       "exit_ts": "2026-03-05 20:12:00",
       "direction": "short",
-      "entry_price": 25093.0,
-      "exit_price": 25094.25,
+      "entry_price": 25092.5,
+      "exit_price": 25093.75,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 20:10:00",
       "exit_ts": "2026-03-05 20:12:00",
       "direction": "long",
-      "entry_price": 25093.0,
-      "exit_price": 25091.75,
+      "entry_price": 25092.5,
+      "exit_price": 25091.25,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-05 20:11:00",
       "exit_ts": "2026-03-05 20:13:00",
       "direction": "long",
-      "entry_price": 25095.25,
-      "exit_price": 25094.0,
+      "entry_price": 25095.0,
+      "exit_price": 25093.75,
       "pnl_ticks": -5.0
     },
     {
@@ -4130,7 +5058,7 @@
     },
     {
       "entry_ts": "2026-03-05 20:14:00",
-      "exit_ts": "2026-03-05 20:16:00",
+      "exit_ts": "2026-03-06 13:30:00",
       "direction": "short",
       "entry_price": 25085.5,
       "exit_price": 25084.75,
@@ -4138,7 +5066,7 @@
     },
     {
       "entry_ts": "2026-03-05 20:14:00",
-      "exit_ts": "2026-03-05 20:16:00",
+      "exit_ts": "2026-03-06 13:30:00",
       "direction": "long",
       "entry_price": 25085.5,
       "exit_price": 25084.25,
@@ -4146,811 +5074,963 @@
     },
     {
       "entry_ts": "2026-03-05 20:15:00",
-      "exit_ts": "2026-03-05 20:17:00",
+      "exit_ts": "2026-03-06 13:31:00",
       "direction": "short",
-      "entry_price": 25081.5,
-      "exit_price": 25080.75,
+      "entry_price": 24652.75,
+      "exit_price": 24654.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:30:00",
+      "exit_ts": "2026-03-06 13:32:00",
+      "direction": "short",
+      "entry_price": 24658.5,
+      "exit_price": 24657.75,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:15:00",
-      "exit_ts": "2026-03-05 20:17:00",
+      "entry_ts": "2026-03-06 13:30:00",
+      "exit_ts": "2026-03-06 13:32:00",
       "direction": "long",
-      "entry_price": 25081.5,
-      "exit_price": 25080.25,
+      "entry_price": 24658.5,
+      "exit_price": 24657.25,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:16:00",
-      "exit_ts": "2026-03-05 20:18:00",
+      "entry_ts": "2026-03-06 13:31:00",
+      "exit_ts": "2026-03-06 13:33:00",
       "direction": "short",
-      "entry_price": 25082.25,
-      "exit_price": 25083.5,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:16:00",
-      "exit_ts": "2026-03-05 20:18:00",
-      "direction": "long",
-      "entry_price": 25082.25,
-      "exit_price": 25081.0,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:17:00",
-      "exit_ts": "2026-03-05 20:19:00",
-      "direction": "long",
-      "entry_price": 25080.5,
-      "exit_price": 25079.25,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:18:00",
-      "exit_ts": "2026-03-05 20:20:00",
-      "direction": "short",
-      "entry_price": 25079.25,
-      "exit_price": 25080.5,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:18:00",
-      "exit_ts": "2026-03-05 20:20:00",
-      "direction": "long",
-      "entry_price": 25079.25,
-      "exit_price": 25080.0,
+      "entry_price": 24646.5,
+      "exit_price": 24645.75,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:19:00",
-      "exit_ts": "2026-03-05 20:21:00",
+      "entry_ts": "2026-03-06 13:31:00",
+      "exit_ts": "2026-03-06 13:33:00",
       "direction": "long",
-      "entry_price": 25085.5,
-      "exit_price": 25086.25,
+      "entry_price": 24646.5,
+      "exit_price": 24645.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:32:00",
+      "exit_ts": "2026-03-06 13:34:00",
+      "direction": "short",
+      "entry_price": 24635.25,
+      "exit_price": 24636.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:32:00",
+      "exit_ts": "2026-03-06 13:34:00",
+      "direction": "long",
+      "entry_price": 24635.25,
+      "exit_price": 24636.0,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:20:00",
-      "exit_ts": "2026-03-05 20:22:00",
+      "entry_ts": "2026-03-06 13:33:00",
+      "exit_ts": "2026-03-06 13:35:00",
       "direction": "short",
-      "entry_price": 25087.75,
-      "exit_price": 25087.0,
+      "entry_price": 24643.0,
+      "exit_price": 24642.25,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:20:00",
-      "exit_ts": "2026-03-05 20:22:00",
+      "entry_ts": "2026-03-06 13:33:00",
+      "exit_ts": "2026-03-06 13:35:00",
       "direction": "long",
-      "entry_price": 25087.75,
-      "exit_price": 25086.5,
+      "entry_price": 24643.0,
+      "exit_price": 24641.75,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:21:00",
-      "exit_ts": "2026-03-05 20:23:00",
+      "entry_ts": "2026-03-06 13:34:00",
+      "exit_ts": "2026-03-06 13:36:00",
       "direction": "short",
-      "entry_price": 25084.0,
-      "exit_price": 25085.25,
+      "entry_price": 24638.25,
+      "exit_price": 24639.5,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:22:00",
-      "exit_ts": "2026-03-05 20:24:00",
-      "direction": "short",
-      "entry_price": 25088.25,
-      "exit_price": 25089.5,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:22:00",
-      "exit_ts": "2026-03-05 20:24:00",
+      "entry_ts": "2026-03-06 13:34:00",
+      "exit_ts": "2026-03-06 13:36:00",
       "direction": "long",
-      "entry_price": 25088.25,
-      "exit_price": 25089.0,
+      "entry_price": 24638.25,
+      "exit_price": 24637.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:35:00",
+      "exit_ts": "2026-03-06 13:37:00",
+      "direction": "short",
+      "entry_price": 24631.25,
+      "exit_price": 24632.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:35:00",
+      "exit_ts": "2026-03-06 13:37:00",
+      "direction": "long",
+      "entry_price": 24631.25,
+      "exit_price": 24630.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:36:00",
+      "exit_ts": "2026-03-06 13:38:00",
+      "direction": "short",
+      "entry_price": 24614.5,
+      "exit_price": 24615.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:36:00",
+      "exit_ts": "2026-03-06 13:38:00",
+      "direction": "long",
+      "entry_price": 24614.5,
+      "exit_price": 24613.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:37:00",
+      "exit_ts": "2026-03-06 13:39:00",
+      "direction": "short",
+      "entry_price": 24632.5,
+      "exit_price": 24633.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:37:00",
+      "exit_ts": "2026-03-06 13:39:00",
+      "direction": "long",
+      "entry_price": 24632.5,
+      "exit_price": 24631.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:38:00",
+      "exit_ts": "2026-03-06 13:40:00",
+      "direction": "short",
+      "entry_price": 24615.75,
+      "exit_price": 24617.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:38:00",
+      "exit_ts": "2026-03-06 13:40:00",
+      "direction": "long",
+      "entry_price": 24615.75,
+      "exit_price": 24616.5,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:23:00",
-      "exit_ts": "2026-03-05 20:25:00",
-      "direction": "long",
-      "entry_price": 25094.25,
-      "exit_price": 25093.0,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:24:00",
-      "exit_ts": "2026-03-05 20:26:00",
+      "entry_ts": "2026-03-06 13:39:00",
+      "exit_ts": "2026-03-06 13:41:00",
       "direction": "short",
-      "entry_price": 25090.0,
-      "exit_price": 25091.25,
+      "entry_price": 24650.5,
+      "exit_price": 24651.75,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:24:00",
-      "exit_ts": "2026-03-05 20:26:00",
+      "entry_ts": "2026-03-06 13:39:00",
+      "exit_ts": "2026-03-06 13:41:00",
       "direction": "long",
-      "entry_price": 25090.0,
-      "exit_price": 25088.75,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:25:00",
-      "exit_ts": "2026-03-05 20:27:00",
-      "direction": "long",
-      "entry_price": 25090.25,
-      "exit_price": 25089.0,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:26:00",
-      "exit_ts": "2026-03-05 20:28:00",
-      "direction": "short",
-      "entry_price": 25089.75,
-      "exit_price": 25089.0,
+      "entry_price": 24650.5,
+      "exit_price": 24651.25,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:26:00",
-      "exit_ts": "2026-03-05 20:28:00",
-      "direction": "long",
-      "entry_price": 25089.75,
-      "exit_price": 25088.5,
+      "entry_ts": "2026-03-06 13:40:00",
+      "exit_ts": "2026-03-06 13:42:00",
+      "direction": "short",
+      "entry_price": 24694.25,
+      "exit_price": 24695.5,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:27:00",
-      "exit_ts": "2026-03-05 20:29:00",
+      "entry_ts": "2026-03-06 13:40:00",
+      "exit_ts": "2026-03-06 13:42:00",
+      "direction": "long",
+      "entry_price": 24694.25,
+      "exit_price": 24693.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:41:00",
+      "exit_ts": "2026-03-06 13:43:00",
       "direction": "short",
-      "entry_price": 25086.25,
-      "exit_price": 25085.5,
+      "entry_price": 24699.25,
+      "exit_price": 24700.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:41:00",
+      "exit_ts": "2026-03-06 13:43:00",
+      "direction": "long",
+      "entry_price": 24699.25,
+      "exit_price": 24698.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:42:00",
+      "exit_ts": "2026-03-06 13:44:00",
+      "direction": "short",
+      "entry_price": 24692.0,
+      "exit_price": 24693.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:42:00",
+      "exit_ts": "2026-03-06 13:44:00",
+      "direction": "long",
+      "entry_price": 24692.0,
+      "exit_price": 24690.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:43:00",
+      "exit_ts": "2026-03-06 13:45:00",
+      "direction": "short",
+      "entry_price": 24698.5,
+      "exit_price": 24697.75,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:27:00",
-      "exit_ts": "2026-03-05 20:29:00",
+      "entry_ts": "2026-03-06 13:43:00",
+      "exit_ts": "2026-03-06 13:45:00",
       "direction": "long",
-      "entry_price": 25086.25,
-      "exit_price": 25085.0,
+      "entry_price": 24698.5,
+      "exit_price": 24697.25,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:28:00",
-      "exit_ts": "2026-03-05 20:30:00",
+      "entry_ts": "2026-03-06 13:44:00",
+      "exit_ts": "2026-03-06 13:46:00",
       "direction": "short",
-      "entry_price": 25086.25,
-      "exit_price": 25087.5,
+      "entry_price": 24679.5,
+      "exit_price": 24680.75,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:28:00",
-      "exit_ts": "2026-03-05 20:30:00",
+      "entry_ts": "2026-03-06 13:44:00",
+      "exit_ts": "2026-03-06 13:46:00",
       "direction": "long",
-      "entry_price": 25086.25,
-      "exit_price": 25085.0,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:29:00",
-      "exit_ts": "2026-03-05 20:31:00",
-      "direction": "short",
-      "entry_price": 25084.75,
-      "exit_price": 25086.0,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:29:00",
-      "exit_ts": "2026-03-05 20:31:00",
-      "direction": "long",
-      "entry_price": 25084.75,
-      "exit_price": 25085.5,
+      "entry_price": 24679.5,
+      "exit_price": 24680.25,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:30:00",
-      "exit_ts": "2026-03-05 20:32:00",
+      "entry_ts": "2026-03-06 13:45:00",
+      "exit_ts": "2026-03-06 13:47:00",
       "direction": "short",
-      "entry_price": 25085.5,
-      "exit_price": 25084.75,
+      "entry_price": 24686.25,
+      "exit_price": 24687.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:45:00",
+      "exit_ts": "2026-03-06 13:47:00",
+      "direction": "long",
+      "entry_price": 24686.25,
+      "exit_price": 24685.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:46:00",
+      "exit_ts": "2026-03-06 13:48:00",
+      "direction": "short",
+      "entry_price": 24687.75,
+      "exit_price": 24689.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:46:00",
+      "exit_ts": "2026-03-06 13:48:00",
+      "direction": "long",
+      "entry_price": 24687.75,
+      "exit_price": 24686.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:47:00",
+      "exit_ts": "2026-03-06 13:49:00",
+      "direction": "short",
+      "entry_price": 24689.0,
+      "exit_price": 24690.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:47:00",
+      "exit_ts": "2026-03-06 13:49:00",
+      "direction": "long",
+      "entry_price": 24689.0,
+      "exit_price": 24687.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:48:00",
+      "exit_ts": "2026-03-06 13:50:00",
+      "direction": "short",
+      "entry_price": 24690.0,
+      "exit_price": 24691.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:48:00",
+      "exit_ts": "2026-03-06 13:50:00",
+      "direction": "long",
+      "entry_price": 24690.0,
+      "exit_price": 24688.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:49:00",
+      "exit_ts": "2026-03-06 13:51:00",
+      "direction": "short",
+      "entry_price": 24691.25,
+      "exit_price": 24690.5,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:30:00",
-      "exit_ts": "2026-03-05 20:32:00",
+      "entry_ts": "2026-03-06 13:49:00",
+      "exit_ts": "2026-03-06 13:51:00",
       "direction": "long",
-      "entry_price": 25085.5,
-      "exit_price": 25084.25,
+      "entry_price": 24691.25,
+      "exit_price": 24690.0,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:31:00",
-      "exit_ts": "2026-03-05 20:33:00",
+      "entry_ts": "2026-03-06 13:50:00",
+      "exit_ts": "2026-03-06 13:52:00",
       "direction": "short",
-      "entry_price": 25083.75,
-      "exit_price": 25083.0,
+      "entry_price": 24658.5,
+      "exit_price": 24659.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:50:00",
+      "exit_ts": "2026-03-06 13:52:00",
+      "direction": "long",
+      "entry_price": 24658.5,
+      "exit_price": 24659.25,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:32:00",
-      "exit_ts": "2026-03-05 20:34:00",
+      "entry_ts": "2026-03-06 13:51:00",
+      "exit_ts": "2026-03-06 13:53:00",
       "direction": "short",
-      "entry_price": 25078.25,
-      "exit_price": 25079.5,
+      "entry_price": 24668.75,
+      "exit_price": 24670.0,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:32:00",
-      "exit_ts": "2026-03-05 20:34:00",
+      "entry_ts": "2026-03-06 13:51:00",
+      "exit_ts": "2026-03-06 13:53:00",
       "direction": "long",
-      "entry_price": 25078.25,
-      "exit_price": 25079.0,
+      "entry_price": 24668.75,
+      "exit_price": 24667.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:52:00",
+      "exit_ts": "2026-03-06 13:54:00",
+      "direction": "short",
+      "entry_price": 24676.0,
+      "exit_price": 24677.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:52:00",
+      "exit_ts": "2026-03-06 13:54:00",
+      "direction": "long",
+      "entry_price": 24676.0,
+      "exit_price": 24674.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:53:00",
+      "exit_ts": "2026-03-06 13:55:00",
+      "direction": "short",
+      "entry_price": 24664.0,
+      "exit_price": 24665.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:53:00",
+      "exit_ts": "2026-03-06 13:55:00",
+      "direction": "long",
+      "entry_price": 24664.0,
+      "exit_price": 24662.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 13:54:00",
+      "exit_ts": "2026-03-06 13:56:00",
+      "direction": "short",
+      "entry_price": 24679.5,
+      "exit_price": 24678.75,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:33:00",
-      "exit_ts": "2026-03-05 20:35:00",
-      "direction": "short",
-      "entry_price": 25078.5,
-      "exit_price": 25079.75,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:33:00",
-      "exit_ts": "2026-03-05 20:35:00",
+      "entry_ts": "2026-03-06 13:54:00",
+      "exit_ts": "2026-03-06 13:56:00",
       "direction": "long",
-      "entry_price": 25078.5,
-      "exit_price": 25077.25,
+      "entry_price": 24679.5,
+      "exit_price": 24678.25,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:34:00",
-      "exit_ts": "2026-03-05 20:36:00",
+      "entry_ts": "2026-03-06 13:55:00",
+      "exit_ts": "2026-03-06 13:57:00",
       "direction": "short",
-      "entry_price": 25076.25,
-      "exit_price": 25077.5,
+      "entry_price": 24663.25,
+      "exit_price": 24664.5,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:35:00",
-      "exit_ts": "2026-03-05 20:37:00",
+      "entry_ts": "2026-03-06 13:55:00",
+      "exit_ts": "2026-03-06 13:57:00",
       "direction": "long",
-      "entry_price": 25081.0,
-      "exit_price": 25079.75,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:36:00",
-      "exit_ts": "2026-03-05 20:38:00",
-      "direction": "short",
-      "entry_price": 25082.75,
-      "exit_price": 25082.0,
+      "entry_price": 24663.25,
+      "exit_price": 24664.0,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:36:00",
-      "exit_ts": "2026-03-05 20:38:00",
-      "direction": "long",
-      "entry_price": 25082.75,
-      "exit_price": 25081.5,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:37:00",
-      "exit_ts": "2026-03-05 20:39:00",
+      "entry_ts": "2026-03-06 13:56:00",
+      "exit_ts": "2026-03-06 13:58:00",
       "direction": "short",
-      "entry_price": 25083.75,
-      "exit_price": 25085.0,
+      "entry_price": 24673.25,
+      "exit_price": 24674.5,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:37:00",
-      "exit_ts": "2026-03-05 20:39:00",
+      "entry_ts": "2026-03-06 13:56:00",
+      "exit_ts": "2026-03-06 13:58:00",
       "direction": "long",
-      "entry_price": 25083.75,
-      "exit_price": 25084.5,
+      "entry_price": 24673.25,
+      "exit_price": 24674.0,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:38:00",
-      "exit_ts": "2026-03-05 20:40:00",
-      "direction": "long",
-      "entry_price": 25084.25,
-      "exit_price": 25085.0,
+      "entry_ts": "2026-03-06 13:57:00",
+      "exit_ts": "2026-03-06 13:59:00",
+      "direction": "short",
+      "entry_price": 24689.0,
+      "exit_price": 24688.25,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:39:00",
-      "exit_ts": "2026-03-05 20:41:00",
-      "direction": "short",
-      "entry_price": 25088.5,
-      "exit_price": 25089.75,
+      "entry_ts": "2026-03-06 13:57:00",
+      "exit_ts": "2026-03-06 13:59:00",
+      "direction": "long",
+      "entry_price": 24689.0,
+      "exit_price": 24687.75,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:39:00",
-      "exit_ts": "2026-03-05 20:41:00",
-      "direction": "long",
-      "entry_price": 25088.5,
-      "exit_price": 25089.25,
+      "entry_ts": "2026-03-06 13:58:00",
+      "exit_ts": "2026-03-06 14:00:00",
+      "direction": "short",
+      "entry_price": 24686.5,
+      "exit_price": 24685.75,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:40:00",
-      "exit_ts": "2026-03-05 20:42:00",
-      "direction": "short",
-      "entry_price": 25092.75,
-      "exit_price": 25094.0,
+      "entry_ts": "2026-03-06 13:58:00",
+      "exit_ts": "2026-03-06 14:00:00",
+      "direction": "long",
+      "entry_price": 24686.5,
+      "exit_price": 24685.25,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:40:00",
-      "exit_ts": "2026-03-05 20:42:00",
-      "direction": "long",
-      "entry_price": 25092.75,
-      "exit_price": 25093.5,
+      "entry_ts": "2026-03-06 13:59:00",
+      "exit_ts": "2026-03-06 14:01:00",
+      "direction": "short",
+      "entry_price": 24668.25,
+      "exit_price": 24667.5,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:41:00",
-      "exit_ts": "2026-03-05 20:43:00",
-      "direction": "short",
-      "entry_price": 25093.75,
-      "exit_price": 25095.0,
+      "entry_ts": "2026-03-06 13:59:00",
+      "exit_ts": "2026-03-06 14:01:00",
+      "direction": "long",
+      "entry_price": 24668.25,
+      "exit_price": 24667.0,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:41:00",
-      "exit_ts": "2026-03-05 20:43:00",
-      "direction": "long",
-      "entry_price": 25093.75,
-      "exit_price": 25094.5,
+      "entry_ts": "2026-03-06 14:00:00",
+      "exit_ts": "2026-03-06 14:02:00",
+      "direction": "short",
+      "entry_price": 24652.5,
+      "exit_price": 24651.75,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:42:00",
-      "exit_ts": "2026-03-05 20:44:00",
-      "direction": "short",
-      "entry_price": 25095.25,
-      "exit_price": 25096.5,
+      "entry_ts": "2026-03-06 14:00:00",
+      "exit_ts": "2026-03-06 14:02:00",
+      "direction": "long",
+      "entry_price": 24652.5,
+      "exit_price": 24651.25,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:42:00",
-      "exit_ts": "2026-03-05 20:44:00",
+      "entry_ts": "2026-03-06 14:01:00",
+      "exit_ts": "2026-03-06 14:03:00",
+      "direction": "short",
+      "entry_price": 24641.75,
+      "exit_price": 24643.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:01:00",
+      "exit_ts": "2026-03-06 14:03:00",
       "direction": "long",
-      "entry_price": 25095.25,
-      "exit_price": 25096.0,
+      "entry_price": 24641.75,
+      "exit_price": 24640.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:02:00",
+      "exit_ts": "2026-03-06 14:04:00",
+      "direction": "short",
+      "entry_price": 24638.25,
+      "exit_price": 24639.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:02:00",
+      "exit_ts": "2026-03-06 14:04:00",
+      "direction": "long",
+      "entry_price": 24638.25,
+      "exit_price": 24639.0,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:43:00",
-      "exit_ts": "2026-03-05 20:45:00",
+      "entry_ts": "2026-03-06 14:03:00",
+      "exit_ts": "2026-03-06 14:05:00",
       "direction": "short",
-      "entry_price": 25097.5,
-      "exit_price": 25098.75,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:43:00",
-      "exit_ts": "2026-03-05 20:45:00",
-      "direction": "long",
-      "entry_price": 25097.5,
-      "exit_price": 25098.25,
+      "entry_price": 24647.0,
+      "exit_price": 24646.25,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:44:00",
-      "exit_ts": "2026-03-05 20:46:00",
-      "direction": "short",
-      "entry_price": 25097.5,
-      "exit_price": 25098.75,
+      "entry_ts": "2026-03-06 14:03:00",
+      "exit_ts": "2026-03-06 14:05:00",
+      "direction": "long",
+      "entry_price": 24647.0,
+      "exit_price": 24645.75,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:44:00",
-      "exit_ts": "2026-03-05 20:46:00",
-      "direction": "long",
-      "entry_price": 25097.5,
-      "exit_price": 25098.25,
+      "entry_ts": "2026-03-06 14:04:00",
+      "exit_ts": "2026-03-06 14:06:00",
+      "direction": "short",
+      "entry_price": 24642.5,
+      "exit_price": 24641.75,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:45:00",
-      "exit_ts": "2026-03-05 20:47:00",
+      "entry_ts": "2026-03-06 14:04:00",
+      "exit_ts": "2026-03-06 14:06:00",
       "direction": "long",
-      "entry_price": 25103.25,
-      "exit_price": 25102.0,
+      "entry_price": 24642.5,
+      "exit_price": 24641.25,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:46:00",
-      "exit_ts": "2026-03-05 20:48:00",
+      "entry_ts": "2026-03-06 14:05:00",
+      "exit_ts": "2026-03-06 14:07:00",
       "direction": "short",
-      "entry_price": 25100.75,
-      "exit_price": 25102.0,
+      "entry_price": 24635.25,
+      "exit_price": 24636.5,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:46:00",
-      "exit_ts": "2026-03-05 20:48:00",
+      "entry_ts": "2026-03-06 14:05:00",
+      "exit_ts": "2026-03-06 14:07:00",
       "direction": "long",
-      "entry_price": 25100.75,
-      "exit_price": 25099.5,
+      "entry_price": 24635.25,
+      "exit_price": 24634.0,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:47:00",
-      "exit_ts": "2026-03-05 20:49:00",
+      "entry_ts": "2026-03-06 14:06:00",
+      "exit_ts": "2026-03-06 14:08:00",
       "direction": "short",
-      "entry_price": 25102.75,
-      "exit_price": 25102.0,
+      "entry_price": 24633.0,
+      "exit_price": 24634.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:06:00",
+      "exit_ts": "2026-03-06 14:08:00",
+      "direction": "long",
+      "entry_price": 24633.0,
+      "exit_price": 24631.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:07:00",
+      "exit_ts": "2026-03-06 14:09:00",
+      "direction": "short",
+      "entry_price": 24632.5,
+      "exit_price": 24633.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:07:00",
+      "exit_ts": "2026-03-06 14:09:00",
+      "direction": "long",
+      "entry_price": 24632.5,
+      "exit_price": 24631.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:08:00",
+      "exit_ts": "2026-03-06 14:10:00",
+      "direction": "short",
+      "entry_price": 24631.75,
+      "exit_price": 24633.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:08:00",
+      "exit_ts": "2026-03-06 14:10:00",
+      "direction": "long",
+      "entry_price": 24631.75,
+      "exit_price": 24630.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:09:00",
+      "exit_ts": "2026-03-06 14:11:00",
+      "direction": "short",
+      "entry_price": 24629.75,
+      "exit_price": 24631.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:09:00",
+      "exit_ts": "2026-03-06 14:11:00",
+      "direction": "long",
+      "entry_price": 24629.75,
+      "exit_price": 24630.5,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:47:00",
-      "exit_ts": "2026-03-05 20:49:00",
-      "direction": "long",
-      "entry_price": 25102.75,
-      "exit_price": 25101.5,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:48:00",
-      "exit_ts": "2026-03-05 20:50:00",
+      "entry_ts": "2026-03-06 14:10:00",
+      "exit_ts": "2026-03-06 14:12:00",
       "direction": "short",
-      "entry_price": 25100.25,
-      "exit_price": 25101.5,
+      "entry_price": 24636.0,
+      "exit_price": 24637.25,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:48:00",
-      "exit_ts": "2026-03-05 20:50:00",
+      "entry_ts": "2026-03-06 14:10:00",
+      "exit_ts": "2026-03-06 14:12:00",
       "direction": "long",
-      "entry_price": 25100.25,
-      "exit_price": 25099.0,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:49:00",
-      "exit_ts": "2026-03-05 20:51:00",
-      "direction": "short",
-      "entry_price": 25098.5,
-      "exit_price": 25099.75,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:49:00",
-      "exit_ts": "2026-03-05 20:51:00",
-      "direction": "long",
-      "entry_price": 25098.5,
-      "exit_price": 25097.25,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:50:00",
-      "exit_ts": "2026-03-05 20:52:00",
-      "direction": "short",
-      "entry_price": 25102.75,
-      "exit_price": 25102.0,
+      "entry_price": 24636.0,
+      "exit_price": 24636.75,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:50:00",
-      "exit_ts": "2026-03-05 20:52:00",
-      "direction": "long",
-      "entry_price": 25102.75,
-      "exit_price": 25101.5,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:51:00",
-      "exit_ts": "2026-03-05 20:53:00",
+      "entry_ts": "2026-03-06 14:11:00",
+      "exit_ts": "2026-03-06 14:13:00",
       "direction": "short",
-      "entry_price": 25097.0,
-      "exit_price": 25098.25,
+      "entry_price": 24646.5,
+      "exit_price": 24647.75,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:51:00",
-      "exit_ts": "2026-03-05 20:53:00",
+      "entry_ts": "2026-03-06 14:11:00",
+      "exit_ts": "2026-03-06 14:13:00",
       "direction": "long",
-      "entry_price": 25097.0,
-      "exit_price": 25097.75,
+      "entry_price": 24646.5,
+      "exit_price": 24647.25,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:52:00",
-      "exit_ts": "2026-03-05 20:54:00",
+      "entry_ts": "2026-03-06 14:12:00",
+      "exit_ts": "2026-03-06 14:14:00",
+      "direction": "short",
+      "entry_price": 24652.25,
+      "exit_price": 24653.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:12:00",
+      "exit_ts": "2026-03-06 14:14:00",
       "direction": "long",
-      "entry_price": 25097.5,
-      "exit_price": 25098.25,
+      "entry_price": 24652.25,
+      "exit_price": 24653.0,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:53:00",
-      "exit_ts": "2026-03-05 20:55:00",
+      "entry_ts": "2026-03-06 14:13:00",
+      "exit_ts": "2026-03-06 14:15:00",
       "direction": "short",
-      "entry_price": 25099.25,
-      "exit_price": 25098.5,
+      "entry_price": 24653.75,
+      "exit_price": 24655.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:13:00",
+      "exit_ts": "2026-03-06 14:15:00",
+      "direction": "long",
+      "entry_price": 24653.75,
+      "exit_price": 24652.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:14:00",
+      "exit_ts": "2026-03-06 14:16:00",
+      "direction": "short",
+      "entry_price": 24657.75,
+      "exit_price": 24657.0,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:53:00",
-      "exit_ts": "2026-03-05 20:55:00",
+      "entry_ts": "2026-03-06 14:14:00",
+      "exit_ts": "2026-03-06 14:16:00",
       "direction": "long",
-      "entry_price": 25099.25,
-      "exit_price": 25098.0,
+      "entry_price": 24657.75,
+      "exit_price": 24656.5,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:54:00",
-      "exit_ts": "2026-03-05 20:56:00",
+      "entry_ts": "2026-03-06 14:15:00",
+      "exit_ts": "2026-03-06 14:17:00",
       "direction": "short",
-      "entry_price": 25098.0,
-      "exit_price": 25099.25,
+      "entry_price": 24655.25,
+      "exit_price": 24656.5,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:54:00",
-      "exit_ts": "2026-03-05 20:56:00",
+      "entry_ts": "2026-03-06 14:15:00",
+      "exit_ts": "2026-03-06 14:17:00",
       "direction": "long",
-      "entry_price": 25098.0,
-      "exit_price": 25098.75,
+      "entry_price": 24655.25,
+      "exit_price": 24654.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:16:00",
+      "exit_ts": "2026-03-06 14:18:00",
+      "direction": "short",
+      "entry_price": 24648.5,
+      "exit_price": 24649.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:16:00",
+      "exit_ts": "2026-03-06 14:18:00",
+      "direction": "long",
+      "entry_price": 24648.5,
+      "exit_price": 24647.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:17:00",
+      "exit_ts": "2026-03-06 14:19:00",
+      "direction": "short",
+      "entry_price": 24650.25,
+      "exit_price": 24649.5,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:55:00",
-      "exit_ts": "2026-03-05 20:57:00",
+      "entry_ts": "2026-03-06 14:17:00",
+      "exit_ts": "2026-03-06 14:19:00",
       "direction": "long",
-      "entry_price": 25100.5,
-      "exit_price": 25101.25,
+      "entry_price": 24650.25,
+      "exit_price": 24649.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:18:00",
+      "exit_ts": "2026-03-06 14:20:00",
+      "direction": "short",
+      "entry_price": 24640.0,
+      "exit_price": 24641.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:18:00",
+      "exit_ts": "2026-03-06 14:20:00",
+      "direction": "long",
+      "entry_price": 24640.0,
+      "exit_price": 24640.75,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:56:00",
-      "exit_ts": "2026-03-05 20:58:00",
+      "entry_ts": "2026-03-06 14:19:00",
+      "exit_ts": "2026-03-06 14:21:00",
+      "direction": "short",
+      "entry_price": 24644.5,
+      "exit_price": 24645.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:19:00",
+      "exit_ts": "2026-03-06 14:21:00",
       "direction": "long",
-      "entry_price": 25102.25,
-      "exit_price": 25103.0,
+      "entry_price": 24644.5,
+      "exit_price": 24643.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:20:00",
+      "exit_ts": "2026-03-06 14:22:00",
+      "direction": "short",
+      "entry_price": 24649.25,
+      "exit_price": 24648.5,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:57:00",
-      "exit_ts": "2026-03-05 20:59:00",
-      "direction": "short",
-      "entry_price": 25105.0,
-      "exit_price": 25106.25,
+      "entry_ts": "2026-03-06 14:20:00",
+      "exit_ts": "2026-03-06 14:22:00",
+      "direction": "long",
+      "entry_price": 24649.25,
+      "exit_price": 24648.0,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 20:57:00",
-      "exit_ts": "2026-03-05 20:59:00",
+      "entry_ts": "2026-03-06 14:21:00",
+      "exit_ts": "2026-03-06 14:23:00",
+      "direction": "short",
+      "entry_price": 24643.5,
+      "exit_price": 24644.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:21:00",
+      "exit_ts": "2026-03-06 14:23:00",
       "direction": "long",
-      "entry_price": 25105.0,
-      "exit_price": 25105.75,
+      "entry_price": 24643.5,
+      "exit_price": 24644.25,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:58:00",
-      "exit_ts": "2026-03-05 21:00:00",
+      "entry_ts": "2026-03-06 14:22:00",
+      "exit_ts": "2026-03-06 14:24:00",
       "direction": "short",
-      "entry_price": 25111.75,
-      "exit_price": 25113.0,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:58:00",
-      "exit_ts": "2026-03-05 21:00:00",
-      "direction": "long",
-      "entry_price": 25111.75,
-      "exit_price": 25110.5,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 20:59:00",
-      "exit_ts": "2026-03-05 21:01:00",
-      "direction": "short",
-      "entry_price": 25113.0,
-      "exit_price": 25112.25,
+      "entry_price": 24645.0,
+      "exit_price": 24644.25,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 20:59:00",
-      "exit_ts": "2026-03-05 21:01:00",
+      "entry_ts": "2026-03-06 14:22:00",
+      "exit_ts": "2026-03-06 14:24:00",
       "direction": "long",
-      "entry_price": 25113.0,
-      "exit_price": 25111.75,
+      "entry_price": 24645.0,
+      "exit_price": 24643.75,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 21:00:00",
-      "exit_ts": "2026-03-05 21:02:00",
+      "entry_ts": "2026-03-06 14:23:00",
+      "exit_ts": "2026-03-06 14:25:00",
       "direction": "short",
-      "entry_price": 25110.75,
-      "exit_price": 25112.0,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 21:00:00",
-      "exit_ts": "2026-03-05 21:02:00",
-      "direction": "long",
-      "entry_price": 25110.75,
-      "exit_price": 25109.5,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 21:01:00",
-      "exit_ts": "2026-03-05 21:03:00",
-      "direction": "short",
-      "entry_price": 25110.0,
-      "exit_price": 25111.25,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 21:01:00",
-      "exit_ts": "2026-03-05 21:03:00",
-      "direction": "long",
-      "entry_price": 25110.0,
-      "exit_price": 25110.75,
+      "entry_price": 24645.0,
+      "exit_price": 24644.25,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 21:02:00",
-      "exit_ts": "2026-03-05 21:04:00",
+      "entry_ts": "2026-03-06 14:23:00",
+      "exit_ts": "2026-03-06 14:25:00",
       "direction": "long",
-      "entry_price": 25113.25,
-      "exit_price": 25112.0,
+      "entry_price": 24645.0,
+      "exit_price": 24643.75,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 21:03:00",
-      "exit_ts": "2026-03-05 21:05:00",
+      "entry_ts": "2026-03-06 14:24:00",
+      "exit_ts": "2026-03-06 14:26:00",
       "direction": "short",
-      "entry_price": 25113.25,
-      "exit_price": 25112.5,
+      "entry_price": 24643.25,
+      "exit_price": 24642.5,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 21:03:00",
-      "exit_ts": "2026-03-05 21:05:00",
+      "entry_ts": "2026-03-06 14:24:00",
+      "exit_ts": "2026-03-06 14:26:00",
       "direction": "long",
-      "entry_price": 25113.25,
-      "exit_price": 25112.0,
+      "entry_price": 24643.25,
+      "exit_price": 24642.0,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 21:04:00",
-      "exit_ts": "2026-03-05 21:06:00",
+      "entry_ts": "2026-03-06 14:25:00",
+      "exit_ts": "2026-03-06 14:27:00",
       "direction": "short",
-      "entry_price": 25109.25,
-      "exit_price": 25110.5,
+      "entry_price": 24640.75,
+      "exit_price": 24642.0,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 21:05:00",
-      "exit_ts": "2026-03-05 21:07:00",
-      "direction": "short",
-      "entry_price": 25107.75,
-      "exit_price": 25109.0,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 21:05:00",
-      "exit_ts": "2026-03-05 21:07:00",
+      "entry_ts": "2026-03-06 14:25:00",
+      "exit_ts": "2026-03-06 14:27:00",
       "direction": "long",
-      "entry_price": 25107.75,
-      "exit_price": 25108.5,
+      "entry_price": 24640.75,
+      "exit_price": 24639.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:26:00",
+      "exit_ts": "2026-03-06 14:28:00",
+      "direction": "short",
+      "entry_price": 24640.0,
+      "exit_price": 24641.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:26:00",
+      "exit_ts": "2026-03-06 14:28:00",
+      "direction": "long",
+      "entry_price": 24640.0,
+      "exit_price": 24638.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:27:00",
+      "exit_ts": "2026-03-06 14:29:00",
+      "direction": "long",
+      "entry_price": 24645.25,
+      "exit_price": 24644.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:28:00",
+      "exit_ts": "2026-03-06 14:30:00",
+      "direction": "short",
+      "entry_price": 24640.25,
+      "exit_price": 24639.5,
       "pnl_ticks": 3.0
     },
     {
-      "entry_ts": "2026-03-05 21:06:00",
-      "exit_ts": "2026-03-05 21:08:00",
-      "direction": "long",
-      "entry_price": 25111.0,
-      "exit_price": 25109.75,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 21:07:00",
-      "exit_ts": "2026-03-05 21:09:00",
-      "direction": "short",
-      "entry_price": 25108.0,
-      "exit_price": 25109.25,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 21:08:00",
-      "exit_ts": "2026-03-05 21:10:00",
-      "direction": "short",
-      "entry_price": 25109.25,
-      "exit_price": 25110.5,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 21:08:00",
-      "exit_ts": "2026-03-05 21:10:00",
-      "direction": "long",
-      "entry_price": 25109.25,
-      "exit_price": 25108.0,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 21:09:00",
-      "exit_ts": "2026-03-05 21:11:00",
-      "direction": "short",
-      "entry_price": 25111.0,
-      "exit_price": 25110.25,
-      "pnl_ticks": 3.0
-    },
-    {
-      "entry_ts": "2026-03-05 21:09:00",
-      "exit_ts": "2026-03-05 21:11:00",
-      "direction": "long",
-      "entry_price": 25111.0,
-      "exit_price": 25109.75,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 21:10:00",
-      "exit_ts": "2026-03-05 21:12:00",
-      "direction": "short",
-      "entry_price": 25104.5,
-      "exit_price": 25105.75,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 21:11:00",
-      "exit_ts": "2026-03-05 21:13:00",
-      "direction": "short",
-      "entry_price": 25108.25,
-      "exit_price": 25107.5,
-      "pnl_ticks": 3.0
-    },
-    {
-      "entry_ts": "2026-03-05 21:11:00",
-      "exit_ts": "2026-03-05 21:13:00",
-      "direction": "long",
-      "entry_price": 25108.25,
-      "exit_price": 25107.0,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 21:12:00",
-      "exit_ts": "2026-03-05 21:14:00",
-      "direction": "short",
-      "entry_price": 25106.25,
-      "exit_price": 25105.5,
-      "pnl_ticks": 3.0
-    },
-    {
-      "entry_ts": "2026-03-05 21:13:00",
-      "exit_ts": "2026-03-05 21:15:00",
-      "direction": "short",
-      "entry_price": 25106.75,
-      "exit_price": 25108.0,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 21:13:00",
-      "exit_ts": "2026-03-05 21:15:00",
-      "direction": "long",
-      "entry_price": 25106.75,
-      "exit_price": 25105.5,
-      "pnl_ticks": -5.0
-    },
-    {
-      "entry_ts": "2026-03-05 21:14:00",
+      "entry_ts": "2026-03-06 14:28:00",
       "exit_ts": "2026-03-06 14:30:00",
       "direction": "long",
-      "entry_price": 25108.0,
-      "exit_price": 25106.75,
+      "entry_price": 24640.25,
+      "exit_price": 24639.0,
       "pnl_ticks": -5.0
     },
     {
-      "entry_ts": "2026-03-05 21:15:00",
+      "entry_ts": "2026-03-06 14:29:00",
       "exit_ts": "2026-03-06 14:31:00",
       "direction": "short",
       "entry_price": 24632.75,
       "exit_price": 24634.0,
       "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:29:00",
+      "exit_ts": "2026-03-06 14:31:00",
+      "direction": "long",
+      "entry_price": 24632.75,
+      "exit_price": 24633.5,
+      "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-06 14:30:00",
@@ -4966,6 +6046,14 @@
       "direction": "long",
       "entry_price": 24636.25,
       "exit_price": 24635.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:31:00",
+      "exit_ts": "2026-03-06 14:33:00",
+      "direction": "short",
+      "entry_price": 24636.25,
+      "exit_price": 24637.5,
       "pnl_ticks": -5.0
     },
     {
@@ -5060,24 +6148,24 @@
       "entry_ts": "2026-03-06 14:37:00",
       "exit_ts": "2026-03-06 14:39:00",
       "direction": "long",
-      "entry_price": 24654.25,
-      "exit_price": 24655.0,
+      "entry_price": 24654.0,
+      "exit_price": 24654.75,
       "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-06 14:38:00",
       "exit_ts": "2026-03-06 14:40:00",
       "direction": "short",
-      "entry_price": 24658.25,
-      "exit_price": 24659.5,
+      "entry_price": 24659.0,
+      "exit_price": 24660.25,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-06 14:38:00",
       "exit_ts": "2026-03-06 14:40:00",
       "direction": "long",
-      "entry_price": 24658.25,
-      "exit_price": 24659.0,
+      "entry_price": 24659.0,
+      "exit_price": 24659.75,
       "pnl_ticks": 3.0
     },
     {
@@ -5148,16 +6236,16 @@
       "entry_ts": "2026-03-06 14:43:00",
       "exit_ts": "2026-03-06 14:45:00",
       "direction": "short",
-      "entry_price": 24657.75,
-      "exit_price": 24659.0,
+      "entry_price": 24657.5,
+      "exit_price": 24658.75,
       "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-06 14:43:00",
       "exit_ts": "2026-03-06 14:45:00",
       "direction": "long",
-      "entry_price": 24657.75,
-      "exit_price": 24658.5,
+      "entry_price": 24657.5,
+      "exit_price": 24658.25,
       "pnl_ticks": 3.0
     },
     {
@@ -5324,16 +6412,16 @@
       "entry_ts": "2026-03-06 14:54:00",
       "exit_ts": "2026-03-06 14:56:00",
       "direction": "short",
-      "entry_price": 24674.5,
-      "exit_price": 24673.75,
+      "entry_price": 24675.0,
+      "exit_price": 24674.25,
       "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-06 14:54:00",
       "exit_ts": "2026-03-06 14:56:00",
       "direction": "long",
-      "entry_price": 24674.5,
-      "exit_price": 24673.25,
+      "entry_price": 24675.0,
+      "exit_price": 24673.75,
       "pnl_ticks": -5.0
     },
     {
@@ -5356,16 +6444,16 @@
       "entry_ts": "2026-03-06 14:56:00",
       "exit_ts": "2026-03-06 14:58:00",
       "direction": "short",
-      "entry_price": 24671.0,
-      "exit_price": 24670.25,
+      "entry_price": 24671.25,
+      "exit_price": 24670.5,
       "pnl_ticks": 3.0
     },
     {
       "entry_ts": "2026-03-06 14:56:00",
       "exit_ts": "2026-03-06 14:58:00",
       "direction": "long",
-      "entry_price": 24671.0,
-      "exit_price": 24669.75,
+      "entry_price": 24671.25,
+      "exit_price": 24670.0,
       "pnl_ticks": -5.0
     },
     {
@@ -5386,20 +6474,492 @@
     },
     {
       "entry_ts": "2026-03-06 14:58:00",
-      "exit_ts": "2026-03-06 14:59:00",
+      "exit_ts": "2026-03-09 13:30:00",
       "direction": "short",
       "entry_price": 24666.25,
-      "exit_price": 24661.25,
-      "pnl_ticks": 20.0
+      "exit_price": 24667.5,
+      "pnl_ticks": -5.0
     },
     {
       "entry_ts": "2026-03-06 14:58:00",
-      "exit_ts": "2026-03-06 14:59:00",
+      "exit_ts": "2026-03-09 13:30:00",
       "direction": "long",
       "entry_price": 24666.25,
-      "exit_price": 24661.25,
-      "pnl_ticks": -20.0
+      "exit_price": 24667.0,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-06 14:59:00",
+      "exit_ts": "2026-03-09 13:31:00",
+      "direction": "long",
+      "entry_price": 24964.5,
+      "exit_price": 24963.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:30:00",
+      "exit_ts": "2026-03-09 13:32:00",
+      "direction": "short",
+      "entry_price": 24952.0,
+      "exit_price": 24953.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:30:00",
+      "exit_ts": "2026-03-09 13:32:00",
+      "direction": "long",
+      "entry_price": 24952.0,
+      "exit_price": 24950.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:31:00",
+      "exit_ts": "2026-03-09 13:33:00",
+      "direction": "long",
+      "entry_price": 24951.75,
+      "exit_price": 24950.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:32:00",
+      "exit_ts": "2026-03-09 13:34:00",
+      "direction": "short",
+      "entry_price": 24971.25,
+      "exit_price": 24970.5,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:32:00",
+      "exit_ts": "2026-03-09 13:34:00",
+      "direction": "long",
+      "entry_price": 24971.25,
+      "exit_price": 24970.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:33:00",
+      "exit_ts": "2026-03-09 13:35:00",
+      "direction": "short",
+      "entry_price": 24955.25,
+      "exit_price": 24956.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:33:00",
+      "exit_ts": "2026-03-09 13:35:00",
+      "direction": "long",
+      "entry_price": 24955.25,
+      "exit_price": 24956.0,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:34:00",
+      "exit_ts": "2026-03-09 13:36:00",
+      "direction": "short",
+      "entry_price": 24958.5,
+      "exit_price": 24959.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:34:00",
+      "exit_ts": "2026-03-09 13:36:00",
+      "direction": "long",
+      "entry_price": 24958.5,
+      "exit_price": 24959.25,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:35:00",
+      "exit_ts": "2026-03-09 13:37:00",
+      "direction": "short",
+      "entry_price": 24968.25,
+      "exit_price": 24969.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:35:00",
+      "exit_ts": "2026-03-09 13:37:00",
+      "direction": "long",
+      "entry_price": 24968.25,
+      "exit_price": 24967.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:36:00",
+      "exit_ts": "2026-03-09 13:38:00",
+      "direction": "short",
+      "entry_price": 24969.0,
+      "exit_price": 24970.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:36:00",
+      "exit_ts": "2026-03-09 13:38:00",
+      "direction": "long",
+      "entry_price": 24969.0,
+      "exit_price": 24967.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:37:00",
+      "exit_ts": "2026-03-09 13:39:00",
+      "direction": "short",
+      "entry_price": 24953.25,
+      "exit_price": 24954.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:37:00",
+      "exit_ts": "2026-03-09 13:39:00",
+      "direction": "long",
+      "entry_price": 24953.25,
+      "exit_price": 24954.0,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:38:00",
+      "exit_ts": "2026-03-09 13:40:00",
+      "direction": "short",
+      "entry_price": 24958.0,
+      "exit_price": 24959.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:38:00",
+      "exit_ts": "2026-03-09 13:40:00",
+      "direction": "long",
+      "entry_price": 24958.0,
+      "exit_price": 24956.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:39:00",
+      "exit_ts": "2026-03-09 13:41:00",
+      "direction": "short",
+      "entry_price": 24960.0,
+      "exit_price": 24961.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:39:00",
+      "exit_ts": "2026-03-09 13:41:00",
+      "direction": "long",
+      "entry_price": 24960.0,
+      "exit_price": 24958.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:40:00",
+      "exit_ts": "2026-03-09 13:42:00",
+      "direction": "short",
+      "entry_price": 24960.5,
+      "exit_price": 24959.75,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:40:00",
+      "exit_ts": "2026-03-09 13:42:00",
+      "direction": "long",
+      "entry_price": 24960.5,
+      "exit_price": 24959.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:41:00",
+      "exit_ts": "2026-03-09 13:43:00",
+      "direction": "short",
+      "entry_price": 24950.75,
+      "exit_price": 24952.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:42:00",
+      "exit_ts": "2026-03-09 13:44:00",
+      "direction": "short",
+      "entry_price": 24951.25,
+      "exit_price": 24952.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:42:00",
+      "exit_ts": "2026-03-09 13:44:00",
+      "direction": "long",
+      "entry_price": 24951.25,
+      "exit_price": 24952.0,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:43:00",
+      "exit_ts": "2026-03-09 13:45:00",
+      "direction": "short",
+      "entry_price": 24956.75,
+      "exit_price": 24958.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:43:00",
+      "exit_ts": "2026-03-09 13:45:00",
+      "direction": "long",
+      "entry_price": 24956.75,
+      "exit_price": 24955.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:44:00",
+      "exit_ts": "2026-03-09 13:46:00",
+      "direction": "short",
+      "entry_price": 24959.5,
+      "exit_price": 24958.75,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:44:00",
+      "exit_ts": "2026-03-09 13:46:00",
+      "direction": "long",
+      "entry_price": 24959.5,
+      "exit_price": 24958.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:45:00",
+      "exit_ts": "2026-03-09 13:47:00",
+      "direction": "short",
+      "entry_price": 24951.75,
+      "exit_price": 24951.0,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:45:00",
+      "exit_ts": "2026-03-09 13:47:00",
+      "direction": "long",
+      "entry_price": 24951.75,
+      "exit_price": 24950.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:46:00",
+      "exit_ts": "2026-03-09 13:48:00",
+      "direction": "short",
+      "entry_price": 24946.75,
+      "exit_price": 24948.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:46:00",
+      "exit_ts": "2026-03-09 13:48:00",
+      "direction": "long",
+      "entry_price": 24946.75,
+      "exit_price": 24947.5,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:47:00",
+      "exit_ts": "2026-03-09 13:49:00",
+      "direction": "short",
+      "entry_price": 24947.75,
+      "exit_price": 24949.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:47:00",
+      "exit_ts": "2026-03-09 13:49:00",
+      "direction": "long",
+      "entry_price": 24947.75,
+      "exit_price": 24948.5,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:48:00",
+      "exit_ts": "2026-03-09 13:50:00",
+      "direction": "short",
+      "entry_price": 24955.75,
+      "exit_price": 24957.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:48:00",
+      "exit_ts": "2026-03-09 13:50:00",
+      "direction": "long",
+      "entry_price": 24955.75,
+      "exit_price": 24956.5,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:49:00",
+      "exit_ts": "2026-03-09 13:51:00",
+      "direction": "short",
+      "entry_price": 24966.0,
+      "exit_price": 24967.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:49:00",
+      "exit_ts": "2026-03-09 13:51:00",
+      "direction": "long",
+      "entry_price": 24966.0,
+      "exit_price": 24964.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:50:00",
+      "exit_ts": "2026-03-09 13:52:00",
+      "direction": "short",
+      "entry_price": 24958.5,
+      "exit_price": 24959.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:50:00",
+      "exit_ts": "2026-03-09 13:52:00",
+      "direction": "long",
+      "entry_price": 24958.5,
+      "exit_price": 24959.25,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:51:00",
+      "exit_ts": "2026-03-09 13:53:00",
+      "direction": "short",
+      "entry_price": 24968.75,
+      "exit_price": 24968.0,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:51:00",
+      "exit_ts": "2026-03-09 13:53:00",
+      "direction": "long",
+      "entry_price": 24968.75,
+      "exit_price": 24967.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:52:00",
+      "exit_ts": "2026-03-09 13:54:00",
+      "direction": "short",
+      "entry_price": 24959.0,
+      "exit_price": 24960.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:52:00",
+      "exit_ts": "2026-03-09 13:54:00",
+      "direction": "long",
+      "entry_price": 24959.0,
+      "exit_price": 24957.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:53:00",
+      "exit_ts": "2026-03-09 13:55:00",
+      "direction": "short",
+      "entry_price": 24957.25,
+      "exit_price": 24958.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:53:00",
+      "exit_ts": "2026-03-09 13:55:00",
+      "direction": "long",
+      "entry_price": 24957.25,
+      "exit_price": 24958.0,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:54:00",
+      "exit_ts": "2026-03-09 13:56:00",
+      "direction": "short",
+      "entry_price": 24961.5,
+      "exit_price": 24962.75,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:54:00",
+      "exit_ts": "2026-03-09 13:56:00",
+      "direction": "long",
+      "entry_price": 24961.5,
+      "exit_price": 24960.25,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:55:00",
+      "exit_ts": "2026-03-09 13:57:00",
+      "direction": "short",
+      "entry_price": 24969.25,
+      "exit_price": 24970.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:55:00",
+      "exit_ts": "2026-03-09 13:57:00",
+      "direction": "long",
+      "entry_price": 24969.25,
+      "exit_price": 24968.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:56:00",
+      "exit_ts": "2026-03-09 13:58:00",
+      "direction": "short",
+      "entry_price": 24961.75,
+      "exit_price": 24963.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:56:00",
+      "exit_ts": "2026-03-09 13:58:00",
+      "direction": "long",
+      "entry_price": 24961.75,
+      "exit_price": 24962.5,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:57:00",
+      "exit_ts": "2026-03-09 13:59:00",
+      "direction": "short",
+      "entry_price": 24967.25,
+      "exit_price": 24968.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:57:00",
+      "exit_ts": "2026-03-09 13:59:00",
+      "direction": "long",
+      "entry_price": 24967.25,
+      "exit_price": 24966.0,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:58:00",
+      "exit_ts": "2026-03-09 14:00:00",
+      "direction": "short",
+      "entry_price": 24969.75,
+      "exit_price": 24969.0,
+      "pnl_ticks": 3.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:58:00",
+      "exit_ts": "2026-03-09 14:00:00",
+      "direction": "long",
+      "entry_price": 24969.75,
+      "exit_price": 24968.5,
+      "pnl_ticks": -5.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:59:00",
+      "exit_ts": "2026-03-09 14:00:00",
+      "direction": "short",
+      "entry_price": 24958.0,
+      "exit_price": 24958.0,
+      "pnl_ticks": 0.0
+    },
+    {
+      "entry_ts": "2026-03-09 13:59:00",
+      "exit_ts": "2026-03-09 14:00:00",
+      "direction": "long",
+      "entry_price": 24958.0,
+      "exit_price": 24958.0,
+      "pnl_ticks": 0.0
     }
   ],
-  "notes": "Data: 2347158 ticks. RTH only. Fading exhaustion sweeps."
+  "notes": "Data: 3703200 ticks. RTH only. Fading exhaustion sweeps."
 }
