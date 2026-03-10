@@ -131,13 +131,13 @@ def compute_trade_metrics(trades: list[dict], bars: pd.DataFrame | None = None) 
     return metrics
 
 
-def simulate_tick_trade(spec: TradeSpec, ticks: pd.DataFrame, force_exit_price: float | None = None) -> dict | None:
+def simulate_tick_trade(spec: TradeSpec, ticks: pd.DataFrame, force_exit_price: float | None = None, _ts_arr=None) -> dict | None:
     entry_ts = pd.to_datetime(spec.entry_ts, utc=True)
     # Use searchsorted for O(log N) slice instead of boolean filter on full dataset
-    ts_arr = ticks["ts_utc"].to_numpy()
+    ts_arr = _ts_arr if _ts_arr is not None else ticks["ts_utc"].to_numpy()
     start_idx = int(np.searchsorted(ts_arr, entry_ts, side="right"))
-    # Cap at 4 hours of ticks to avoid runaway simulation
-    max_ticks = 240 * 500  # ~500 ticks/min * 240 min = 120K ticks max
+    # Cap at 15 min of ticks — scalping trades resolve well within that window
+    max_ticks = 15 * 500  # ~500 ticks/min * 15 min = 7500 ticks max
     future = ticks.iloc[start_idx : start_idx + max_ticks]
 
     tp_delta = spec.take_profit_ticks * NQ_TICK_SIZE
@@ -212,11 +212,13 @@ def simulate_tick_trade(spec: TradeSpec, ticks: pd.DataFrame, force_exit_price: 
 def iter_trade_specs(specs: Iterable[TradeSpec], ticks: pd.DataFrame) -> list[dict]:
     trades = []
     last_exit = pd.Timestamp.min.tz_localize("UTC")
+    # Precompute ts_arr once — avoids 3.7M-row to_numpy() per spec
+    ts_arr = ticks["ts_utc"].to_numpy()
     for spec in sorted(specs, key=lambda item: item.entry_ts):
         entry_ts = pd.to_datetime(spec.entry_ts, utc=True)
         if entry_ts <= last_exit:
             continue
-        trade = simulate_tick_trade(spec, ticks)
+        trade = simulate_tick_trade(spec, ticks, _ts_arr=ts_arr)
         if trade is None:
             continue
         trades.append(trade)
