@@ -19,7 +19,7 @@ from pipeline.strategy_cache import bars_with_delta, trades_with_nbbo
 PARAMS = {
     "range_window": 10,
     "range_atr_mult": 1.5,
-    "delta_threshold": 300,
+    "delta_threshold": 100,
     "absorption_bars": 2,
     "entry_offset_ticks": 1,
     "take_profit_ticks": 8,
@@ -69,12 +69,12 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
             long_absorption &= (
                 float(bar.bar_delta) <= -float(params["delta_threshold"])
                 and close_move >= -max_absorb_move
-                and abs(float(bar.low) - range_lo) <= NQ_TICK_SIZE
+                and abs(float(bar.low) - range_lo) <= NQ_TICK_SIZE * 6
             )
             short_absorption &= (
                 float(bar.bar_delta) >= float(params["delta_threshold"])
                 and close_move <= max_absorb_move
-                and abs(float(bar.high) - range_hi) <= NQ_TICK_SIZE
+                and abs(float(bar.high) - range_hi) <= NQ_TICK_SIZE * 6
             )
 
         direction = None

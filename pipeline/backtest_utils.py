@@ -133,7 +133,13 @@ def compute_trade_metrics(trades: list[dict], bars: pd.DataFrame | None = None) 
 
 def simulate_tick_trade(spec: TradeSpec, ticks: pd.DataFrame, force_exit_price: float | None = None) -> dict | None:
     entry_ts = pd.to_datetime(spec.entry_ts, utc=True)
-    future = ticks[ticks["ts_utc"] > entry_ts]
+    # Use searchsorted for O(log N) slice instead of boolean filter on full dataset
+    ts_arr = ticks["ts_utc"].to_numpy()
+    start_idx = int(np.searchsorted(ts_arr, entry_ts, side="right"))
+    # Cap at 4 hours of ticks to avoid runaway simulation
+    max_ticks = 240 * 500  # ~500 ticks/min * 240 min = 120K ticks max
+    future = ticks.iloc[start_idx : start_idx + max_ticks]
+
     tp_delta = spec.take_profit_ticks * NQ_TICK_SIZE
     sl_delta = spec.stop_loss_ticks * NQ_TICK_SIZE
 
@@ -144,44 +150,38 @@ def simulate_tick_trade(spec: TradeSpec, ticks: pd.DataFrame, force_exit_price: 
         target = spec.entry_price - tp_delta
         stop = spec.entry_price + sl_delta
 
-    exit_row = None
     exit_reason = "force_exit"
     exit_price = force_exit_price
     pnl_ticks = 0.0
+    exit_idx = None
 
-    for row in future.itertuples(index=False):
-        price = float(row.price)
+    if not future.empty:
+        prices = future["price"].to_numpy(dtype=float)
         if spec.direction == "long":
-            if price >= target:
-                exit_row = row
-                exit_price = target
-                exit_reason = "tp"
-                pnl_ticks = float(spec.take_profit_ticks)
-                break
-            if price <= stop:
-                exit_row = row
-                exit_price = stop
-                exit_reason = "sl"
-                pnl_ticks = -float(spec.stop_loss_ticks)
-                break
+            tp_hits = np.where(prices >= target)[0]
+            sl_hits = np.where(prices <= stop)[0]
         else:
-            if price <= target:
-                exit_row = row
-                exit_price = target
-                exit_reason = "tp"
-                pnl_ticks = float(spec.take_profit_ticks)
-                break
-            if price >= stop:
-                exit_row = row
-                exit_price = stop
-                exit_reason = "sl"
-                pnl_ticks = -float(spec.stop_loss_ticks)
-                break
+            tp_hits = np.where(prices <= target)[0]
+            sl_hits = np.where(prices >= stop)[0]
 
-    if exit_row is None:
-        if ticks.empty:
+        first_tp = int(tp_hits[0]) if len(tp_hits) else len(prices)
+        first_sl = int(sl_hits[0]) if len(sl_hits) else len(prices)
+
+        if first_tp < first_sl:
+            exit_idx = first_tp
+            exit_price = target
+            exit_reason = "tp"
+            pnl_ticks = float(spec.take_profit_ticks)
+        elif first_sl < first_tp:
+            exit_idx = first_sl
+            exit_price = stop
+            exit_reason = "sl"
+            pnl_ticks = -float(spec.stop_loss_ticks)
+
+    if exit_idx is None:
+        if future.empty and ticks.empty:
             return None
-        last = ticks.iloc[-1]
+        last = future.iloc[-1] if not future.empty else ticks.iloc[-1]
         exit_ts = pd.to_datetime(last["ts_utc"], utc=True)
         if exit_price is None:
             exit_price = float(last["price"])
@@ -190,7 +190,8 @@ def simulate_tick_trade(spec: TradeSpec, ticks: pd.DataFrame, force_exit_price: 
         else:
             pnl_ticks = (spec.entry_price - float(exit_price)) / NQ_TICK_SIZE
     else:
-        exit_ts = pd.to_datetime(exit_row.ts_utc, utc=True)
+        exit_row = future.iloc[exit_idx]
+        exit_ts = pd.to_datetime(exit_row["ts_utc"], utc=True)
 
     trade = {
         "signal_ts": str(pd.to_datetime(spec.signal_ts or spec.entry_ts, utc=True)),

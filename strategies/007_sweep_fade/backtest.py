@@ -56,6 +56,11 @@ def build_signal_frame(ticks: pd.DataFrame, params: dict) -> pd.DataFrame:
                     active_sweep = {"direction": "down", "start_idx": window[0][0], "end_idx": i, "low": low, "high": high}
             continue
 
+        # Timeout: reset sweep if no reversal after 3x the sweep window
+        sweep_start_ts = pd.to_datetime(ticks.iloc[active_sweep["start_idx"]]["ts_utc"], utc=True)
+        if (ts - sweep_start_ts).total_seconds() > max_seconds * 3:
+            active_sweep = None
+            continue
         active_sweep["end_idx"] = i
         active_sweep["low"] = min(active_sweep["low"], price)
         active_sweep["high"] = max(active_sweep["high"], price)
