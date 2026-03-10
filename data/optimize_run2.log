@@ -1,0 +1,50 @@
+
+======================================================================
+Strategy 001: Delta Absorption Reversal
+======================================================================
+  [var_A] var_A: All sessions... · PF=1.33 PnL=$0 
+  [var_B] var_B: RTH only... · PF=0.00 PnL=$0 
+  [var_C] var_C: London + LondonNY... · PF=0.00 PnL=$0 
+  [var_D] var_D: Overnight... · PF=0.00 PnL=$0 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/001_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_A: All sessions: PF=1.33, PnL=$0, Trades=2
+  2. var_B: RTH only: PF=0.00, PnL=$0, Trades=0
+  3. var_C: London + LondonNY: PF=0.00, PnL=$0, Trades=0
+
+======================================================================
+Strategy 002: Volume Profile FVG
+======================================================================
+  [var_A] var_A: All sessions... · PF=0.46 PnL=$-472 
+  [var_B] var_B: RTH only... · PF=0.45 PnL=$-116 
+  [var_C] var_C: London + LondonNY... · PF=0.50 PnL=$-168 
+  [var_D] var_D: Overnight... · PF=0.48 PnL=$-302 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/002_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_C: London + LondonNY: PF=0.50, PnL=$-168, Trades=112
+  2. var_D: Overnight: PF=0.48, PnL=$-302, Trades=193
+  3. var_A: All sessions: PF=0.46, PnL=$-472, Trades=283
+
+======================================================================
+Strategy 003: CVD Divergence
+======================================================================
+  [var_A] var_A: All sessions... · PF=0.75 PnL=$-115 
+  [var_B] var_B: RTH only... · PF=0.56 PnL=$-48 
+  [var_C] var_C: London + LondonNY... · PF=1.14 PnL=$20 
+  [var_D] var_D: Overnight... · PF=0.91 PnL=$-28 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/003_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_C: London + LondonNY: PF=1.14, PnL=$20, Trades=67
+  2. var_D: Overnight: PF=0.91, PnL=$-28, Trades=133
+  3. var_A: All sessions: PF=0.75, PnL=$-115, Trades=184
+
+======================================================================
+Strategy 004: Bid/Ask Imbalance
+======================================================================
+  [var_A] var_A: All sessions... 
