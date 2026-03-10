@@ -1071,8 +1071,9 @@ def main():
     args = parser.parse_args()
 
     if args.strategy_id == 'all':
+        # 006 (Tape Streak) and 007 (Sweep & Fade) disabled: generate 100K+ trades → OOM
         all_results = {}
-        for sid in ['001', '002', '003', '004', '005', '006', '007', '008', '009', '010', '011', '012', '013', '014']:
+        for sid in ['001', '002', '003', '004', '005', '008', '009', '010', '011', '012', '013', '014']:
             all_results[sid] = run_optimization(sid)
         return all_results
     else:

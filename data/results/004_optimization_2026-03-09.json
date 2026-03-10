@@ -42,8 +42,8 @@
         "entry_ts": "2026-03-09 08:22:14.616391+00:00",
         "exit_ts": "2026-03-09 08:22:18.121619+00:00",
         "direction": "long",
-        "entry_price": 24614.0,
-        "exit_price": 24616.5,
+        "entry_price": 24614.25,
+        "exit_price": 24616.75,
         "pnl_ticks": 10.0,
         "pnl_usd": 50.0,
         "exit_reason": "tp",
@@ -110,24 +110,24 @@
         "entry_ts": "2026-03-05 13:50:00.166603+00:00",
         "exit_ts": "2026-03-05 13:50:00.185964+00:00",
         "direction": "short",
-        "entry_price": 24999.25,
-        "exit_price": 25001.25,
+        "entry_price": 24998.75,
+        "exit_price": 25000.75,
         "pnl_ticks": -8.0,
         "pnl_usd": -40.0,
         "exit_reason": "sl",
         "imbalance_quote_ts": "2026-03-05 13:50:00.166517+00:00"
       },
       {
-        "signal_ts": "2026-03-05 13:53:01.809887+00:00",
-        "entry_ts": "2026-03-05 13:53:01.810317+00:00",
-        "exit_ts": "2026-03-05 13:53:01.904225+00:00",
+        "signal_ts": "2026-03-05 13:53:01.810317+00:00",
+        "entry_ts": "2026-03-05 13:53:01.810825+00:00",
+        "exit_ts": "2026-03-05 13:53:01.904722+00:00",
         "direction": "short",
-        "entry_price": 25019.5,
-        "exit_price": 25021.5,
+        "entry_price": 25020.0,
+        "exit_price": 25022.0,
         "pnl_ticks": -8.0,
         "pnl_usd": -40.0,
         "exit_reason": "sl",
-        "imbalance_quote_ts": "2026-03-05 13:53:01.809887+00:00"
+        "imbalance_quote_ts": "2026-03-05 13:53:01.810317+00:00"
       },
       {
         "signal_ts": "2026-03-06 08:23:02.453858+00:00",
@@ -146,8 +146,8 @@
         "entry_ts": "2026-03-09 08:22:14.616391+00:00",
         "exit_ts": "2026-03-09 08:22:18.121619+00:00",
         "direction": "long",
-        "entry_price": 24614.0,
-        "exit_price": 24616.5,
+        "entry_price": 24614.25,
+        "exit_price": 24616.75,
         "pnl_ticks": 10.0,
         "pnl_usd": 50.0,
         "exit_reason": "tp",
@@ -155,11 +155,11 @@
       },
       {
         "signal_ts": "2026-03-09 12:43:15.914682+00:00",
-        "entry_ts": "2026-03-09 12:43:16.029758+00:00",
+        "entry_ts": "2026-03-09 12:43:16.164914+00:00",
         "exit_ts": "2026-03-09 12:43:16.563674+00:00",
         "direction": "long",
-        "entry_price": 24947.75,
-        "exit_price": 24945.75,
+        "entry_price": 24948.0,
+        "exit_price": 24946.0,
         "pnl_ticks": -8.0,
         "pnl_usd": -40.0,
         "exit_reason": "sl",
@@ -181,9 +181,9 @@
         "pnl": -126.0
       },
       "PreNY": {
-        "trades": 327,
+        "trades": 339,
         "pf": 0.0,
-        "pnl": -1308.0
+        "pnl": -1356.0
       },
       "Unknown": {
         "trades": 1,
@@ -228,24 +228,24 @@
         "entry_ts": "2026-03-05 13:50:00.166603+00:00",
         "exit_ts": "2026-03-05 13:50:00.185964+00:00",
         "direction": "short",
-        "entry_price": 24999.25,
-        "exit_price": 25001.25,
+        "entry_price": 24998.75,
+        "exit_price": 25000.75,
         "pnl_ticks": -8.0,
         "pnl_usd": -40.0,
         "exit_reason": "sl",
         "imbalance_quote_ts": "2026-03-05 13:50:00.166517+00:00"
       },
       {
-        "signal_ts": "2026-03-05 13:53:01.809887+00:00",
-        "entry_ts": "2026-03-05 13:53:01.810317+00:00",
-        "exit_ts": "2026-03-05 13:53:01.904225+00:00",
+        "signal_ts": "2026-03-05 13:53:01.810317+00:00",
+        "entry_ts": "2026-03-05 13:53:01.810825+00:00",
+        "exit_ts": "2026-03-05 13:53:01.904722+00:00",
         "direction": "short",
-        "entry_price": 25019.5,
-        "exit_price": 25021.5,
+        "entry_price": 25020.0,
+        "exit_price": 25022.0,
         "pnl_ticks": -8.0,
         "pnl_usd": -40.0,
         "exit_reason": "sl",
-        "imbalance_quote_ts": "2026-03-05 13:53:01.809887+00:00"
+        "imbalance_quote_ts": "2026-03-05 13:53:01.810317+00:00"
       },
       {
         "signal_ts": "2026-03-06 08:23:02.453858+00:00",
@@ -264,8 +264,8 @@
         "entry_ts": "2026-03-09 08:22:14.616391+00:00",
         "exit_ts": "2026-03-09 08:22:18.121619+00:00",
         "direction": "long",
-        "entry_price": 24614.0,
-        "exit_price": 24616.5,
+        "entry_price": 24614.25,
+        "exit_price": 24616.75,
         "pnl_ticks": 10.0,
         "pnl_usd": 50.0,
         "exit_reason": "tp",
@@ -273,11 +273,11 @@
       },
       {
         "signal_ts": "2026-03-09 12:43:15.914682+00:00",
-        "entry_ts": "2026-03-09 12:43:16.029758+00:00",
+        "entry_ts": "2026-03-09 12:43:16.164914+00:00",
         "exit_ts": "2026-03-09 12:43:16.563674+00:00",
         "direction": "long",
-        "entry_price": 24947.75,
-        "exit_price": 24945.75,
+        "entry_price": 24948.0,
+        "exit_price": 24946.0,
         "pnl_ticks": -8.0,
         "pnl_usd": -40.0,
         "exit_reason": "sl",
@@ -299,9 +299,9 @@
         "pnl": -126.0
       },
       "PreNY": {
-        "trades": 327,
+        "trades": 339,
         "pf": 0.0,
-        "pnl": -1308.0
+        "pnl": -1356.0
       },
       "Unknown": {
         "trades": 1,
