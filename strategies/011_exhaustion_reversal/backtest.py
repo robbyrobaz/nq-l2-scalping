@@ -46,7 +46,7 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
         if direction is None:
             continue
         entry_ts = pd.to_datetime(row["ts_utc"], utc=True) + pd.Timedelta(minutes=1)
-        idx = int(np.searchsorted(tick_ts, entry_ts.value, side="left"))
+        idx = int(np.searchsorted(tick_ts, entry_ts.value // 1000, side="left"))
         if idx >= len(ticks):
             continue
         entry_row = ticks.iloc[idx]

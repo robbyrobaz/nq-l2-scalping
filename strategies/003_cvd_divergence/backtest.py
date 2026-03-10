@@ -84,7 +84,7 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
             continue
 
         entry_bar_ts = pd.to_datetime(bars.iloc[i + 1].ts_utc, utc=True)
-        tick_idx = int(np.searchsorted(tick_ts, entry_bar_ts.value, side="left"))
+        tick_idx = int(np.searchsorted(tick_ts, entry_bar_ts.value // 1000, side="left"))
         if tick_idx >= len(ticks):
             continue
         row = ticks.iloc[tick_idx]

@@ -63,7 +63,7 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
         if direction is None:
             continue
         start_ts = pd.to_datetime(row.ts_utc, utc=True)
-        idx = int(np.searchsorted(tick_ts, start_ts.value, side="left"))
+        idx = int(np.searchsorted(tick_ts, start_ts.value // 1000, side="left"))
         future = ticks.iloc[idx:]
         if direction == "short":
             touch = future[future["price"] >= level + threshold].head(1)

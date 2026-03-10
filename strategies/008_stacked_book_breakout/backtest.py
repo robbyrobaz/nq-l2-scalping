@@ -120,7 +120,7 @@ def _build_specs(book: pd.DataFrame, bars: pd.DataFrame, ticks: pd.DataFrame, pa
             continue
 
         start_ts = pd.to_datetime(row.ts_utc, utc=True) + pd.Timedelta(minutes=1)
-        tick_idx = int(np.searchsorted(tick_ts, start_ts.value, side="left"))
+        tick_idx = int(np.searchsorted(tick_ts, start_ts.value // 1000, side="left"))
         if tick_idx >= len(ticks):
             continue
         entry_row = ticks.iloc[tick_idx]

@@ -86,9 +86,9 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
         fvg_level = min(candidates, key=candidates.get)
         end_bar = min(idx_b + int(params["max_retrace_bars"]), len(bars) - 1)
         start_ts = pd.to_datetime(b.ts_utc, utc=True) + pd.Timedelta(minutes=1)
-        start_idx = int(np.searchsorted(tick_ts, start_ts.value, side="left"))
+        start_idx = int(np.searchsorted(tick_ts, start_ts.value // 1000, side="left"))
         end_ts = pd.to_datetime(bars.iloc[end_bar].ts_utc, utc=True) + pd.Timedelta(minutes=1)
-        end_idx = int(np.searchsorted(tick_ts, end_ts.value, side="right"))
+        end_idx = int(np.searchsorted(tick_ts, end_ts.value // 1000, side="right"))
         retrace_ticks = ticks.iloc[start_idx:end_idx]
         if retrace_ticks.empty:
             continue

@@ -76,7 +76,7 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
             continue
 
         start_ts = pd.to_datetime(breakout.ts_utc, utc=True) + pd.Timedelta(minutes=1)
-        start_idx = int(np.searchsorted(tick_ts, start_ts.value, side="left"))
+        start_idx = int(np.searchsorted(tick_ts, start_ts.value // 1000, side="left"))
         future = ticks.iloc[start_idx:]
         if future.empty:
             continue

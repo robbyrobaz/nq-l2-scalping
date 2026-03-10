@@ -49,7 +49,7 @@ def _build_specs(df_quotes: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> 
         if direction is None:
             continue
 
-        next_idx = int(np.searchsorted(tick_ts, pd.to_datetime(row.ts_utc, utc=True).value, side="right"))
+        next_idx = int(np.searchsorted(tick_ts, pd.to_datetime(row.ts_utc, utc=True).value // 1000, side="right"))
         if next_idx >= len(ticks):
             continue
         future = ticks.iloc[next_idx:]
