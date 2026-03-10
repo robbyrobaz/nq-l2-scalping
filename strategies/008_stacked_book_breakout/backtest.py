@@ -13,11 +13,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from pipeline.backtest_utils import TradeSpec, compute_trade_metrics, iter_trade_specs
 from pipeline.data_loader import NQ_TICK_SIZE, filter_sessions
-from pipeline.strategy_cache import bars_with_delta, depth, quotes, trades_with_nbbo
+from pipeline.strategy_cache import bars_with_delta, depth, quotes_1min, trades_with_nbbo
 
 
 PARAMS = {
-    "stack_threshold": 3.0,
+    "stack_threshold": 2.0,
     "stack_lookback_bars": 10,
     "breakout_min_ticks": 1,
     "take_profit_ticks": 12,
@@ -149,7 +149,7 @@ def run_backtest(params=PARAMS) -> dict:
     bars = filter_sessions(bars_with_delta(), sessions=params.get("session_filter")).reset_index(drop=True)
     ticks = filter_sessions(trades_with_nbbo(), sessions=params.get("session_filter")).reset_index(drop=True)
     df_depth = filter_sessions(depth(), sessions=params.get("session_filter")).reset_index(drop=True)
-    df_quotes = filter_sessions(quotes(), sessions=params.get("session_filter")).reset_index(drop=True)
+    df_quotes = filter_sessions(quotes_1min(), sessions=params.get("session_filter")).reset_index(drop=True)
     book = _build_book_series(bars, df_depth, df_quotes, int(params["stack_lookback_bars"]))
     specs = _build_specs(book, bars, ticks, params)
     trades = iter_trade_specs(specs, ticks)

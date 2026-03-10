@@ -40,6 +40,14 @@ def quotes() -> pd.DataFrame:
 
 
 @lru_cache(maxsize=1)
+def quotes_1min() -> pd.DataFrame:
+    """Last quote per 1-min bar — 70M rows → ~3K rows. Use instead of quotes() for book-level strategies."""
+    df = quotes()
+    bar_ts = df["ts_utc"].dt.floor("1min")
+    return df.groupby(bar_ts, as_index=False).last().reset_index(drop=True)
+
+
+@lru_cache(maxsize=1)
 def depth() -> pd.DataFrame:
     df = load_depth_raw().sort_values("ts_utc").reset_index(drop=True)
     if not df.empty:

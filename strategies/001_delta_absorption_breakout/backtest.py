@@ -22,16 +22,14 @@ PARAMS = {
     "delta_threshold": 50,
     "absorption_bars": 1,
     "price_move_max_ticks": 2,
-    "entry_offset_ticks": 1,
     "take_profit_ticks": 8,
-    "stop_loss_ticks": 12,
+    "stop_loss_ticks": 6,
     "session_filter": None,
 }
 
 
 def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[TradeSpec]:
     specs: list[TradeSpec] = []
-    offset = params["entry_offset_ticks"] * NQ_TICK_SIZE
     rw = int(params["range_window"])
     ab = int(params["absorption_bars"])
     max_absorb_move = NQ_TICK_SIZE * float(params.get("price_move_max_ticks", 2))
@@ -56,44 +54,30 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
             long_absorption &= (
                 float(bar.bar_delta) <= -float(params["delta_threshold"])
                 and close_move >= -max_absorb_move
-                and abs(float(bar.low) - range_lo) <= NQ_TICK_SIZE * 6
             )
             short_absorption &= (
                 float(bar.bar_delta) >= float(params["delta_threshold"])
                 and close_move <= max_absorb_move
-                and abs(float(bar.high) - range_hi) <= NQ_TICK_SIZE * 6
             )
 
+        # Absorption reversal: absorbed sellers at range_lo → long, absorbed buyers at range_hi → short
+        # No breakout confirmation required; enter at market on the next bar
         direction = None
-        trigger = None
-        if long_absorption and float(breakout.close) > range_hi:
+        if long_absorption:
             direction = "long"
-            trigger = float(breakout.close) + offset
-        elif short_absorption and float(breakout.close) < range_lo:
+        elif short_absorption:
             direction = "short"
-            trigger = float(breakout.close) - offset
         if direction is None:
             continue
 
-        start_ts = pd.to_datetime(breakout.ts_utc, utc=True) + pd.Timedelta(minutes=1)
+        start_ts = pd.to_datetime(breakout.ts_utc, utc=True)
         start_idx = int(np.searchsorted(tick_ts, start_ts.value // 1000, side="left"))
         future = ticks.iloc[start_idx:start_idx + 2000]
         if future.empty:
             continue
 
-        if direction == "long":
-            fill = future[future["price"] >= trigger].head(1)
-            if fill.empty:
-                continue
-            row = fill.iloc[0]
-            entry_price = max(float(row.get("ask", np.nan)), trigger)
-        else:
-            fill = future[future["price"] <= trigger].head(1)
-            if fill.empty:
-                continue
-            row = fill.iloc[0]
-            entry_price = min(float(row.get("bid", np.nan)), trigger)
-
+        row = future.iloc[0]
+        entry_price = float(row.get("ask", np.nan)) if direction == "long" else float(row.get("bid", np.nan))
         if not np.isfinite(entry_price):
             continue
         specs.append(

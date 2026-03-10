@@ -113,71 +113,71 @@ SESSION_VARIATIONS = {
 
 STRATEGIES = {
     '001': {
-        'name': 'Delta Absorption Breakout',
+        'name': 'Delta Absorption Reversal',
         'backtest': s001_backtest,
         'variations': {
             1: {
-                'name': '4pt Range',
+                'name': 'Tight Range Scalp',
                 'params': {
-                    'delta_threshold': 100,
+                    'delta_threshold': 50,
                     'range_window': 10,
-                    'max_range_pts': 4.0,
-                    'absorption_bars': 2,
-                    'price_move_max_ticks': 4,
+                    'max_range_pts': 10.0,
+                    'absorption_bars': 1,
+                    'price_move_max_ticks': 2,
+                    'take_profit_ticks': 4,
+                    'stop_loss_ticks': 3,
+                    'session_filter': 'RTH',
+                }
+            },
+            2: {
+                'name': 'Medium Range',
+                'params': {
+                    'delta_threshold': 50,
+                    'range_window': 10,
+                    'max_range_pts': 15.0,
+                    'absorption_bars': 1,
+                    'price_move_max_ticks': 2,
                     'take_profit_ticks': 6,
                     'stop_loss_ticks': 4,
                     'session_filter': 'RTH',
                 }
             },
-            2: {
-                'name': '6pt Range',
-                'params': {
-                    'delta_threshold': 100,
-                    'range_window': 10,
-                    'max_range_pts': 6.0,
-                    'absorption_bars': 2,
-                    'price_move_max_ticks': 4,
-                    'take_profit_ticks': 8,
-                    'stop_loss_ticks': 12,
-                    'session_filter': 'RTH',
-                }
-            },
             3: {
-                'name': '8pt Range',
+                'name': 'Wide Range',
                 'params': {
-                    'delta_threshold': 100,
+                    'delta_threshold': 50,
                     'range_window': 10,
-                    'max_range_pts': 8.0,
-                    'absorption_bars': 2,
-                    'price_move_max_ticks': 4,
-                    'take_profit_ticks': 10,
-                    'stop_loss_ticks': 8,
+                    'max_range_pts': 25.0,
+                    'absorption_bars': 1,
+                    'price_move_max_ticks': 2,
+                    'take_profit_ticks': 8,
+                    'stop_loss_ticks': 6,
                     'session_filter': 'RTH',
                 }
             },
             4: {
-                'name': '10pt Range',
+                'name': 'Strong Delta',
                 'params': {
                     'delta_threshold': 100,
                     'range_window': 10,
-                    'max_range_pts': 10.0,
-                    'absorption_bars': 2,
-                    'price_move_max_ticks': 4,
-                    'take_profit_ticks': 16,
-                    'stop_loss_ticks': 8,
+                    'max_range_pts': 25.0,
+                    'absorption_bars': 1,
+                    'price_move_max_ticks': 2,
+                    'take_profit_ticks': 8,
+                    'stop_loss_ticks': 6,
                     'session_filter': 'RTH',
                 }
             },
             5: {
-                'name': '6pt Scalp',
+                'name': 'Aggressive TP',
                 'params': {
-                    'delta_threshold': 100,
-                    'range_window': 8,
-                    'max_range_pts': 6.0,
-                    'absorption_bars': 2,
-                    'price_move_max_ticks': 4,
-                    'take_profit_ticks': 4,
-                    'stop_loss_ticks': 3,
+                    'delta_threshold': 75,
+                    'range_window': 10,
+                    'max_range_pts': 20.0,
+                    'absorption_bars': 1,
+                    'price_move_max_ticks': 2,
+                    'take_profit_ticks': 12,
+                    'stop_loss_ticks': 6,
                     'session_filter': 'RTH',
                 }
             },

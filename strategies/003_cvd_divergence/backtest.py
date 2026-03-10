@@ -49,6 +49,11 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
     confirmation = int(params["confirmation_bars"])
     long_count = 0
     short_count = 0
+    # Dedup: track last pair indices used per direction to avoid re-firing same divergence
+    last_long_price_pair: tuple[int, int] = (-1, -1)
+    last_long_cvd_pair: tuple[int, int] = (-1, -1)
+    last_short_price_pair: tuple[int, int] = (-1, -1)
+    last_short_cvd_pair: tuple[int, int] = (-1, -1)
 
     for i in range(distance + confirmation + 1, len(bars) - 1):
         long_signal = False
@@ -63,9 +68,12 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
                 closes[p1] >= closes[p0]
                 and cvd[c1] < cvd[c0]
                 and abs(cvd[c1] - cvd[c0]) >= float(params["min_cvd_move"])
+                and ((p0, p1) != last_long_price_pair or (c0, c1) != last_long_cvd_pair)
             ):
                 long_signal = True
                 long_count += 1
+                last_long_price_pair = (p0, p1)
+                last_long_cvd_pair = (c0, c1)
 
         price_pair = _latest_pair(price_highs, i - confirmation)
         cvd_pair = _latest_pair(cvd_highs, i - confirmation)
@@ -76,9 +84,12 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
                 closes[p1] <= closes[p0]
                 and cvd[c1] > cvd[c0]
                 and abs(cvd[c1] - cvd[c0]) >= float(params["min_cvd_move"])
+                and ((p0, p1) != last_short_price_pair or (c0, c1) != last_short_cvd_pair)
             ):
                 short_signal = True
                 short_count += 1
+                last_short_price_pair = (p0, p1)
+                last_short_cvd_pair = (c0, c1)
 
         if not long_signal and not short_signal:
             continue
