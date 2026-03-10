@@ -54,7 +54,7 @@ def _build_specs(ticks: pd.DataFrame, params: dict) -> list[TradeSpec]:
             continue
 
         signal_ts = pd.to_datetime(row.ts_utc, utc=True)
-        future = ticks.iloc[i + 1:]
+        future = ticks.iloc[i + 1:i + 2001]
         fill = future[(future["side"] != streak_side) | (future["side"] == "")].head(1)
         if fill.empty:
             fill = future[future["ts_utc"] >= signal_ts + pd.Timedelta(seconds=1)].head(1)

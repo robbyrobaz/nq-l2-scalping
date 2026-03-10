@@ -52,7 +52,7 @@ def _build_specs(df_quotes: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> 
         next_idx = int(np.searchsorted(tick_ts, pd.to_datetime(row.ts_utc, utc=True).value // 1000, side="right"))
         if next_idx >= len(ticks):
             continue
-        future = ticks.iloc[next_idx:]
+        future = ticks.iloc[next_idx:next_idx + 2001]
         if direction == "long":
             fill = future[future["side"] == "B"].head(1)
         else:

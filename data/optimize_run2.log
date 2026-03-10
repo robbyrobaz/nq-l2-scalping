@@ -47,4 +47,34 @@ Top 3 Variations (by Profit Factor):
 ======================================================================
 Strategy 004: Bid/Ask Imbalance
 ======================================================================
+  [var_A] var_A: All sessions... · PF=0.21 PnL=$-19 
+  [var_B] var_B: RTH only... · PF=0.00 PnL=$0 
+  [var_C] var_C: London + LondonNY... · PF=0.42 PnL=$-7 
+  [var_D] var_D: Overnight... · PF=0.21 PnL=$-19 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/004_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_C: London + LondonNY: PF=0.42, PnL=$-7, Trades=4
+  2. var_A: All sessions: PF=0.21, PnL=$-19, Trades=7
+  3. var_D: Overnight: PF=0.21, PnL=$-19, Trades=7
+
+======================================================================
+Strategy 005: Large Print Momentum
+======================================================================
+  [var_A] var_A: All sessions... · PF=0.00 PnL=$0 
+  [var_B] var_B: RTH only... · PF=0.00 PnL=$0 
+  [var_C] var_C: London + LondonNY... · PF=0.00 PnL=$0 
+  [var_D] var_D: Overnight... · PF=0.00 PnL=$0 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/005_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_A: All sessions: PF=0.00, PnL=$0, Trades=0
+  2. var_B: RTH only: PF=0.00, PnL=$0, Trades=0
+  3. var_C: London + LondonNY: PF=0.00, PnL=$0, Trades=0
+
+======================================================================
+Strategy 006: Aggressive Tape Streak
+======================================================================
   [var_A] var_A: All sessions... 
