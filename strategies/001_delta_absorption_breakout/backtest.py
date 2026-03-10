@@ -18,9 +18,9 @@ from pipeline.strategy_cache import bars_with_delta, trades_with_nbbo
 
 PARAMS = {
     "range_window": 10,
-    "max_range_pts": 6.0,
-    "delta_threshold": 100,
-    "absorption_bars": 2,
+    "max_range_pts": 25.0,
+    "delta_threshold": 50,
+    "absorption_bars": 1,
     "price_move_max_ticks": 2,
     "entry_offset_ticks": 1,
     "take_profit_ticks": 8,
@@ -77,7 +77,7 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
 
         start_ts = pd.to_datetime(breakout.ts_utc, utc=True) + pd.Timedelta(minutes=1)
         start_idx = int(np.searchsorted(tick_ts, start_ts.value // 1000, side="left"))
-        future = ticks.iloc[start_idx:]
+        future = ticks.iloc[start_idx:start_idx + 2000]
         if future.empty:
             continue
 
