@@ -19,10 +19,11 @@ from pipeline.strategy_cache import bars_with_cvd, trades_with_nbbo
 
 PARAMS = {
     "divergence_window": 5,
-    "min_cvd_move": 200,
-    "confirmation_bars": 2,
+    "min_cvd_move": 50,
+    "confirmation_bars": 1,
     "take_profit_ticks": 10,
     "stop_loss_ticks": 8,
+    "debug": False,
     "session_filter": None,
 }
 
@@ -37,16 +38,19 @@ def _latest_pair(indices: np.ndarray, current_idx: int) -> tuple[int, int] | Non
 def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[TradeSpec]:
     closes = bars["close"].to_numpy()
     cvd = bars["cvd"].to_numpy()
-    price_highs, _ = find_peaks(closes, distance=int(params["divergence_window"]))
-    price_lows, _ = find_peaks(-closes, distance=int(params["divergence_window"]))
-    cvd_highs, _ = find_peaks(cvd, distance=int(params["divergence_window"]))
-    cvd_lows, _ = find_peaks(-cvd, distance=int(params["divergence_window"]))
+    distance = int(params["divergence_window"])
+    price_highs, _ = find_peaks(closes, distance=distance, prominence=NQ_TICK_SIZE)
+    price_lows, _ = find_peaks(-closes, distance=distance, prominence=NQ_TICK_SIZE)
+    cvd_highs, _ = find_peaks(cvd, distance=distance, prominence=float(params["min_cvd_move"]) / 2.0)
+    cvd_lows, _ = find_peaks(-cvd, distance=distance, prominence=float(params["min_cvd_move"]) / 2.0)
 
     tick_ts = ticks["ts_utc"].astype("int64").to_numpy()
     specs: list[TradeSpec] = []
     confirmation = int(params["confirmation_bars"])
+    long_count = 0
+    short_count = 0
 
-    for i in range(int(params["divergence_window"]) + confirmation + 1, len(bars) - 1):
+    for i in range(distance + confirmation + 1, len(bars) - 1):
         long_signal = False
         short_signal = False
 
@@ -56,12 +60,12 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
             p0, p1 = price_pair
             c0, c1 = cvd_pair
             if (
-                abs(p1 - c1) <= int(params["divergence_window"])
-                and closes[p1] >= closes[p0]
+                closes[p1] >= closes[p0]
                 and cvd[c1] < cvd[c0]
                 and abs(cvd[c1] - cvd[c0]) >= float(params["min_cvd_move"])
             ):
                 long_signal = True
+                long_count += 1
 
         price_pair = _latest_pair(price_highs, i - confirmation)
         cvd_pair = _latest_pair(cvd_highs, i - confirmation)
@@ -69,12 +73,12 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
             p0, p1 = price_pair
             c0, c1 = cvd_pair
             if (
-                abs(p1 - c1) <= int(params["divergence_window"])
-                and closes[p1] <= closes[p0]
+                closes[p1] <= closes[p0]
                 and cvd[c1] > cvd[c0]
                 and abs(cvd[c1] - cvd[c0]) >= float(params["min_cvd_move"])
             ):
                 short_signal = True
+                short_count += 1
 
         if not long_signal and not short_signal:
             continue
@@ -100,6 +104,12 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
                 meta={"divergence_bar_ts": str(bars.iloc[i].ts_utc)},
             )
         )
+    if params.get("debug"):
+        print(
+            f"[003] price_highs={len(price_highs)} price_lows={len(price_lows)} "
+            f"cvd_highs={len(cvd_highs)} cvd_lows={len(cvd_lows)} "
+            f"long_divergences={long_count} short_divergences={short_count}"
+        )
     return specs
 
 
@@ -118,4 +128,4 @@ def run(params=None):
 
 
 if __name__ == "__main__":
-    print(json.dumps(run_backtest()["metrics"], indent=2))
+    print(json.dumps(run_backtest(params={**PARAMS, "debug": True})["metrics"], indent=2))

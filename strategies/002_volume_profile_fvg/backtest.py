@@ -18,13 +18,14 @@ from pipeline.strategy_cache import bars_with_delta, trades_with_nbbo
 
 
 PARAMS = {
-    "swing_lookback": 20,
-    "min_leg_size_ticks": 20,
+    "swing_lookback": 10,
+    "min_leg_size_ticks": 8,
     "value_area_pct": 0.70,
-    "entry_zone_ticks": 2,
+    "entry_zone_ticks": 4,
     "take_profit_ticks": 12,
     "stop_loss_ticks": 8,
-    "max_retrace_bars": 30,
+    "max_retrace_bars": 120,
+    "debug": False,
     "session_filter": None,
 }
 
@@ -41,6 +42,9 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
     specs: list[TradeSpec] = []
     zone = float(params["entry_zone_ticks"]) * NQ_TICK_SIZE
     tick_ts = ticks["ts_utc"].astype("int64").to_numpy()
+    leg_count = 0
+    profile_count = 0
+    touch_count = 0
 
     for (idx_a, kind_a), (idx_b, kind_b) in zip(swings, swings[1:]):
         if kind_a == kind_b or idx_b <= idx_a:
@@ -55,6 +59,7 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
         leg_ticks = abs(float(b.close) - float(a.close)) / NQ_TICK_SIZE
         if leg_ticks < float(params["min_leg_size_ticks"]):
             continue
+        leg_count += 1
 
         profile = compute_volume_profile(
             ticks[["ts_utc", "price", "size"]],
@@ -66,6 +71,7 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
         levels = profile_to_levels(profile, float(params["value_area_pct"]))
         if not levels:
             continue
+        profile_count += 1
 
         va = levels["value_area_levels"]
         if bullish:
@@ -90,6 +96,7 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
         touch = retrace_ticks[(retrace_ticks["price"] - fvg_level).abs() <= zone].head(1)
         if touch.empty:
             continue
+        touch_count += 1
         row = touch.iloc[0]
         entry_price = float(row["ask"]) if direction == "long" else float(row["bid"])
         if not np.isfinite(entry_price):
@@ -112,6 +119,11 @@ def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[
                 },
             )
         )
+    if params.get("debug"):
+        print(
+            f"[002] swings={len(swings)} qualifying_legs={leg_count} "
+            f"profiles_with_levels={profile_count} retrace_touches={touch_count}"
+        )
     return specs
 
 
@@ -130,4 +142,4 @@ def run(params=None):
 
 
 if __name__ == "__main__":
-    print(json.dumps(run_backtest()["metrics"], indent=2))
+    print(json.dumps(run_backtest(params={**PARAMS, "debug": True})["metrics"], indent=2))

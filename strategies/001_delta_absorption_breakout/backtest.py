@@ -18,9 +18,10 @@ from pipeline.strategy_cache import bars_with_delta, trades_with_nbbo
 
 PARAMS = {
     "range_window": 10,
-    "range_atr_mult": 1.5,
+    "max_range_pts": 6.0,
     "delta_threshold": 100,
     "absorption_bars": 2,
+    "price_move_max_ticks": 2,
     "entry_offset_ticks": 1,
     "take_profit_ticks": 8,
     "stop_loss_ticks": 12,
@@ -28,38 +29,24 @@ PARAMS = {
 }
 
 
-def _atr(bars: pd.DataFrame, period: int) -> pd.Series:
-    prev_close = bars["close"].shift(1)
-    tr = pd.concat(
-        [
-            bars["high"] - bars["low"],
-            (bars["high"] - prev_close).abs(),
-            (bars["low"] - prev_close).abs(),
-        ],
-        axis=1,
-    ).max(axis=1)
-    return tr.rolling(period, min_periods=period).mean()
-
-
 def _build_specs(bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[TradeSpec]:
     specs: list[TradeSpec] = []
-    atr = _atr(bars, params["range_window"])
     offset = params["entry_offset_ticks"] * NQ_TICK_SIZE
     rw = int(params["range_window"])
     ab = int(params["absorption_bars"])
-    max_absorb_move = NQ_TICK_SIZE * 2
+    max_absorb_move = NQ_TICK_SIZE * float(params.get("price_move_max_ticks", 2))
 
     tick_ts = ticks["ts_utc"].astype("int64").to_numpy()
     for i in range(rw + ab, len(bars) - 1):
         range_window = bars.iloc[i - rw - ab:i - ab]
         absorb_window = bars.iloc[i - ab:i]
         breakout = bars.iloc[i]
-        if range_window.empty or absorb_window.empty or pd.isna(atr.iloc[i - 1]):
+        if range_window.empty or absorb_window.empty:
             continue
 
         range_hi = float(range_window["high"].max())
         range_lo = float(range_window["low"].min())
-        if range_hi - range_lo > float(atr.iloc[i - 1]) * float(params["range_atr_mult"]):
+        if range_hi - range_lo > float(params["max_range_pts"]):
             continue
 
         long_absorption = True

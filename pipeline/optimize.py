@@ -117,12 +117,12 @@ STRATEGIES = {
         'backtest': s001_backtest,
         'variations': {
             1: {
-                'name': 'Tight',
+                'name': '4pt Range',
                 'params': {
-                    'delta_threshold': 200,
-                    'range_window': 5,
-                    'range_atr_mult': 3.0,
-                    'absorption_bars': 1,
+                    'delta_threshold': 100,
+                    'range_window': 10,
+                    'max_range_pts': 4.0,
+                    'absorption_bars': 2,
                     'price_move_max_ticks': 4,
                     'take_profit_ticks': 6,
                     'stop_loss_ticks': 4,
@@ -130,12 +130,12 @@ STRATEGIES = {
                 }
             },
             2: {
-                'name': 'Default',
+                'name': '6pt Range',
                 'params': {
-                    'delta_threshold': 300,
+                    'delta_threshold': 100,
                     'range_window': 10,
-                    'range_atr_mult': 3.0,
-                    'absorption_bars': 1,
+                    'max_range_pts': 6.0,
+                    'absorption_bars': 2,
                     'price_move_max_ticks': 4,
                     'take_profit_ticks': 8,
                     'stop_loss_ticks': 12,
@@ -143,12 +143,12 @@ STRATEGIES = {
                 }
             },
             3: {
-                'name': 'Wide Range',
+                'name': '8pt Range',
                 'params': {
-                    'delta_threshold': 400,
-                    'range_window': 15,
-                    'range_atr_mult': 3.0,
-                    'absorption_bars': 1,
+                    'delta_threshold': 100,
+                    'range_window': 10,
+                    'max_range_pts': 8.0,
+                    'absorption_bars': 2,
                     'price_move_max_ticks': 4,
                     'take_profit_ticks': 10,
                     'stop_loss_ticks': 8,
@@ -156,12 +156,12 @@ STRATEGIES = {
                 }
             },
             4: {
-                'name': 'Aggressive TP',
+                'name': '10pt Range',
                 'params': {
-                    'delta_threshold': 300,
-                    'range_window': 8,
-                    'range_atr_mult': 3.0,
-                    'absorption_bars': 1,
+                    'delta_threshold': 100,
+                    'range_window': 10,
+                    'max_range_pts': 10.0,
+                    'absorption_bars': 2,
                     'price_move_max_ticks': 4,
                     'take_profit_ticks': 16,
                     'stop_loss_ticks': 8,
@@ -169,12 +169,12 @@ STRATEGIES = {
                 }
             },
             5: {
-                'name': 'Scalp',
+                'name': '6pt Scalp',
                 'params': {
-                    'delta_threshold': 150,
-                    'range_window': 5,
-                    'range_atr_mult': 3.0,
-                    'absorption_bars': 1,
+                    'delta_threshold': 100,
+                    'range_window': 8,
+                    'max_range_pts': 6.0,
+                    'absorption_bars': 2,
                     'price_move_max_ticks': 4,
                     'take_profit_ticks': 4,
                     'stop_loss_ticks': 3,
@@ -191,60 +191,60 @@ STRATEGIES = {
                 'name': 'Tight Swings',
                 'params': {
                     'swing_lookback': 10,
-                    'min_leg_size_ticks': 15,
+                    'min_leg_size_ticks': 8,
                     'value_area_pct': 0.70,
                     'entry_zone_ticks': 2,
                     'take_profit_ticks': 8,
                     'stop_loss_ticks': 6,
-                    'max_retrace_time_bars': 30,
+                    'max_retrace_bars': 30,
                 }
             },
             2: {
                 'name': 'Default',
                 'params': {
-                    'swing_lookback': 20,
-                    'min_leg_size_ticks': 20,
+                    'swing_lookback': 10,
+                    'min_leg_size_ticks': 8,
                     'value_area_pct': 0.70,
                     'entry_zone_ticks': 2,
                     'take_profit_ticks': 12,
                     'stop_loss_ticks': 8,
-                    'max_retrace_time_bars': 30,
+                    'max_retrace_bars': 30,
                 }
             },
             3: {
                 'name': 'Wide Swings',
                 'params': {
-                    'swing_lookback': 30,
-                    'min_leg_size_ticks': 30,
+                    'swing_lookback': 15,
+                    'min_leg_size_ticks': 12,
                     'value_area_pct': 0.70,
                     'entry_zone_ticks': 2,
                     'take_profit_ticks': 16,
                     'stop_loss_ticks': 10,
-                    'max_retrace_time_bars': 30,
+                    'max_retrace_bars': 30,
                 }
             },
             4: {
                 'name': 'Aggressive',
                 'params': {
-                    'swing_lookback': 15,
-                    'min_leg_size_ticks': 15,
+                    'swing_lookback': 8,
+                    'min_leg_size_ticks': 8,
                     'value_area_pct': 0.70,
                     'entry_zone_ticks': 2,
                     'take_profit_ticks': 20,
                     'stop_loss_ticks': 8,
-                    'max_retrace_time_bars': 30,
+                    'max_retrace_bars': 30,
                 }
             },
             5: {
                 'name': 'Scalp',
                 'params': {
                     'swing_lookback': 10,
-                    'min_leg_size_ticks': 10,
+                    'min_leg_size_ticks': 8,
                     'value_area_pct': 0.70,
                     'entry_zone_ticks': 2,
                     'take_profit_ticks': 6,
                     'stop_loss_ticks': 4,
-                    'max_retrace_time_bars': 30,
+                    'max_retrace_bars': 30,
                 }
             },
         }
@@ -257,7 +257,7 @@ STRATEGIES = {
                 'name': 'Sensitive',
                 'params': {
                     'divergence_window': 3,
-                    'min_cvd_move': 300,
+                    'min_cvd_move': 50,
                     'confirmation_bars': 1,
                     'price_tolerance_ticks': 10,
                     'take_profit_ticks': 8,
@@ -269,7 +269,7 @@ STRATEGIES = {
                 'name': 'Default',
                 'params': {
                     'divergence_window': 5,
-                    'min_cvd_move': 500,
+                    'min_cvd_move': 75,
                     'confirmation_bars': 1,
                     'price_tolerance_ticks': 10,
                     'take_profit_ticks': 10,
@@ -281,7 +281,7 @@ STRATEGIES = {
                 'name': 'Strict',
                 'params': {
                     'divergence_window': 7,
-                    'min_cvd_move': 700,
+                    'min_cvd_move': 100,
                     'confirmation_bars': 1,
                     'price_tolerance_ticks': 10,
                     'take_profit_ticks': 12,
@@ -293,7 +293,7 @@ STRATEGIES = {
                 'name': 'Momentum',
                 'params': {
                     'divergence_window': 4,
-                    'min_cvd_move': 400,
+                    'min_cvd_move': 60,
                     'confirmation_bars': 1,
                     'price_tolerance_ticks': 10,
                     'take_profit_ticks': 16,
@@ -305,7 +305,7 @@ STRATEGIES = {
                 'name': 'Scalp',
                 'params': {
                     'divergence_window': 3,
-                    'min_cvd_move': 200,
+                    'min_cvd_move': 50,
                     'confirmation_bars': 1,
                     'price_tolerance_ticks': 10,
                     'take_profit_ticks': 5,

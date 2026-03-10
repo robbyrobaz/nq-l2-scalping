@@ -48,6 +48,53 @@ def _quote_snapshots(df_quotes: pd.DataFrame) -> pd.DataFrame:
     ].copy()
 
 
+def _build_book_series(bars: pd.DataFrame, df_depth: pd.DataFrame, df_quotes: pd.DataFrame, lookback_bars: int) -> pd.DataFrame:
+    quote_book = _quote_snapshots(df_quotes).sort_values("ts_utc").reset_index(drop=True)
+    if df_depth.empty:
+        out = pd.merge_asof(bars[["ts_utc"]], quote_book, on="ts_utc", direction="backward")
+        out["book_source"] = "quotes"
+        return out
+
+    depth_book = _depth_snapshots(df_depth).sort_values("ts_utc").reset_index(drop=True)
+    depth_counts = (
+        df_depth.assign(bar_ts=df_depth["ts_utc"].dt.floor("1min"))
+        .groupby("bar_ts")["ts_utc"]
+        .nunique()
+        .rename("depth_snapshots")
+        .reset_index()
+        .rename(columns={"bar_ts": "ts_utc"})
+    )
+
+    out = bars[["ts_utc"]].sort_values("ts_utc").reset_index(drop=True)
+    out = pd.merge_asof(out, depth_book, on="ts_utc", direction="backward")
+    out = out.merge(depth_counts, on="ts_utc", how="left")
+    out["depth_snapshots"] = out["depth_snapshots"].fillna(0.0)
+    out["depth_window_snapshots"] = out["depth_snapshots"].rolling(lookback_bars, min_periods=1).sum()
+
+    quote_aligned = pd.merge_asof(
+        bars[["ts_utc"]].sort_values("ts_utc").reset_index(drop=True),
+        quote_book,
+        on="ts_utc",
+        direction="backward",
+    ).rename(columns={
+        "bid_total": "quote_bid_total",
+        "ask_total": "quote_ask_total",
+        "bid_price": "quote_bid_price",
+        "ask_price": "quote_ask_price",
+    })
+    out = out.merge(quote_aligned, on="ts_utc", how="left")
+
+    use_quotes = (
+        out["depth_window_snapshots"] < 100
+    ) | out[["bid_total", "ask_total", "bid_price", "ask_price"]].isna().any(axis=1)
+    out["book_source"] = np.where(use_quotes, "quotes", "depth")
+    out["bid_total"] = np.where(use_quotes, out["quote_bid_total"], out["bid_total"])
+    out["ask_total"] = np.where(use_quotes, out["quote_ask_total"], out["ask_total"])
+    out["bid_price"] = np.where(use_quotes, out["quote_bid_price"], out["bid_price"])
+    out["ask_price"] = np.where(use_quotes, out["quote_ask_price"], out["ask_price"])
+    return out[["ts_utc", "bid_total", "ask_total", "bid_price", "ask_price", "book_source"]]
+
+
 def _build_specs(book: pd.DataFrame, bars: pd.DataFrame, ticks: pd.DataFrame, params: dict) -> list[TradeSpec]:
     merged = pd.merge_asof(
         bars.sort_values("ts_utc"),
@@ -88,7 +135,10 @@ def _build_specs(book: pd.DataFrame, bars: pd.DataFrame, ticks: pd.DataFrame, pa
                 entry_price=entry_price,
                 stop_loss_ticks=float(params["stop_loss_ticks"]),
                 take_profit_ticks=float(params["take_profit_ticks"]),
-                meta={"stack_level": float(row.ask_price if direction == "long" else row.bid_price)},
+                meta={
+                    "stack_level": float(row.ask_price if direction == "long" else row.bid_price),
+                    "book_source": str(row.book_source),
+                },
             )
         )
     return specs
@@ -99,10 +149,8 @@ def run_backtest(params=PARAMS) -> dict:
     bars = filter_sessions(bars_with_delta(), sessions=params.get("session_filter")).reset_index(drop=True)
     ticks = filter_sessions(trades_with_nbbo(), sessions=params.get("session_filter")).reset_index(drop=True)
     df_depth = filter_sessions(depth(), sessions=params.get("session_filter")).reset_index(drop=True)
-    if df_depth["ts_utc"].nunique() < 50:
-        book = _quote_snapshots(filter_sessions(quotes(), sessions=params.get("session_filter")).reset_index(drop=True))
-    else:
-        book = _depth_snapshots(df_depth)
+    df_quotes = filter_sessions(quotes(), sessions=params.get("session_filter")).reset_index(drop=True)
+    book = _build_book_series(bars, df_depth, df_quotes, int(params["stack_lookback_bars"]))
     specs = _build_specs(book, bars, ticks, params)
     trades = iter_trade_specs(specs, ticks)
     metrics = compute_trade_metrics(trades, bars)
