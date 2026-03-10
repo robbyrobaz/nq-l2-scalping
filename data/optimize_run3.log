@@ -69,4 +69,201 @@ Strategy 005: Large Print Momentum
 ======================================================================
 Strategy 001: Delta Absorption Reversal
 ======================================================================
-  [var_A] var_A: All sessions... 
+  [var_A] var_A: All sessions... · PF=1.33 PnL=$0 
+  [var_B] var_B: RTH only... · PF=0.00 PnL=$0 
+  [var_C] var_C: London + LondonNY... · PF=0.00 PnL=$0 
+  [var_D] var_D: Overnight... · PF=0.00 PnL=$0 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/001_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_A: All sessions: PF=1.33, PnL=$0, Trades=2
+  2. var_B: RTH only: PF=0.00, PnL=$0, Trades=0
+  3. var_C: London + LondonNY: PF=0.00, PnL=$0, Trades=0
+
+======================================================================
+Strategy 002: Volume Profile FVG
+======================================================================
+  [var_A] var_A: All sessions... · PF=0.43 PnL=$-502 
+  [var_B] var_B: RTH only... · PF=0.42 PnL=$-126 
+  [var_C] var_C: London + LondonNY... · PF=0.52 PnL=$-158 
+  [var_D] var_D: Overnight... 
+======================================================================
+Strategy 001: Delta Absorption Reversal
+======================================================================
+  [var_A] var_A: All sessions... · PF=1.33 PnL=$0 
+  [var_B] var_B: RTH only... · PF=0.00 PnL=$0 
+  [var_C] var_C: London + LondonNY... · PF=0.00 PnL=$0 
+  [var_D] var_D: Overnight... · PF=0.00 PnL=$0 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/001_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_A: All sessions: PF=1.33, PnL=$0, Trades=2
+  2. var_B: RTH only: PF=0.00, PnL=$0, Trades=0
+  3. var_C: London + LondonNY: PF=0.00, PnL=$0, Trades=0
+
+======================================================================
+Strategy 002: Volume Profile FVG
+======================================================================
+  [var_A] var_A: All sessions... · PF=0.43 PnL=$-502 
+  [var_B] var_B: RTH only... · PF=0.42 PnL=$-126 
+  [var_C] var_C: London + LondonNY... · PF=0.52 PnL=$-158 
+  [var_D] var_D: Overnight... · PF=0.45 PnL=$-336 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/002_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_C: London + LondonNY: PF=0.52, PnL=$-158, Trades=112
+  2. var_D: Overnight: PF=0.45, PnL=$-336, Trades=199
+  3. var_A: All sessions: PF=0.43, PnL=$-502, Trades=283
+
+======================================================================
+Strategy 003: CVD Divergence
+======================================================================
+  [var_A] var_A: All sessions... · PF=0.82 PnL=$-85 
+  [var_B] var_B: RTH only... · PF=0.55 PnL=$-45 
+  [var_C] var_C: London + LondonNY... · PF=1.09 PnL=$13 
+  [var_D] var_D: Overnight... · PF=0.87 PnL=$-39 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/003_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_C: London + LondonNY: PF=1.09, PnL=$13, Trades=71
+  2. var_D: Overnight: PF=0.87, PnL=$-39, Trades=129
+  3. var_A: All sessions: PF=0.82, PnL=$-85, Trades=190
+
+======================================================================
+Strategy 004: Bid/Ask Imbalance
+======================================================================
+  [var_A] var_A: All sessions... · PF=0.21 PnL=$-19 
+  [var_B] var_B: RTH only... · PF=0.00 PnL=$0 
+  [var_C] var_C: London + LondonNY... · PF=0.42 PnL=$-7 
+  [var_D] var_D: Overnight... · PF=0.21 PnL=$-19 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/004_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_C: London + LondonNY: PF=0.42, PnL=$-7, Trades=4
+  2. var_A: All sessions: PF=0.21, PnL=$-19, Trades=7
+  3. var_D: Overnight: PF=0.21, PnL=$-19, Trades=7
+
+======================================================================
+Strategy 005: Large Print Momentum
+======================================================================
+  [var_A] var_A: All sessions... · PF=0.00 PnL=$0 
+  [var_B] var_B: RTH only... · PF=0.00 PnL=$0 
+  [var_C] var_C: London + LondonNY... · PF=0.00 PnL=$0 
+  [var_D] var_D: Overnight... · PF=0.00 PnL=$0 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/005_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_A: All sessions: PF=0.00, PnL=$0, Trades=0
+  2. var_B: RTH only: PF=0.00, PnL=$0, Trades=0
+  3. var_C: London + LondonNY: PF=0.00, PnL=$0, Trades=0
+
+======================================================================
+Strategy 008: Stacked Book Breakout
+======================================================================
+  [var_A] var_A: All sessions... · PF=0.75 PnL=$-2 
+  [var_B] var_B: RTH only... · PF=0.00 PnL=$-4 
+  [var_C] var_C: London + LondonNY... · PF=0.00 PnL=$-4 
+  [var_D] var_D: Overnight... · PF=1.50 PnL=$2 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/008_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_D: Overnight: PF=1.50, PnL=$2, Trades=2
+  2. var_A: All sessions: PF=0.75, PnL=$-2, Trades=3
+  3. var_B: RTH only: PF=0.00, PnL=$-4, Trades=1
+
+======================================================================
+Strategy 009: Absorption
+======================================================================
+  [var_A] var_A: All sessions... · PF=0.86 PnL=$-30 
+  [var_B] var_B: RTH only... · PF=0.50 PnL=$-6 
+  [var_C] var_C: London + LondonNY... · PF=0.83 PnL=$-26 
+  [var_D] var_D: Overnight... · PF=0.88 PnL=$-24 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/009_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_D: Overnight: PF=0.88, PnL=$-24, Trades=81
+  2. var_A: All sessions: PF=0.86, PnL=$-30, Trades=85
+  3. var_C: London + LondonNY: PF=0.83, PnL=$-26, Trades=59
+
+======================================================================
+Strategy 010: Initiative Auction
+======================================================================
+  [var_A] var_A: All sessions... · PF=0.85 PnL=$-34 
+  [var_B] var_B: RTH only... · PF=1.50 PnL=$4 
+  [var_C] var_C: London + LondonNY... · PF=0.84 PnL=$-26 
+  [var_D] var_D: Overnight... · PF=0.82 PnL=$-38 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/010_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_B: RTH only: PF=1.50, PnL=$4, Trades=4
+  2. var_A: All sessions: PF=0.85, PnL=$-34, Trades=86
+  3. var_C: London + LondonNY: PF=0.84, PnL=$-26, Trades=64
+
+======================================================================
+Strategy 011: Exhaustion Reversal
+======================================================================
+  [var_A] var_A: All sessions... · PF=0.53 PnL=$-7 
+  [var_B] var_B: RTH only... · PF=0.00 PnL=$0 
+  [var_C] var_C: London + LondonNY... · PF=0.00 PnL=$-5 
+  [var_D] var_D: Overnight... · PF=0.40 PnL=$-6 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/011_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_A: All sessions: PF=0.53, PnL=$-7, Trades=5
+  2. var_D: Overnight: PF=0.40, PnL=$-6, Trades=3
+  3. var_B: RTH only: PF=0.00, PnL=$0, Trades=0
+
+======================================================================
+Strategy 012: LVN Rebalance
+======================================================================
+  [var_A] var_A: All sessions... · PF=0.72 PnL=$-568 
+  [var_B] var_B: RTH only... · PF=0.54 PnL=$-297 
+  [var_C] var_C: London + LondonNY... · PF=0.85 PnL=$-104 
+  [var_D] var_D: Overnight... · PF=0.82 PnL=$-212 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/012_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_C: London + LondonNY: PF=0.85, PnL=$-104, Trades=241
+  2. var_D: Overnight: PF=0.82, PnL=$-212, Trades=388
+  3. var_A: All sessions: PF=0.72, PnL=$-568, Trades=629
+
+======================================================================
+Strategy 013: Value Area Rejection
+======================================================================
+  [var_A] var_A: All sessions... · PF=0.90 PnL=$-217 
+  [var_B] var_B: RTH only... · PF=0.87 PnL=$-89 
+  [var_C] var_C: London + LondonNY... · PF=1.02 PnL=$16 
+  [var_D] var_D: Overnight... · PF=0.96 PnL=$-50 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/013_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_C: London + LondonNY: PF=1.02, PnL=$16, Trades=365
+  2. var_D: Overnight: PF=0.96, PnL=$-50, Trades=593
+  3. var_A: All sessions: PF=0.90, PnL=$-217, Trades=979
+
+======================================================================
+Strategy 014: Failed Auction Hook
+======================================================================
+  [var_A] var_A: All sessions... · PF=0.79 PnL=$-131 
+  [var_B] var_B: RTH only... · PF=0.65 PnL=$-92 
+  [var_C] var_C: London + LondonNY... · PF=1.13 PnL=$21 
+  [var_D] var_D: Overnight... · PF=0.99 PnL=$-2 
+
+✓ Results saved to /home/rob/.openclaw/workspace/nq-l2-scalping/data/results/014_optimization_2026-03-09.json
+
+Top 3 Variations (by Profit Factor):
+  1. var_C: London + LondonNY: PF=1.13, PnL=$21, Trades=64
+  2. var_D: Overnight: PF=0.99, PnL=$-2, Trades=106
+  3. var_A: All sessions: PF=0.79, PnL=$-131, Trades=211

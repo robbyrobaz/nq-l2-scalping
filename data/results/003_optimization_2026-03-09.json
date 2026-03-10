@@ -386,18 +386,6 @@
         "divergence_bar_ts": "2026-03-06 10:34:00+00:00"
       },
       {
-        "signal_ts": "2026-03-06 11:06:00+00:00",
-        "entry_ts": "2026-03-06 11:07:00.035730+00:00",
-        "exit_ts": "2026-03-06 11:07:02.542054+00:00",
-        "direction": "long",
-        "entry_price": 24807.5,
-        "exit_price": 24805.5,
-        "pnl_ticks": -8.0,
-        "pnl_usd": -40.0,
-        "exit_reason": "sl",
-        "divergence_bar_ts": "2026-03-06 11:06:00+00:00"
-      },
-      {
         "signal_ts": "2026-03-06 11:11:00+00:00",
         "entry_ts": "2026-03-06 11:12:00.153878+00:00",
         "exit_ts": "2026-03-06 11:12:00.459661+00:00",
@@ -408,18 +396,6 @@
         "pnl_usd": -40.0,
         "exit_reason": "sl",
         "divergence_bar_ts": "2026-03-06 11:11:00+00:00"
-      },
-      {
-        "signal_ts": "2026-03-06 11:12:00+00:00",
-        "entry_ts": "2026-03-06 11:13:00.201080+00:00",
-        "exit_ts": "2026-03-06 11:13:00.528651+00:00",
-        "direction": "long",
-        "entry_price": 24851.25,
-        "exit_price": 24849.25,
-        "pnl_ticks": -8.0,
-        "pnl_usd": -40.0,
-        "exit_reason": "sl",
-        "divergence_bar_ts": "2026-03-06 11:12:00+00:00"
       },
       {
         "signal_ts": "2026-03-06 11:15:00+00:00",
@@ -782,6 +758,30 @@
         "divergence_bar_ts": "2026-03-09 10:24:00+00:00"
       },
       {
+        "signal_ts": "2026-03-09 10:35:00+00:00",
+        "entry_ts": "2026-03-09 10:36:00.179411+00:00",
+        "exit_ts": "2026-03-09 10:36:01.751795+00:00",
+        "direction": "short",
+        "entry_price": 24613.75,
+        "exit_price": 24611.25,
+        "pnl_ticks": 10.0,
+        "pnl_usd": 50.0,
+        "exit_reason": "tp",
+        "divergence_bar_ts": "2026-03-09 10:35:00+00:00"
+      },
+      {
+        "signal_ts": "2026-03-09 10:37:00+00:00",
+        "entry_ts": "2026-03-09 10:38:00.349675+00:00",
+        "exit_ts": "2026-03-09 10:38:05.312154+00:00",
+        "direction": "short",
+        "entry_price": 24603.0,
+        "exit_price": 24600.5,
+        "pnl_ticks": 10.0,
+        "pnl_usd": 50.0,
+        "exit_reason": "tp",
+        "divergence_bar_ts": "2026-03-09 10:37:00+00:00"
+      },
+      {
         "signal_ts": "2026-03-09 10:48:00+00:00",
         "entry_ts": "2026-03-09 10:49:00.026188+00:00",
         "exit_ts": "2026-03-09 10:49:00.969473+00:00",
@@ -855,18 +855,18 @@
       }
     ],
     "metrics": {
-      "profit_factor": 0.97,
-      "win_rate": 43.7,
+      "profit_factor": 1.09,
+      "win_rate": 46.5,
       "total_trades": 71,
-      "net_pnl_usd": -5.0,
-      "sharpe": -0.13,
-      "max_drawdown_pct": 3400.0
+      "net_pnl_usd": 13.0,
+      "sharpe": 0.34,
+      "max_drawdown_pct": 136.8
     },
     "session_breakdown": {
       "Unknown": {
         "trades": 71,
-        "pf": 0.97,
-        "pnl": -5.0
+        "pf": 1.09,
+        "pnl": 13.0
       }
     },
     "variation": "var_C",
@@ -1409,18 +1409,6 @@
         "divergence_bar_ts": "2026-03-06 10:34:00+00:00"
       },
       {
-        "signal_ts": "2026-03-06 11:06:00+00:00",
-        "entry_ts": "2026-03-06 11:07:00.035730+00:00",
-        "exit_ts": "2026-03-06 11:07:02.542054+00:00",
-        "direction": "long",
-        "entry_price": 24807.5,
-        "exit_price": 24805.5,
-        "pnl_ticks": -8.0,
-        "pnl_usd": -40.0,
-        "exit_reason": "sl",
-        "divergence_bar_ts": "2026-03-06 11:06:00+00:00"
-      },
-      {
         "signal_ts": "2026-03-06 11:11:00+00:00",
         "entry_ts": "2026-03-06 11:12:00.153878+00:00",
         "exit_ts": "2026-03-06 11:12:00.459661+00:00",
@@ -1431,18 +1419,6 @@
         "pnl_usd": -40.0,
         "exit_reason": "sl",
         "divergence_bar_ts": "2026-03-06 11:11:00+00:00"
-      },
-      {
-        "signal_ts": "2026-03-06 11:12:00+00:00",
-        "entry_ts": "2026-03-06 11:13:00.201080+00:00",
-        "exit_ts": "2026-03-06 11:13:00.528651+00:00",
-        "direction": "long",
-        "entry_price": 24851.25,
-        "exit_price": 24849.25,
-        "pnl_ticks": -8.0,
-        "pnl_usd": -40.0,
-        "exit_reason": "sl",
-        "divergence_bar_ts": "2026-03-06 11:12:00+00:00"
       },
       {
         "signal_ts": "2026-03-06 11:15:00+00:00",
@@ -2285,6 +2261,30 @@
         "divergence_bar_ts": "2026-03-09 10:24:00+00:00"
       },
       {
+        "signal_ts": "2026-03-09 10:35:00+00:00",
+        "entry_ts": "2026-03-09 10:36:00.179411+00:00",
+        "exit_ts": "2026-03-09 10:36:01.751795+00:00",
+        "direction": "short",
+        "entry_price": 24613.75,
+        "exit_price": 24611.25,
+        "pnl_ticks": 10.0,
+        "pnl_usd": 50.0,
+        "exit_reason": "tp",
+        "divergence_bar_ts": "2026-03-09 10:35:00+00:00"
+      },
+      {
+        "signal_ts": "2026-03-09 10:37:00+00:00",
+        "entry_ts": "2026-03-09 10:38:00.349675+00:00",
+        "exit_ts": "2026-03-09 10:38:05.312154+00:00",
+        "direction": "short",
+        "entry_price": 24603.0,
+        "exit_price": 24600.5,
+        "pnl_ticks": 10.0,
+        "pnl_usd": 50.0,
+        "exit_reason": "tp",
+        "divergence_bar_ts": "2026-03-09 10:37:00+00:00"
+      },
+      {
         "signal_ts": "2026-03-09 10:48:00+00:00",
         "entry_ts": "2026-03-09 10:49:00.026188+00:00",
         "exit_ts": "2026-03-09 10:49:00.969473+00:00",
@@ -2430,18 +2430,18 @@
       }
     ],
     "metrics": {
-      "profit_factor": 0.82,
-      "win_rate": 39.5,
+      "profit_factor": 0.87,
+      "win_rate": 41.1,
       "total_trades": 129,
-      "net_pnl_usd": -57.0,
-      "sharpe": -1.14,
+      "net_pnl_usd": -39.0,
+      "sharpe": -0.78,
       "max_drawdown_pct": 0.0
     },
     "session_breakdown": {
       "Unknown": {
         "trades": 129,
-        "pf": 0.82,
-        "pnl": -57.0
+        "pf": 0.87,
+        "pnl": -39.0
       }
     },
     "variation": "var_D",
@@ -3310,18 +3310,6 @@
         "divergence_bar_ts": "2026-03-06 10:34:00+00:00"
       },
       {
-        "signal_ts": "2026-03-06 11:06:00+00:00",
-        "entry_ts": "2026-03-06 11:07:00.035730+00:00",
-        "exit_ts": "2026-03-06 11:07:02.542054+00:00",
-        "direction": "long",
-        "entry_price": 24807.5,
-        "exit_price": 24805.5,
-        "pnl_ticks": -8.0,
-        "pnl_usd": -40.0,
-        "exit_reason": "sl",
-        "divergence_bar_ts": "2026-03-06 11:06:00+00:00"
-      },
-      {
         "signal_ts": "2026-03-06 11:11:00+00:00",
         "entry_ts": "2026-03-06 11:12:00.153878+00:00",
         "exit_ts": "2026-03-06 11:12:00.459661+00:00",
@@ -3332,18 +3320,6 @@
         "pnl_usd": -40.0,
         "exit_reason": "sl",
         "divergence_bar_ts": "2026-03-06 11:11:00+00:00"
-      },
-      {
-        "signal_ts": "2026-03-06 11:12:00+00:00",
-        "entry_ts": "2026-03-06 11:13:00.201080+00:00",
-        "exit_ts": "2026-03-06 11:13:00.528651+00:00",
-        "direction": "long",
-        "entry_price": 24851.25,
-        "exit_price": 24849.25,
-        "pnl_ticks": -8.0,
-        "pnl_usd": -40.0,
-        "exit_reason": "sl",
-        "divergence_bar_ts": "2026-03-06 11:12:00+00:00"
       },
       {
         "signal_ts": "2026-03-06 11:15:00+00:00",
@@ -4282,6 +4258,30 @@
         "divergence_bar_ts": "2026-03-09 10:24:00+00:00"
       },
       {
+        "signal_ts": "2026-03-09 10:35:00+00:00",
+        "entry_ts": "2026-03-09 10:36:00.179411+00:00",
+        "exit_ts": "2026-03-09 10:36:01.751795+00:00",
+        "direction": "short",
+        "entry_price": 24613.75,
+        "exit_price": 24611.25,
+        "pnl_ticks": 10.0,
+        "pnl_usd": 50.0,
+        "exit_reason": "tp",
+        "divergence_bar_ts": "2026-03-09 10:35:00+00:00"
+      },
+      {
+        "signal_ts": "2026-03-09 10:37:00+00:00",
+        "entry_ts": "2026-03-09 10:38:00.349675+00:00",
+        "exit_ts": "2026-03-09 10:38:05.312154+00:00",
+        "direction": "short",
+        "entry_price": 24603.0,
+        "exit_price": 24600.5,
+        "pnl_ticks": 10.0,
+        "pnl_usd": 50.0,
+        "exit_reason": "tp",
+        "divergence_bar_ts": "2026-03-09 10:37:00+00:00"
+      },
+      {
         "signal_ts": "2026-03-09 10:48:00+00:00",
         "entry_ts": "2026-03-09 10:49:00.026188+00:00",
         "exit_ts": "2026-03-09 10:49:00.969473+00:00",
@@ -4739,18 +4739,18 @@
       }
     ],
     "metrics": {
-      "profit_factor": 0.78,
-      "win_rate": 38.4,
+      "profit_factor": 0.82,
+      "win_rate": 39.5,
       "total_trades": 190,
-      "net_pnl_usd": -103.0,
-      "sharpe": -1.71,
+      "net_pnl_usd": -85.0,
+      "sharpe": -1.4,
       "max_drawdown_pct": 0.0
     },
     "session_breakdown": {
       "Unknown": {
         "trades": 190,
-        "pf": 0.78,
-        "pnl": -103.0
+        "pf": 0.82,
+        "pnl": -85.0
       }
     },
     "variation": "var_A",
