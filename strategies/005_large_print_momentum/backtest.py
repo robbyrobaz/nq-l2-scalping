@@ -36,30 +36,31 @@ def _build_specs(ticks: pd.DataFrame, params: dict) -> list[TradeSpec]:
 
     specs: list[TradeSpec] = []
     last_signal_idx = -cooldown
-    for i in range(lookback, len(ticks) - 1):
-        row = ticks.iloc[i]
-        if i - last_signal_idx < cooldown or row["side"] not in {"B", "S"}:
-            continue
-        threshold = float(mean.iloc[i]) + float(params["std_dev_threshold"]) * float(std.iloc[i])
-        if float(row["size"]) < max(float(params["min_trade_size"]), threshold):
-            continue
+    # Vectorized — avoid Python loop over millions of ticks
+    threshold_arr = mean.to_numpy() + float(params["std_dev_threshold"]) * std.to_numpy()
+    threshold_arr = np.maximum(threshold_arr, float(params["min_trade_size"]))
+    valid = (sizes.to_numpy() >= threshold_arr) & np.isin(ticks["side"].to_numpy(), ["B", "S"])
+    candidate_idxs = np.where(valid)[0]
+    candidate_idxs = candidate_idxs[(candidate_idxs >= lookback) & (candidate_idxs < len(ticks) - 1)]
 
-        entry_row = ticks.iloc[i + 1]
+    specs: list[TradeSpec] = []
+    last_signal_idx = -cooldown
+    for i in candidate_idxs:
+        if i - last_signal_idx < cooldown:
+            continue
+        row = ticks.iloc[i]; entry_row = ticks.iloc[i + 1]
         direction = "long" if row["side"] == "B" else "short"
         entry_price = float(entry_row["ask"]) if direction == "long" else float(entry_row["bid"])
         if not np.isfinite(entry_price):
             continue
-        specs.append(
-            TradeSpec(
-                entry_ts=pd.to_datetime(entry_row["ts_utc"], utc=True),
-                signal_ts=pd.to_datetime(row["ts_utc"], utc=True),
-                direction=direction,
-                entry_price=entry_price,
-                stop_loss_ticks=float(params["stop_loss_ticks"]),
-                take_profit_ticks=float(params["take_profit_ticks"]),
-                meta={"large_print_ts": str(row["ts_utc"]), "large_print_size": float(row["size"])},
-            )
-        )
+        specs.append(TradeSpec(
+            entry_ts=pd.to_datetime(entry_row["ts_utc"], utc=True),
+            signal_ts=pd.to_datetime(row["ts_utc"], utc=True),
+            direction=direction, entry_price=entry_price,
+            stop_loss_ticks=float(params["stop_loss_ticks"]),
+            take_profit_ticks=float(params["take_profit_ticks"]),
+            meta={"large_print_size": float(row["size"])},
+        ))
         last_signal_idx = i
     return specs
 
