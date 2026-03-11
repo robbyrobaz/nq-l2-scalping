@@ -1,0 +1,432 @@
+[
+  {
+    "trades": [
+      {
+        "signal_ts": "2026-03-05 07:33:42.811060+00:00",
+        "entry_ts": "2026-03-05 07:33:42.811947+00:00",
+        "exit_ts": "2026-03-05 07:33:42.876928+00:00",
+        "direction": "short",
+        "entry_price": 25070.75,
+        "exit_price": 25072.75,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-05 07:33:42.811060+00:00"
+      },
+      {
+        "signal_ts": "2026-03-05 07:35:25.903153+00:00",
+        "entry_ts": "2026-03-05 07:35:25.903758+00:00",
+        "exit_ts": "2026-03-05 07:35:26.087163+00:00",
+        "direction": "short",
+        "entry_price": 25099.5,
+        "exit_price": 25101.5,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-05 07:35:25.903153+00:00"
+      },
+      {
+        "signal_ts": "2026-03-06 08:23:02.453858+00:00",
+        "entry_ts": "2026-03-06 08:23:02.458431+00:00",
+        "exit_ts": "2026-03-06 08:23:02.459783+00:00",
+        "direction": "short",
+        "entry_price": 24800.0,
+        "exit_price": 24802.0,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-06 08:23:02.453858+00:00"
+      },
+      {
+        "signal_ts": "2026-03-09 08:22:14.460086+00:00",
+        "entry_ts": "2026-03-09 08:22:14.616391+00:00",
+        "exit_ts": "2026-03-09 08:22:18.121619+00:00",
+        "direction": "long",
+        "entry_price": 24614.25,
+        "exit_price": 24616.75,
+        "pnl_ticks": 10.0,
+        "pnl_usd": 50.0,
+        "exit_reason": "tp",
+        "imbalance_quote_ts": "2026-03-09 08:22:14.460086+00:00"
+      },
+      {
+        "signal_ts": "2026-03-10 07:01:05.272668+00:00",
+        "entry_ts": "2026-03-10 07:01:05.273795+00:00",
+        "exit_ts": "2026-03-10 07:01:08.950490+00:00",
+        "direction": "short",
+        "entry_price": 24921.75,
+        "exit_price": 24923.75,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-10 07:01:05.272668+00:00"
+      },
+      {
+        "signal_ts": "2026-03-10 11:36:03.559580+00:00",
+        "entry_ts": "2026-03-10 11:36:03.626420+00:00",
+        "exit_ts": "2026-03-10 11:36:03.930985+00:00",
+        "direction": "short",
+        "entry_price": 25036.25,
+        "exit_price": 25038.25,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-10 11:36:03.559580+00:00"
+      }
+    ],
+    "metrics": {
+      "profit_factor": 0.25,
+      "win_rate": 16.7,
+      "total_trades": 6,
+      "net_pnl_usd": -15.0,
+      "sharpe": -1.83,
+      "max_drawdown_pct": 0.0
+    },
+    "session_breakdown": {
+      "London": {
+        "trades": 360,
+        "pf": 0.28,
+        "pnl": -846.0
+      },
+      "LondonNY": {
+        "trades": 60,
+        "pf": 0.0,
+        "pnl": -240.0
+      },
+      "Unknown": {
+        "trades": 1,
+        "pf": 0.0,
+        "pnl": -4.0
+      }
+    },
+    "variation": "var_C",
+    "variation_name": "var_C: London + LondonNY",
+    "base_variation": 2,
+    "session_variation": "var_C",
+    "session_filter": [
+      "London",
+      "LondonNY"
+    ]
+  },
+  {
+    "trades": [
+      {
+        "signal_ts": "2026-03-05 07:33:42.811060+00:00",
+        "entry_ts": "2026-03-05 07:33:42.811947+00:00",
+        "exit_ts": "2026-03-05 07:33:42.876928+00:00",
+        "direction": "short",
+        "entry_price": 25070.75,
+        "exit_price": 25072.75,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-05 07:33:42.811060+00:00"
+      },
+      {
+        "signal_ts": "2026-03-05 07:35:25.903153+00:00",
+        "entry_ts": "2026-03-05 07:35:25.903758+00:00",
+        "exit_ts": "2026-03-05 07:35:26.087163+00:00",
+        "direction": "short",
+        "entry_price": 25099.5,
+        "exit_price": 25101.5,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-05 07:35:25.903153+00:00"
+      },
+      {
+        "signal_ts": "2026-03-05 13:50:00.166517+00:00",
+        "entry_ts": "2026-03-05 13:50:00.166603+00:00",
+        "exit_ts": "2026-03-05 13:50:00.185964+00:00",
+        "direction": "short",
+        "entry_price": 24999.25,
+        "exit_price": 25001.25,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-05 13:50:00.166517+00:00"
+      },
+      {
+        "signal_ts": "2026-03-05 13:53:01.809887+00:00",
+        "entry_ts": "2026-03-05 13:53:01.810317+00:00",
+        "exit_ts": "2026-03-05 13:53:01.904225+00:00",
+        "direction": "short",
+        "entry_price": 25019.5,
+        "exit_price": 25021.5,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-05 13:53:01.809887+00:00"
+      },
+      {
+        "signal_ts": "2026-03-06 08:23:02.453858+00:00",
+        "entry_ts": "2026-03-06 08:23:02.458431+00:00",
+        "exit_ts": "2026-03-06 08:23:02.459783+00:00",
+        "direction": "short",
+        "entry_price": 24800.0,
+        "exit_price": 24802.0,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-06 08:23:02.453858+00:00"
+      },
+      {
+        "signal_ts": "2026-03-09 08:22:14.460086+00:00",
+        "entry_ts": "2026-03-09 08:22:14.616391+00:00",
+        "exit_ts": "2026-03-09 08:22:18.121619+00:00",
+        "direction": "long",
+        "entry_price": 24614.25,
+        "exit_price": 24616.75,
+        "pnl_ticks": 10.0,
+        "pnl_usd": 50.0,
+        "exit_reason": "tp",
+        "imbalance_quote_ts": "2026-03-09 08:22:14.460086+00:00"
+      },
+      {
+        "signal_ts": "2026-03-09 12:43:15.914682+00:00",
+        "entry_ts": "2026-03-09 12:43:16.029758+00:00",
+        "exit_ts": "2026-03-09 12:43:16.563674+00:00",
+        "direction": "long",
+        "entry_price": 24947.75,
+        "exit_price": 24945.75,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-09 12:43:15.914682+00:00"
+      },
+      {
+        "signal_ts": "2026-03-10 07:01:05.272668+00:00",
+        "entry_ts": "2026-03-10 07:01:05.273795+00:00",
+        "exit_ts": "2026-03-10 07:01:08.950490+00:00",
+        "direction": "short",
+        "entry_price": 24921.75,
+        "exit_price": 24923.75,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-10 07:01:05.272668+00:00"
+      },
+      {
+        "signal_ts": "2026-03-10 11:36:03.559580+00:00",
+        "entry_ts": "2026-03-10 11:36:03.626420+00:00",
+        "exit_ts": "2026-03-10 11:36:03.930985+00:00",
+        "direction": "short",
+        "entry_price": 25036.25,
+        "exit_price": 25038.25,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-10 11:36:03.559580+00:00"
+      }
+    ],
+    "metrics": {
+      "profit_factor": 0.16,
+      "win_rate": 11.1,
+      "total_trades": 9,
+      "net_pnl_usd": -27.0,
+      "sharpe": -3.18,
+      "max_drawdown_pct": 0.0
+    },
+    "session_breakdown": {
+      "London": {
+        "trades": 360,
+        "pf": 0.28,
+        "pnl": -846.0
+      },
+      "LondonNY": {
+        "trades": 60,
+        "pf": 0.0,
+        "pnl": -240.0
+      },
+      "PreNY": {
+        "trades": 327,
+        "pf": 0.0,
+        "pnl": -1308.0
+      },
+      "Unknown": {
+        "trades": 1,
+        "pf": 0.0,
+        "pnl": -4.0
+      }
+    },
+    "variation": "var_A",
+    "variation_name": "var_A: All sessions",
+    "base_variation": 2,
+    "session_variation": "var_A",
+    "session_filter": null
+  },
+  {
+    "trades": [
+      {
+        "signal_ts": "2026-03-05 07:33:42.811060+00:00",
+        "entry_ts": "2026-03-05 07:33:42.811947+00:00",
+        "exit_ts": "2026-03-05 07:33:42.876928+00:00",
+        "direction": "short",
+        "entry_price": 25070.75,
+        "exit_price": 25072.75,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-05 07:33:42.811060+00:00"
+      },
+      {
+        "signal_ts": "2026-03-05 07:35:25.903153+00:00",
+        "entry_ts": "2026-03-05 07:35:25.903758+00:00",
+        "exit_ts": "2026-03-05 07:35:26.087163+00:00",
+        "direction": "short",
+        "entry_price": 25099.5,
+        "exit_price": 25101.5,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-05 07:35:25.903153+00:00"
+      },
+      {
+        "signal_ts": "2026-03-05 13:50:00.166517+00:00",
+        "entry_ts": "2026-03-05 13:50:00.166603+00:00",
+        "exit_ts": "2026-03-05 13:50:00.185964+00:00",
+        "direction": "short",
+        "entry_price": 24999.25,
+        "exit_price": 25001.25,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-05 13:50:00.166517+00:00"
+      },
+      {
+        "signal_ts": "2026-03-05 13:53:01.809887+00:00",
+        "entry_ts": "2026-03-05 13:53:01.810317+00:00",
+        "exit_ts": "2026-03-05 13:53:01.904225+00:00",
+        "direction": "short",
+        "entry_price": 25019.5,
+        "exit_price": 25021.5,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-05 13:53:01.809887+00:00"
+      },
+      {
+        "signal_ts": "2026-03-06 08:23:02.453858+00:00",
+        "entry_ts": "2026-03-06 08:23:02.458431+00:00",
+        "exit_ts": "2026-03-06 08:23:02.459783+00:00",
+        "direction": "short",
+        "entry_price": 24800.0,
+        "exit_price": 24802.0,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-06 08:23:02.453858+00:00"
+      },
+      {
+        "signal_ts": "2026-03-09 08:22:14.460086+00:00",
+        "entry_ts": "2026-03-09 08:22:14.616391+00:00",
+        "exit_ts": "2026-03-09 08:22:18.121619+00:00",
+        "direction": "long",
+        "entry_price": 24614.25,
+        "exit_price": 24616.75,
+        "pnl_ticks": 10.0,
+        "pnl_usd": 50.0,
+        "exit_reason": "tp",
+        "imbalance_quote_ts": "2026-03-09 08:22:14.460086+00:00"
+      },
+      {
+        "signal_ts": "2026-03-09 12:43:15.914682+00:00",
+        "entry_ts": "2026-03-09 12:43:16.029758+00:00",
+        "exit_ts": "2026-03-09 12:43:16.563674+00:00",
+        "direction": "long",
+        "entry_price": 24947.75,
+        "exit_price": 24945.75,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-09 12:43:15.914682+00:00"
+      },
+      {
+        "signal_ts": "2026-03-10 07:01:05.272668+00:00",
+        "entry_ts": "2026-03-10 07:01:05.273795+00:00",
+        "exit_ts": "2026-03-10 07:01:08.950490+00:00",
+        "direction": "short",
+        "entry_price": 24921.75,
+        "exit_price": 24923.75,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-10 07:01:05.272668+00:00"
+      },
+      {
+        "signal_ts": "2026-03-10 11:36:03.559580+00:00",
+        "entry_ts": "2026-03-10 11:36:03.626420+00:00",
+        "exit_ts": "2026-03-10 11:36:03.930985+00:00",
+        "direction": "short",
+        "entry_price": 25036.25,
+        "exit_price": 25038.25,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "imbalance_quote_ts": "2026-03-10 11:36:03.559580+00:00"
+      }
+    ],
+    "metrics": {
+      "profit_factor": 0.16,
+      "win_rate": 11.1,
+      "total_trades": 9,
+      "net_pnl_usd": -27.0,
+      "sharpe": -3.18,
+      "max_drawdown_pct": 0.0
+    },
+    "session_breakdown": {
+      "London": {
+        "trades": 360,
+        "pf": 0.28,
+        "pnl": -846.0
+      },
+      "LondonNY": {
+        "trades": 60,
+        "pf": 0.0,
+        "pnl": -240.0
+      },
+      "PreNY": {
+        "trades": 327,
+        "pf": 0.0,
+        "pnl": -1308.0
+      },
+      "Unknown": {
+        "trades": 1,
+        "pf": 0.0,
+        "pnl": -4.0
+      }
+    },
+    "variation": "var_D",
+    "variation_name": "var_D: Overnight",
+    "base_variation": 2,
+    "session_variation": "var_D",
+    "session_filter": [
+      "Asia",
+      "London",
+      "LondonNY",
+      "PreNY"
+    ]
+  },
+  {
+    "trades": [],
+    "metrics": {
+      "profit_factor": 0.0,
+      "win_rate": 0.0,
+      "total_trades": 0,
+      "net_pnl_usd": 0.0,
+      "sharpe": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "session_breakdown": {},
+    "variation": "var_B",
+    "variation_name": "var_B: RTH only",
+    "base_variation": 2,
+    "session_variation": "var_B",
+    "session_filter": [
+      "NYOpen",
+      "MidDay",
+      "PowerHour",
+      "Close"
+    ]
+  }
+]

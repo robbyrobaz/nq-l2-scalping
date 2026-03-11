@@ -1,89 +1,101 @@
-# NQ L2 Scalping — 14 Strategies (2026-03-09)
+# NQ L2 Scalping — Daily Optimization (2026-03-11)
 
-## Dataset
-- **Data:** 3.8M IBKR ticks, 2906 1-min bars (5 days: Mar 5–9 2026)
-- **DB:** `/home/rob/infrastructure/ibkr/data/nq_feed.duckdb`
-- **ts_utc dtype:** `datetime64[us, UTC]` — astype("int64") gives **microseconds**
-  - `.value` on pd.Timestamp gives nanoseconds → `// 1000` = microseconds (correct)
+## Current Dataset
+- **Total ticks in DB:** 5,074,830 (Mar 5–11)
+- **New data since Mar 9:** 1,241,178 ticks (Mar 10–11)
+- **New data breakdown:**
+  - Mar 10: 1,200,528 ticks
+  - Mar 11 (00:00–02:00 UTC / 17:00–19:00 MST Mar 10): 40,650 ticks
+- **Data window:** 7 trading days
+- **Latest results:** 2026-03-11 02:25 UTC (12 strategies optimized)
 
-## Latest Resweep Results (2026-03-09, 5-day dataset)
+## Mar 11 Optimization Results
 
-### Best Performers
-| Strategy | Session | PF | PnL | Trades | Status |
-|---|---|---|---|---|---|
-| **003 CVD Divergence** | London+LondonNY | **1.11** | +$16 | 68 | Marginal |
-| **010 Initiative Auction** | RTH | 1.50 | +$4 | 4 | Too few |
-| **013 Value Area Rejection** | London+LondonNY | 1.02 | +$16 | 365 | Marginal |
-| **014 Failed Auction Hook** | London+LondonNY | **1.13** | +$21 | 64 | Marginal |
+### Top Performers
+| Rank | Strategy | Variation | PF | PnL | Trades | Status |
+|------|----------|-----------|-----|-----|--------|--------|
+| 1 | **008 Stacked Book** | var_D | 4.50 | +$14 | 4 | Too few trades |
+| 2 | **008 Stacked Book** | var_A | 3.00 | +$16 | 6 | Too few trades |
+| 3 | **001 Delta Absorption** | var_A | 2.67 | +$2 | 3 | Too few trades |
+| 4-10 | Various | - | 0.50–1.50 | -$300 to +$8 | 2–502 | Unprofitable or marginal |
 
-### Disabled / Not Viable
-- **006 Tape Streak**: 100K+ trades → OOM in optimize sweep → SKIPPED
-- **007 Sweep & Fade**: 100K+ trades → OOM in optimize sweep → SKIPPED
-- **002 FVG**: PF 0.45–0.50, all sessions negative → Not viable
-- **001 Absorption Reversal**: PF 0.44, 36 trades → Not viable as designed
-- **005 Large Print**: 0 signals → Not viable
+### Key Findings
+- **NO candidates for forward test** — no strategy meets PF > 2.5 with 20+ trades
+- **Strategy 013 (Value Area Rejection) collapsed:** Was PF > 3.0 on Mar 5–6 data, now PF = 1.01 with 502 trades
+  - Indicates strategy was curve-fitted to early data window
+  - Adding 6 more days of data revealed the edge doesn't hold
+- **New edge in Strategy 008:** Emerged with new data (PF=3.0 from PF=0.75)
+  - But only 6 trades — insufficient sample for production deployment
+- **Overall degradation:** Only 6 profitable variations (of 48), only 3 with PF > 2.0
+  - Mar 9 had better results — data dependency is HIGH
 
-### Key Finding: London Session Edge
-Most strategies with any positive PF show it ONLY in London+LondonNY (02:00–08:30 UTC).
-RTH is consistently the worst session for most strategies.
+### Disabled Strategies (per MEMORY)
+- 006 (Tape Streak): OOM in backtest → excluded from sweeps
+- 007 (Sweep & Fade): OOM in backtest → excluded from sweeps
 
-## Strategy Status & Design Notes
+## Strategy Status
 
-### 001 Delta Absorption Reversal (REDESIGNED 2026-03-09)
-- **Old design:** range compression + absorption bar + BREAKOUT required → 0 trades
-- **New design:** range compression + absorbed delta → enter at market (no breakout check, no proximity check)
-- **Why changed:** 1-min NQ never traverses full range in single bar → breakout check never fires
-- **Current params:** max_range_pts=25, delta_threshold=50, ab=1, TP=8, SL=6
-- **Result:** 36 trades but PF=0.44 → concept generates signals but no edge
+### 001 - Delta Absorption Reversal
+- **Latest:** var_A PF=2.67 (3 trades, all sessions)
+- **Prior (Mar 9):** PF=1.33
+- **Change:** +101% improvement (but still too few trades)
+- **Notes:** Concept is generating signals but inconsistent profitability
 
-### 003 CVD Divergence (FIXED 2026-03-09)
-- **Bug fixed:** same divergence re-fired for hundreds of consecutive bars → 859 "signals" from ~100 actual divergences
-- **Fix:** pair-based dedup (`last_long_price_pair`, `last_long_cvd_pair` etc.) — each unique price/CVD peak pair fires once
-- **Result after fix:** 202 trades (default), 68 trades (London), PF=1.11 London session
+### 008 - Stacked Book
+- **Latest:** var_A PF=3.00, var_D PF=4.50 (6 and 4 trades respectively)
+- **Prior (Mar 9):** PF=0.75 (14 trades)
+- **Change:** +300% improvement but signal frequency dropped
+- **Notes:** Appears to be catching rare high-conviction setups with new data
 
-### 008 Stacked Book (RELAXED 2026-03-09)
-- **Change:** stack_threshold 3.0 → 2.0
-- **Uses:** `quotes_1min()` cache (not raw 70M-row quotes) — see strategy_cache.py
-- **Result:** 14 trades, PF=0.75
+### 013 - Value Area Rejection ⚠️ **DEGRADED**
+- **Latest:** var_C PF=1.01 (502 trades, London+LondonNY)
+- **Prior (Mar 9):** PF=3.12 default, 3.60 wide
+- **Change:** -68% degradation (went from gold standard to break-even)
+- **Root cause:** 6-day dataset (Mar 5–6) was too short — overfitted to early session patterns
+- **Implication:** Original results were NOT reproducible on expanded dataset
 
-## Critical Bugs Fixed (History)
+### 003, 009, 010, 012, 014
+- All show negative or break-even PF in Mar 11 sweep
+- None generate sufficient trades for statistical validity
 
-### 2026-03-09 commit 03e65f2: nanoseconds vs microseconds
-- tick_ts built via `astype("int64")` → microseconds (DuckDB returns datetime64[us])
-- pd.Timestamp.value → nanoseconds → must divide by 1000 for searchsorted
-- ALL strategies: `np.searchsorted(tick_ts, ts.value // 1000, side="left")` is CORRECT
+## Key Learnings
 
-### 2026-03-09: 003 divergence dedup
-- Before: 859 "divergences" (same pair re-detected each bar) → 814 trades, PF=0.74
-- After: ~200 trades, PF closer to edge
+1. **Overfitting Risk:** Original 2-day (Mar 5–6) optimization results were statistically unreliable
+   - 013 showed 4.0 PF on 8 trades → expanded to 7 days → 1.01 PF on 502 trades
+   - This is classic case of small-sample luck masquerading as edge
 
-### optimize.py "all" sweep: 006+007 skipped
-- 006 (Tape Streak) and 007 (Sweep & Fade) excluded from all-sweep → OOM
-- Can still run individually: `python3 pipeline/optimize.py --strategy-id 006`
+2. **Data Dependency:** NQ micro-structure signals are market-regime dependent
+   - Some patterns only work in certain sessions or volatility regimes
+   - Expanding dataset reveals which edges are real vs. lucky
 
-## File Locations
-- **Strategies:** `strategies/00{1..8}_*/backtest.py`
-- **Optimizer:** `pipeline/optimize.py` (all 14 integrated, 006+007 excluded from all-sweep)
-- **Results:** `data/results/{001..014}_optimization_2026-03-09.json`
-- **Cache:** `pipeline/strategy_cache.py` (includes `quotes_1min()` for 008)
+3. **Strategy 008 Emerging Edge:** New data revealed Stacked Book can work (PF=3.0+)
+   - But signal frequency is EXTREMELY low (6 signals in 7 days)
+   - Need 50+ trades before considering live deployment
 
-## Commands
-```bash
-# Run all viable strategies (skips 006, 007)
-python3 pipeline/optimize.py --strategy-id all
-
-# Run specific strategy
-python3 pipeline/optimize.py --strategy-id 003
-
-# Quick backtest with debug
-python3 strategies/003_cvd_divergence/backtest.py
-```
+4. **Strategy 013 Still Worth Research:** Despite PF degradation, 502 trades at PF=1.01 on subset (London session) suggests pattern exists but needs tuning
+   - Current VAH/VAL detection may be too loose
+   - Consider tighter bounds or confirmation filters
 
 ## Next Actions
-1. Investigate 003 London session edge more deeply (68 trades, PF=1.11 — needs 200+ trades to confirm)
-2. Try 014 Failed Auction Hook London deeper — 64 trades PF=1.13
-3. Collect more data (current 5-day window is too small for statistical significance)
-4. 001 concept needs fundamental rethink — delta absorption on 1-min NQ lacks edge
+
+1. **Collect more data:** Current 7-day window still too small for statistical significance
+   - Target: 4–8 weeks of data (1000+ trades per strategy)
+   - Only then can we reliably identify real edges vs. noise
+
+2. **Investigate 008 signal generation:** Why did Stacked Book trigger 14 times on Mar 9 but only 4–6 times on expanded dataset?
+   - Check if stack detection params shifted
+   - Verify quotes_1min() cache is working correctly
+
+3. **Revisit 013 with tighter filters:** Don't abandon Value Area Rejection yet
+   - Current results show 502 trades with break-even — might be salvageable with better entry/exit tuning
+
+4. **Implement rolling validation:** Test each strategy on expanding windows (1w, 2w, 4w) to identify when edge starts/stops working
+   - Will reveal which strategies are truly robust
+
+## File Locations
+- **Optimization results:** `data/results/*_2026-03-11.json`
+- **Comparison report:** `data/results/comparison_report.md`
+- **Strategies:** `strategies/00{1..14}_*/backtest.py`
 
 ---
-**Last updated:** 2026-03-09 (5-day resweep, all signals restored, 006/007 disabled)
+**Last updated:** 2026-03-11 02:25 UTC (full 12-strategy sweep complete)

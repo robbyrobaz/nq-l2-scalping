@@ -1,0 +1,135 @@
+[
+  {
+    "trades": [
+      {
+        "signal_ts": "2026-03-05 22:22:00+00:00",
+        "entry_ts": "2026-03-05 22:22:00.617255+00:00",
+        "exit_ts": "2026-03-05 22:22:02.251628+00:00",
+        "direction": "short",
+        "entry_price": 25119.5,
+        "exit_price": 25118.5,
+        "pnl_ticks": 4.0,
+        "pnl_usd": 20.0,
+        "exit_reason": "tp",
+        "breakout_bar_ts": "2026-03-05 22:22:00+00:00",
+        "defended_range_high": 25128.75,
+        "defended_range_low": 25119.5,
+        "breakout_close": 25112.5
+      },
+      {
+        "signal_ts": "2026-03-10 20:02:00+00:00",
+        "entry_ts": "2026-03-10 20:02:02.354832+00:00",
+        "exit_ts": "2026-03-10 20:02:13.630977+00:00",
+        "direction": "short",
+        "entry_price": 25098.5,
+        "exit_price": 25097.5,
+        "pnl_ticks": 4.0,
+        "pnl_usd": 20.0,
+        "exit_reason": "tp",
+        "breakout_bar_ts": "2026-03-10 20:02:00+00:00",
+        "defended_range_high": 25099.25,
+        "defended_range_low": 25093.0,
+        "breakout_close": 25094.5
+      },
+      {
+        "signal_ts": "2026-03-10 20:59:00+00:00",
+        "entry_ts": "2026-03-10 20:59:00.637334+00:00",
+        "exit_ts": "2026-03-10 20:59:08.599037+00:00",
+        "direction": "short",
+        "entry_price": 25118.0,
+        "exit_price": 25118.75,
+        "pnl_ticks": -3.0,
+        "pnl_usd": -15.0,
+        "exit_reason": "sl",
+        "breakout_bar_ts": "2026-03-10 20:59:00+00:00",
+        "defended_range_high": 25117.25,
+        "defended_range_low": 25109.75,
+        "breakout_close": 25118.5
+      }
+    ],
+    "metrics": {
+      "profit_factor": 2.67,
+      "win_rate": 66.7,
+      "total_trades": 3,
+      "net_pnl_usd": 2.5,
+      "sharpe": 0.87,
+      "max_drawdown_pct": 37.5
+    },
+    "session_breakdown": {
+      "Unknown": {
+        "trades": 3,
+        "pf": 2.67,
+        "pnl": 2.5
+      }
+    },
+    "variation": "var_A",
+    "variation_name": "var_A: All sessions",
+    "base_variation": 1,
+    "session_variation": "var_A",
+    "session_filter": null
+  },
+  {
+    "trades": [],
+    "metrics": {
+      "profit_factor": 0.0,
+      "win_rate": 0.0,
+      "total_trades": 0,
+      "net_pnl_usd": 0.0,
+      "sharpe": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "session_breakdown": {},
+    "variation": "var_B",
+    "variation_name": "var_B: RTH only",
+    "base_variation": 1,
+    "session_variation": "var_B",
+    "session_filter": [
+      "NYOpen",
+      "MidDay",
+      "PowerHour",
+      "Close"
+    ]
+  },
+  {
+    "trades": [],
+    "metrics": {
+      "profit_factor": 0.0,
+      "win_rate": 0.0,
+      "total_trades": 0,
+      "net_pnl_usd": 0.0,
+      "sharpe": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "session_breakdown": {},
+    "variation": "var_C",
+    "variation_name": "var_C: London + LondonNY",
+    "base_variation": 1,
+    "session_variation": "var_C",
+    "session_filter": [
+      "London",
+      "LondonNY"
+    ]
+  },
+  {
+    "trades": [],
+    "metrics": {
+      "profit_factor": 0.0,
+      "win_rate": 0.0,
+      "total_trades": 0,
+      "net_pnl_usd": 0.0,
+      "sharpe": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "session_breakdown": {},
+    "variation": "var_D",
+    "variation_name": "var_D: Overnight",
+    "base_variation": 1,
+    "session_variation": "var_D",
+    "session_filter": [
+      "Asia",
+      "London",
+      "LondonNY",
+      "PreNY"
+    ]
+  }
+]
