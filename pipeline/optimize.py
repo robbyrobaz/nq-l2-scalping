@@ -983,61 +983,61 @@ STRATEGIES = {
             1: {
                 'name': 'Conservative',
                 'params': {
-                    'big_order_threshold_multiplier': 4.0,
-                    'lookback_bars': 5,
+                    'volume_spike_multiplier': 4.0,
+                    'lookback_bars': 20,
                     'min_delta_momentum': 300,
-                    'price_proximity_ticks': 6,
+                    'min_price_move_ticks': 2,
                     'take_profit_ticks': 10,
                     'stop_loss_ticks': 8,
-                    'session_filter': 'RTH',
+                    'session_filter': ["NYOpen", "MidDay", "PowerHour"],
                 }
             },
             2: {
                 'name': 'Default',
                 'params': {
-                    'big_order_threshold_multiplier': 3.0,
-                    'lookback_bars': 5,
+                    'volume_spike_multiplier': 3.0,
+                    'lookback_bars': 20,
                     'min_delta_momentum': 200,
-                    'price_proximity_ticks': 8,
+                    'min_price_move_ticks': 2,
                     'take_profit_ticks': 12,
                     'stop_loss_ticks': 8,
-                    'session_filter': 'RTH',
+                    'session_filter': ["NYOpen", "MidDay", "PowerHour"],
                 }
             },
             3: {
                 'name': 'Aggressive',
                 'params': {
-                    'big_order_threshold_multiplier': 2.5,
-                    'lookback_bars': 8,
+                    'volume_spike_multiplier': 2.5,
+                    'lookback_bars': 20,
                     'min_delta_momentum': 150,
-                    'price_proximity_ticks': 10,
+                    'min_price_move_ticks': 2,
                     'take_profit_ticks': 16,
                     'stop_loss_ticks': 8,
-                    'session_filter': 'RTH',
+                    'session_filter': ["NYOpen", "MidDay", "PowerHour"],
                 }
             },
             4: {
                 'name': 'Tight Scalp',
                 'params': {
-                    'big_order_threshold_multiplier': 3.0,
-                    'lookback_bars': 3,
+                    'volume_spike_multiplier': 3.0,
+                    'lookback_bars': 20,
                     'min_delta_momentum': 200,
-                    'price_proximity_ticks': 6,
+                    'min_price_move_ticks': 2,
                     'take_profit_ticks': 8,
                     'stop_loss_ticks': 6,
-                    'session_filter': 'RTH',
+                    'session_filter': ["NYOpen", "MidDay", "PowerHour"],
                 }
             },
             5: {
                 'name': 'Wide Stop',
                 'params': {
-                    'big_order_threshold_multiplier': 3.0,
-                    'lookback_bars': 5,
+                    'volume_spike_multiplier': 3.0,
+                    'lookback_bars': 20,
                     'min_delta_momentum': 200,
-                    'price_proximity_ticks': 8,
+                    'min_price_move_ticks': 2,
                     'take_profit_ticks': 14,
                     'stop_loss_ticks': 10,
-                    'session_filter': 'RTH',
+                    'session_filter': ["NYOpen", "MidDay", "PowerHour"],
                 }
             },
         }

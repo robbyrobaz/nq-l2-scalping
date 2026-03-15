@@ -44,7 +44,10 @@ def _find_session_start_indices(bars: pd.DataFrame) -> list[int]:
     bars = bars.reset_index(drop=True)
 
     # Convert to ET timezone and extract date + hour/minute
-    ts_et = pd.to_datetime(bars["ts_utc"]).dt.tz_localize("UTC").dt.tz_convert("America/New_York")
+    ts = pd.to_datetime(bars["ts_utc"], utc=True)
+    if ts.dt.tz is None:
+        ts = ts.dt.tz_localize("UTC")
+    ts_et = ts.dt.tz_convert("America/New_York")
     hour = ts_et.dt.hour
     minute = ts_et.dt.minute
     date = ts_et.dt.date
