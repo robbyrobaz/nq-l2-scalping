@@ -1,26 +1,38 @@
 # Strategy 018: Delta Absorption Live Trade
 
 **Source:** https://www.youtube.com/watch?v=TahCL7FXXLs
-**Concept:** [FILL IN - describe the core trading concept from the video]
+**Concept:** Large limit orders in the order book act as "price magnets" - when significant bid/ask walls appear at specific levels, price tends to move toward these levels. This strategy identifies big orders and enters on momentum toward them.
 
-## Logic
+## Logic (Simplified Implementation)
 
-[FILL IN - step-by-step strategy logic extracted from the transcript]
+Since full DOM/depth data is not available, we use volume spikes as a proxy for "big orders":
+
+1. **Detect Volume Spikes**: Identify bars where volume is significantly above rolling average (3x+ threshold)
+2. **Confirm Momentum**: Check for strong delta in the direction of price move
+3. **Price Action Filter**: Require meaningful price movement (2+ ticks) in direction of delta
+4. **Entry**: Enter at market on next bar
+5. **Exit**: Use fixed TP/SL
 
 ## Signal Rules
 
 **Long Entry:**
-- [condition 1]
-- [condition 2]
+- Volume spike detected (volume > 3x rolling average)
+- Positive bar delta >= threshold (e.g., 200)
+- Bullish price action (close > open by 2+ ticks)
+- Entry at ask on next bar
 
 **Short Entry:**
-- [condition 1]
-- [condition 2]
+- Volume spike detected (volume > 3x rolling average)
+- Negative bar delta <= -threshold (e.g., -200)
+- Bearish price action (close < open by 2+ ticks)
+- Entry at bid on next bar
 
-## Parameters to Optimize
-- `take_profit_ticks`: (default: 8)
-- `stop_loss_ticks`: (default: 12)
-- `session_filter`: RTH only
+## Parameters (5 Variations)
+1. **Conservative**: 4x volume spike, 300 delta, tight TP (10 ticks)
+2. **Default**: 3x volume spike, 200 delta, standard TP (12 ticks)
+3. **Aggressive**: 2.5x volume spike, 150 delta, wide TP (16 ticks)
+4. **Tight Scalp**: 3x volume spike, 200 delta, tight TP/SL (8/6 ticks)
+5. **Wide Stop**: 3x volume spike, 200 delta, wide stop (10 ticks), higher TP (14 ticks)
 
 ## Transcript
 

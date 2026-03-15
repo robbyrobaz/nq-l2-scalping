@@ -91,6 +91,21 @@ spec_014 = importlib.util.spec_from_file_location("backtest_014",
 s014_backtest = importlib.util.module_from_spec(spec_014)
 spec_014.loader.exec_module(s014_backtest)
 
+spec_018 = importlib.util.spec_from_file_location("backtest_018",
+    Path(__file__).resolve().parents[1] / 'strategies' / '018_delta_absorption_live_trade' / 'backtest.py')
+s018_backtest = importlib.util.module_from_spec(spec_018)
+spec_018.loader.exec_module(s018_backtest)
+
+spec_019 = importlib.util.spec_from_file_location("backtest_019",
+    Path(__file__).resolve().parents[1] / 'strategies' / '019_order_flow_priority_2026' / 'backtest.py')
+s019_backtest = importlib.util.module_from_spec(spec_019)
+spec_019.loader.exec_module(s019_backtest)
+
+spec_020 = importlib.util.spec_from_file_location("backtest_020",
+    Path(__file__).resolve().parents[1] / 'strategies' / '020_simplest_orderflow_model' / 'backtest.py')
+s020_backtest = importlib.util.module_from_spec(spec_020)
+spec_020.loader.exec_module(s020_backtest)
+
 SESSION_VARIATIONS = {
     "var_A": {
         "name": "All sessions",
@@ -960,6 +975,204 @@ STRATEGIES = {
                 }
             },
         }
+    },
+    '018': {
+        'name': 'Delta Absorption Live Trade',
+        'backtest': s018_backtest,
+        'variations': {
+            1: {
+                'name': 'Conservative',
+                'params': {
+                    'big_order_threshold_multiplier': 4.0,
+                    'lookback_bars': 5,
+                    'min_delta_momentum': 300,
+                    'price_proximity_ticks': 6,
+                    'take_profit_ticks': 10,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            2: {
+                'name': 'Default',
+                'params': {
+                    'big_order_threshold_multiplier': 3.0,
+                    'lookback_bars': 5,
+                    'min_delta_momentum': 200,
+                    'price_proximity_ticks': 8,
+                    'take_profit_ticks': 12,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            3: {
+                'name': 'Aggressive',
+                'params': {
+                    'big_order_threshold_multiplier': 2.5,
+                    'lookback_bars': 8,
+                    'min_delta_momentum': 150,
+                    'price_proximity_ticks': 10,
+                    'take_profit_ticks': 16,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            4: {
+                'name': 'Tight Scalp',
+                'params': {
+                    'big_order_threshold_multiplier': 3.0,
+                    'lookback_bars': 3,
+                    'min_delta_momentum': 200,
+                    'price_proximity_ticks': 6,
+                    'take_profit_ticks': 8,
+                    'stop_loss_ticks': 6,
+                    'session_filter': 'RTH',
+                }
+            },
+            5: {
+                'name': 'Wide Stop',
+                'params': {
+                    'big_order_threshold_multiplier': 3.0,
+                    'lookback_bars': 5,
+                    'min_delta_momentum': 200,
+                    'price_proximity_ticks': 8,
+                    'take_profit_ticks': 14,
+                    'stop_loss_ticks': 10,
+                    'session_filter': 'RTH',
+                }
+            },
+        }
+    },
+    '019': {
+        'name': 'Order Flow Priority 2026',
+        'backtest': s019_backtest,
+        'variations': {
+            1: {
+                'name': 'Tight Range',
+                'params': {
+                    'or_bars': 3,
+                    'liquidity_threshold_mult': 2.5,
+                    'max_pool_distance_ticks': 30,
+                    'min_breakout_ticks': 2,
+                    'take_profit_ticks': 12,
+                    'stop_loss_ticks': 6,
+                    'session_filter': 'RTH',
+                }
+            },
+            2: {
+                'name': 'Default',
+                'params': {
+                    'or_bars': 5,
+                    'liquidity_threshold_mult': 3.0,
+                    'max_pool_distance_ticks': 40,
+                    'min_breakout_ticks': 4,
+                    'take_profit_ticks': 16,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            3: {
+                'name': 'Wide Range',
+                'params': {
+                    'or_bars': 10,
+                    'liquidity_threshold_mult': 3.5,
+                    'max_pool_distance_ticks': 60,
+                    'min_breakout_ticks': 6,
+                    'take_profit_ticks': 20,
+                    'stop_loss_ticks': 10,
+                    'session_filter': 'RTH',
+                }
+            },
+            4: {
+                'name': 'Aggressive Pool',
+                'params': {
+                    'or_bars': 5,
+                    'liquidity_threshold_mult': 2.0,
+                    'max_pool_distance_ticks': 50,
+                    'min_breakout_ticks': 3,
+                    'take_profit_ticks': 20,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            5: {
+                'name': 'Scalp',
+                'params': {
+                    'or_bars': 3,
+                    'liquidity_threshold_mult': 4.0,
+                    'max_pool_distance_ticks': 25,
+                    'min_breakout_ticks': 2,
+                    'take_profit_ticks': 8,
+                    'stop_loss_ticks': 4,
+                    'session_filter': 'RTH',
+                }
+            },
+        }
+    },
+    '020': {
+        'name': 'Simplest Orderflow Model (IVB)',
+        'backtest': s020_backtest,
+        'variations': {
+            1: {
+                'name': 'Baseline 30min',
+                'params': {
+                    'opening_range_bars': 30,
+                    'wait_for_retest': False,
+                    'retest_lookback': 10,
+                    'retest_proximity_ticks': 4,
+                    'take_profit_ticks': 16,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            2: {
+                'name': 'Default',
+                'params': {
+                    'opening_range_bars': 15,
+                    'wait_for_retest': False,
+                    'retest_lookback': 10,
+                    'retest_proximity_ticks': 4,
+                    'take_profit_ticks': 12,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            3: {
+                'name': 'Wide Targets',
+                'params': {
+                    'opening_range_bars': 30,
+                    'wait_for_retest': False,
+                    'retest_lookback': 10,
+                    'retest_proximity_ticks': 4,
+                    'take_profit_ticks': 24,
+                    'stop_loss_ticks': 12,
+                    'session_filter': 'RTH',
+                }
+            },
+            4: {
+                'name': 'Retest Entry',
+                'params': {
+                    'opening_range_bars': 30,
+                    'wait_for_retest': True,
+                    'retest_lookback': 10,
+                    'retest_proximity_ticks': 4,
+                    'take_profit_ticks': 16,
+                    'stop_loss_ticks': 8,
+                    'session_filter': 'RTH',
+                }
+            },
+            5: {
+                'name': 'Conservative',
+                'params': {
+                    'opening_range_bars': 45,
+                    'wait_for_retest': True,
+                    'retest_lookback': 10,
+                    'retest_proximity_ticks': 4,
+                    'take_profit_ticks': 20,
+                    'stop_loss_ticks': 10,
+                    'session_filter': 'RTH',
+                }
+            },
+        }
     }
 }
 
@@ -1027,15 +1240,25 @@ def run_optimization(strategy_id):
     print(f"{'='*70}")
 
     results = []
-    expanded_variations = _expand_session_variations(strat['variations'])
-    for var_spec in expanded_variations:
-        var_num = var_spec['session_variation']
-        result = run_variation(strategy_id, var_num, var_spec)
-        if result:
-            result['base_variation'] = var_spec['base_variation']
-            result['session_variation'] = var_spec['session_variation']
-            result['session_filter'] = var_spec['params']['session_filter']
-            results.append(result)
+
+    # For new weekly strategies (018-020), run parameter variations instead of session variations
+    # These have specific parameter variations that are more important than session variations
+    if strategy_id in ['018', '019', '020']:
+        for var_num, var_spec in sorted(strat['variations'].items()):
+            result = run_variation(strategy_id, var_num, var_spec)
+            if result:
+                results.append(result)
+    else:
+        # For older strategies (001-014), run session variations
+        expanded_variations = _expand_session_variations(strat['variations'])
+        for var_spec in expanded_variations:
+            var_num = var_spec['session_variation']
+            result = run_variation(strategy_id, var_num, var_spec)
+            if result:
+                result['base_variation'] = var_spec['base_variation']
+                result['session_variation'] = var_spec['session_variation']
+                result['session_filter'] = var_spec['params']['session_filter']
+                results.append(result)
 
     # Sort by profit factor (desc), then net_pnl (desc)
     results.sort(
@@ -1066,7 +1289,7 @@ def run_optimization(strategy_id):
 
 def main():
     parser = argparse.ArgumentParser(description='Optimize strategy parameters')
-    parser.add_argument('--strategy-id', type=str, choices=['001', '002', '003', '004', '005', '006', '007', '008', '009', '010', '011', '012', '013', '014', 'all'],
+    parser.add_argument('--strategy-id', type=str, choices=['001', '002', '003', '004', '005', '006', '007', '008', '009', '010', '011', '012', '013', '014', '018', '019', '020', 'all'],
                         default='all', help='Strategy ID to optimize')
     args = parser.parse_args()
 

@@ -1,26 +1,106 @@
 # Strategy 019: Order Flow Priority 2026
 
-**Source:** https://www.youtube.com/watch?v=hq5FKQAnvpY
-**Concept:** [FILL IN - describe the core trading concept from the video]
+**Source:** https://www.youtube.com/watch?v=hq5FKQAnvpY (Bear Bull Traders - Market Atlas)
+**Concept:** Opening range breakout confirmation with DOM liquidity pool targeting
+
+**Core Insight:**
+- "Price goes toward liquidity pools" - large DOM orders act as price magnets
+- Combine chart patterns (ORB, ABC, bull flag) with depth-of-market confirmation
+- Target the liquidity level itself as take-profit
 
 ## Logic
 
-[FILL IN - step-by-step strategy logic extracted from the transcript]
+1. **Define Opening Range**: First N bars of each RTH session (default 5 bars = 5 min)
+2. **Detect Breakout**:
+   - Long: close > OR high
+   - Short: close < OR low
+3. **Check DOM for Liquidity Pool**:
+   - Query L2 order book at breakout bar timestamp
+   - Find large orders (≥ 3x average book size) in breakout direction
+   - Verify pool is within max distance (default 40 ticks = 10 pts)
+4. **Entry**: Market order on next bar if liquidity pool confirmed
+5. **Exit**: TP/SL (targeting liquidity pool level)
 
 ## Signal Rules
 
 **Long Entry:**
-- [condition 1]
-- [condition 2]
+- Close breaks above opening range high
+- Large ask liquidity detected above current price (3x+ avg book size)
+- Liquidity pool within 40 ticks (adjustable)
+- Enter at ask on next bar
 
 **Short Entry:**
-- [condition 1]
-- [condition 2]
+- Close breaks below opening range low
+- Large bid liquidity detected below current price (3x+ avg book size)
+- Liquidity pool within 40 ticks (adjustable)
+- Enter at bid on next bar
+
+**Exit:**
+- Take profit: 16 ticks (default)
+- Stop loss: 8 ticks (default)
 
 ## Parameters to Optimize
-- `take_profit_ticks`: (default: 8)
-- `stop_loss_ticks`: (default: 12)
+- `or_bars`: Opening range bars (3, 5, 10)
+- `liquidity_threshold_mult`: Threshold for "large" pool (2.0-4.0x avg book size)
+- `max_pool_distance_ticks`: Max distance to liquidity pool (25-60 ticks)
+- `min_breakout_ticks`: Min breakout size to consider (2-6 ticks)
+- `take_profit_ticks`: (8, 12, 16, 20)
+- `stop_loss_ticks`: (4, 6, 8, 10)
 - `session_filter`: RTH only
+
+## 5 Parameter Variations
+
+1. **Tight Range**: 3-bar OR, 2.5x pool, 30 tick max, 12/6 TP/SL
+2. **Default**: 5-bar OR, 3.0x pool, 40 tick max, 16/8 TP/SL
+3. **Wide Range**: 10-bar OR, 3.5x pool, 60 tick max, 20/10 TP/SL
+4. **Aggressive Pool**: 5-bar OR, 2.0x pool (easier to trigger), 50 tick max, 20/8 TP/SL
+5. **Scalp**: 3-bar OR, 4.0x pool (very large only), 25 tick max, 8/4 TP/SL
+
+## Results
+
+**STATUS: NOT RUN - Database I/O Blocker**
+
+Backtest implementation is complete and ready to run, but cannot execute due to active data collection process locking the database. See implementation status below for details.
+
+---
+
+## Implementation Status (2026-03-15)
+
+### ✅ Code Complete - Awaiting Database Optimization
+
+**Implementation:**
+- ✅ `backtest.py`: Fully implemented (234 lines)
+- ✅ DOM liquidity pool detection (3x+ average book size threshold)
+- ✅ Opening range breakout confirmation
+- ✅ 5 parameter variations in `pipeline/optimize.py` (lines 1045-1110)
+- ✅ Integrated with optimization framework
+
+**Data Available:**
+- DOM depth: **972,707** snapshots (5-level book, Mar 5-15 2026)
+- Database: `/home/rob/infrastructure/ibkr/data/nq_feed.duckdb` (737MB)
+
+**Backtest Blocked:**
+- ❌ Database I/O extremely slow (concurrent data collection process)
+- ❌ `bars_with_delta()` hangs on initial load (5+ minutes, no output)
+- ❌ Each variation requires full data reload
+
+**Next Steps to Run:**
+1. **Option A:** Stop data collector (`kill <PID>`), run backtest, restart collector
+2. **Option B:** Wait for data collection cycle to complete (check process status)
+3. **Option C:** Export data to read-only snapshot:
+   ```bash
+   cp /home/rob/infrastructure/ibkr/data/nq_feed.duckdb /tmp/nq_readonly.duckdb
+   # Modify DB_SOURCE in pipeline/data_loader.py temporarily
+   python3 pipeline/optimize.py --strategy-id 019
+   ```
+4. **Option D:** Optimize database with indexes on `ts_utc` columns
+
+**Technical Notes:**
+- First strategy to require `nq_depth` table (DOM snapshots)
+- Tests Market Atlas "liquidity magnet" hypothesis
+- Fallback mode: can run as pure ORB without DOM (degraded performance expected)
+
+---
 
 ## Transcript
 
