@@ -1,0 +1,358 @@
+[
+  {
+    "trades": [
+      {
+        "signal_ts": "2026-03-05 06:54:00+00:00",
+        "entry_ts": "2026-03-05 06:55:00.116381+00:00",
+        "exit_ts": "2026-03-05 06:55:06.589940+00:00",
+        "direction": "short",
+        "entry_price": 25025.5,
+        "exit_price": 25022.5,
+        "pnl_ticks": 12.0,
+        "pnl_usd": 60.0,
+        "exit_reason": "tp",
+        "stack_level": 25035.5,
+        "book_source": "depth"
+      },
+      {
+        "signal_ts": "2026-03-06 09:12:00+00:00",
+        "entry_ts": "2026-03-06 09:13:00.017552+00:00",
+        "exit_ts": "2026-03-06 09:13:00.398592+00:00",
+        "direction": "short",
+        "entry_price": 24826.25,
+        "exit_price": 24828.25,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "stack_level": 24830.25,
+        "book_source": "depth"
+      },
+      {
+        "signal_ts": "2026-03-10 00:09:00+00:00",
+        "entry_ts": "2026-03-10 00:10:00.308825+00:00",
+        "exit_ts": "2026-03-10 00:10:11.698688+00:00",
+        "direction": "long",
+        "entry_price": 25002.75,
+        "exit_price": 25005.75,
+        "pnl_ticks": 12.0,
+        "pnl_usd": 60.0,
+        "exit_reason": "tp",
+        "stack_level": 24991.0,
+        "book_source": "depth"
+      },
+      {
+        "signal_ts": "2026-03-10 00:11:00+00:00",
+        "entry_ts": "2026-03-10 00:12:00.017613+00:00",
+        "exit_ts": "2026-03-10 00:12:03.107828+00:00",
+        "direction": "short",
+        "entry_price": 24986.25,
+        "exit_price": 24983.25,
+        "pnl_ticks": 12.0,
+        "pnl_usd": 60.0,
+        "exit_reason": "tp",
+        "stack_level": 24998.0,
+        "book_source": "depth"
+      },
+      {
+        "signal_ts": "2026-03-11 13:29:00+00:00",
+        "entry_ts": "2026-03-11 22:00:00.692233+00:00",
+        "exit_ts": "2026-03-11 22:00:24.539645+00:00",
+        "direction": "long",
+        "entry_price": 24718.5,
+        "exit_price": 24721.5,
+        "pnl_ticks": 12.0,
+        "pnl_usd": 60.0,
+        "exit_reason": "tp",
+        "stack_level": 24964.75,
+        "book_source": "depth"
+      }
+    ],
+    "metrics": {
+      "profit_factor": 6.0,
+      "win_rate": 80.0,
+      "total_trades": 5,
+      "net_pnl_usd": 20.0,
+      "sharpe": 2.24,
+      "max_drawdown_pct": 20.0
+    },
+    "session_breakdown": {
+      "Unknown": {
+        "trades": 5,
+        "pf": 6.0,
+        "pnl": 20.0
+      }
+    },
+    "variation": "var_D",
+    "variation_name": "var_D: Overnight",
+    "base_variation": 2,
+    "session_variation": "var_D",
+    "session_filter": [
+      "Asia",
+      "London",
+      "LondonNY",
+      "PreNY"
+    ]
+  },
+  {
+    "trades": [
+      {
+        "signal_ts": "2026-03-05 06:54:00+00:00",
+        "entry_ts": "2026-03-05 06:55:00.116381+00:00",
+        "exit_ts": "2026-03-05 06:55:06.589940+00:00",
+        "direction": "short",
+        "entry_price": 25025.5,
+        "exit_price": 25022.5,
+        "pnl_ticks": 12.0,
+        "pnl_usd": 60.0,
+        "exit_reason": "tp",
+        "stack_level": 25035.5,
+        "book_source": "depth"
+      },
+      {
+        "signal_ts": "2026-03-06 09:12:00+00:00",
+        "entry_ts": "2026-03-06 09:13:00.017552+00:00",
+        "exit_ts": "2026-03-06 09:13:00.398592+00:00",
+        "direction": "short",
+        "entry_price": 24826.25,
+        "exit_price": 24828.25,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "stack_level": 24830.25,
+        "book_source": "depth"
+      },
+      {
+        "signal_ts": "2026-03-09 16:42:00+00:00",
+        "entry_ts": "2026-03-09 16:43:04.324950+00:00",
+        "exit_ts": "2026-03-09 16:43:09.459736+00:00",
+        "direction": "short",
+        "entry_price": 24892.0,
+        "exit_price": 24894.0,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "stack_level": 24898.25,
+        "book_source": "depth"
+      },
+      {
+        "signal_ts": "2026-03-10 00:09:00+00:00",
+        "entry_ts": "2026-03-10 00:10:00.308825+00:00",
+        "exit_ts": "2026-03-10 00:10:11.698688+00:00",
+        "direction": "long",
+        "entry_price": 25002.75,
+        "exit_price": 25005.75,
+        "pnl_ticks": 12.0,
+        "pnl_usd": 60.0,
+        "exit_reason": "tp",
+        "stack_level": 24991.0,
+        "book_source": "depth"
+      },
+      {
+        "signal_ts": "2026-03-10 00:11:00+00:00",
+        "entry_ts": "2026-03-10 00:12:00.017613+00:00",
+        "exit_ts": "2026-03-10 00:12:03.107828+00:00",
+        "direction": "short",
+        "entry_price": 24986.25,
+        "exit_price": 24983.25,
+        "pnl_ticks": 12.0,
+        "pnl_usd": 60.0,
+        "exit_reason": "tp",
+        "stack_level": 24998.0,
+        "book_source": "depth"
+      },
+      {
+        "signal_ts": "2026-03-10 19:19:00+00:00",
+        "entry_ts": "2026-03-10 19:20:01.144250+00:00",
+        "exit_ts": "2026-03-10 19:20:43.274724+00:00",
+        "direction": "short",
+        "entry_price": 25098.75,
+        "exit_price": 25095.75,
+        "pnl_ticks": 12.0,
+        "pnl_usd": 60.0,
+        "exit_reason": "tp",
+        "stack_level": 25099.25,
+        "book_source": "depth"
+      },
+      {
+        "signal_ts": "2026-03-11 13:29:00+00:00",
+        "entry_ts": "2026-03-11 13:30:00.315677+00:00",
+        "exit_ts": "2026-03-11 13:30:44.244159+00:00",
+        "direction": "long",
+        "entry_price": 24964.25,
+        "exit_price": 24962.25,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "stack_level": 24964.75,
+        "book_source": "depth"
+      },
+      {
+        "signal_ts": "2026-03-11 17:37:00+00:00",
+        "entry_ts": "2026-03-11 17:38:00.917901+00:00",
+        "exit_ts": "2026-03-11 17:38:04.956058+00:00",
+        "direction": "short",
+        "entry_price": 24791.0,
+        "exit_price": 24793.0,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "stack_level": 24793.25,
+        "book_source": "depth"
+      },
+      {
+        "signal_ts": "2026-03-11 19:03:00+00:00",
+        "entry_ts": "2026-03-11 19:04:00.648448+00:00",
+        "exit_ts": "2026-03-11 19:04:04.325683+00:00",
+        "direction": "long",
+        "entry_price": 24787.25,
+        "exit_price": 24790.25,
+        "pnl_ticks": 12.0,
+        "pnl_usd": 60.0,
+        "exit_reason": "tp",
+        "stack_level": 24783.75,
+        "book_source": "depth"
+      }
+    ],
+    "metrics": {
+      "profit_factor": 1.88,
+      "win_rate": 55.6,
+      "total_trades": 9,
+      "net_pnl_usd": 14.0,
+      "sharpe": 0.94,
+      "max_drawdown_pct": 50.0
+    },
+    "session_breakdown": {
+      "Unknown": {
+        "trades": 9,
+        "pf": 1.88,
+        "pnl": 14.0
+      }
+    },
+    "variation": "var_A",
+    "variation_name": "var_A: All sessions",
+    "base_variation": 2,
+    "session_variation": "var_A",
+    "session_filter": null
+  },
+  {
+    "trades": [
+      {
+        "signal_ts": "2026-03-09 16:42:00+00:00",
+        "entry_ts": "2026-03-09 16:43:04.324950+00:00",
+        "exit_ts": "2026-03-09 16:43:09.459736+00:00",
+        "direction": "short",
+        "entry_price": 24892.0,
+        "exit_price": 24894.0,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "stack_level": 24898.25,
+        "book_source": "depth"
+      },
+      {
+        "signal_ts": "2026-03-10 19:19:00+00:00",
+        "entry_ts": "2026-03-10 19:20:01.144250+00:00",
+        "exit_ts": "2026-03-10 19:20:43.274724+00:00",
+        "direction": "short",
+        "entry_price": 25098.75,
+        "exit_price": 25095.75,
+        "pnl_ticks": 12.0,
+        "pnl_usd": 60.0,
+        "exit_reason": "tp",
+        "stack_level": 25099.25,
+        "book_source": "depth"
+      },
+      {
+        "signal_ts": "2026-03-11 17:37:00+00:00",
+        "entry_ts": "2026-03-11 17:38:00.917901+00:00",
+        "exit_ts": "2026-03-11 17:38:04.956058+00:00",
+        "direction": "short",
+        "entry_price": 24791.0,
+        "exit_price": 24793.0,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "stack_level": 24793.25,
+        "book_source": "depth"
+      },
+      {
+        "signal_ts": "2026-03-11 19:03:00+00:00",
+        "entry_ts": "2026-03-11 19:04:00.648448+00:00",
+        "exit_ts": "2026-03-11 19:04:04.325683+00:00",
+        "direction": "long",
+        "entry_price": 24787.25,
+        "exit_price": 24790.25,
+        "pnl_ticks": 12.0,
+        "pnl_usd": 60.0,
+        "exit_reason": "tp",
+        "stack_level": 24783.75,
+        "book_source": "depth"
+      }
+    ],
+    "metrics": {
+      "profit_factor": 1.5,
+      "win_rate": 50.0,
+      "total_trades": 4,
+      "net_pnl_usd": 4.0,
+      "sharpe": 0.4,
+      "max_drawdown_pct": 100.0
+    },
+    "session_breakdown": {
+      "Unknown": {
+        "trades": 4,
+        "pf": 1.5,
+        "pnl": 4.0
+      }
+    },
+    "variation": "var_B",
+    "variation_name": "var_B: RTH only",
+    "base_variation": 2,
+    "session_variation": "var_B",
+    "session_filter": [
+      "NYOpen",
+      "MidDay",
+      "PowerHour",
+      "Close"
+    ]
+  },
+  {
+    "trades": [
+      {
+        "signal_ts": "2026-03-06 09:12:00+00:00",
+        "entry_ts": "2026-03-06 09:13:00.017552+00:00",
+        "exit_ts": "2026-03-06 09:13:00.398592+00:00",
+        "direction": "short",
+        "entry_price": 24826.25,
+        "exit_price": 24828.25,
+        "pnl_ticks": -8.0,
+        "pnl_usd": -40.0,
+        "exit_reason": "sl",
+        "stack_level": 24830.25,
+        "book_source": "depth"
+      }
+    ],
+    "metrics": {
+      "profit_factor": 0.0,
+      "win_rate": 0.0,
+      "total_trades": 1,
+      "net_pnl_usd": -4.0,
+      "sharpe": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "session_breakdown": {
+      "Unknown": {
+        "trades": 1,
+        "pf": 0.0,
+        "pnl": -4.0
+      }
+    },
+    "variation": "var_C",
+    "variation_name": "var_C: London + LondonNY",
+    "base_variation": 2,
+    "session_variation": "var_C",
+    "session_filter": [
+      "London",
+      "LondonNY"
+    ]
+  }
+]

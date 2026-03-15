@@ -1,0 +1,187 @@
+[
+  {
+    "trades": [
+      {
+        "signal_ts": "2026-03-05 22:21:00+00:00",
+        "entry_ts": "2026-03-05 22:21:02.629515+00:00",
+        "exit_ts": "2026-03-05 22:21:05.281805+00:00",
+        "direction": "short",
+        "entry_price": 25121.75,
+        "exit_price": 25122.5,
+        "pnl_ticks": -3.0,
+        "pnl_usd": -15.0,
+        "exit_reason": "sl",
+        "breakout_bar_ts": "2026-03-05 22:21:00+00:00",
+        "defended_range_high": 25130.0,
+        "defended_range_low": 25122.25,
+        "breakout_close": 25121.75
+      },
+      {
+        "signal_ts": "2026-03-10 20:59:00+00:00",
+        "entry_ts": "2026-03-10 20:59:00.637334+00:00",
+        "exit_ts": "2026-03-10 20:59:08.599037+00:00",
+        "direction": "short",
+        "entry_price": 25118.0,
+        "exit_price": 25118.75,
+        "pnl_ticks": -3.0,
+        "pnl_usd": -15.0,
+        "exit_reason": "sl",
+        "breakout_bar_ts": "2026-03-10 20:59:00+00:00",
+        "defended_range_high": 25117.25,
+        "defended_range_low": 25109.75,
+        "breakout_close": 25118.5
+      },
+      {
+        "signal_ts": "2026-03-11 13:29:00+00:00",
+        "entry_ts": "2026-03-11 13:29:07.586804+00:00",
+        "exit_ts": "2026-03-11 13:29:22.747024+00:00",
+        "direction": "long",
+        "entry_price": 24965.0,
+        "exit_price": 24964.25,
+        "pnl_ticks": -3.0,
+        "pnl_usd": -15.0,
+        "exit_reason": "sl",
+        "breakout_bar_ts": "2026-03-11 13:29:00+00:00",
+        "defended_range_high": 24969.5,
+        "defended_range_low": 24962.0,
+        "breakout_close": 24965.5
+      },
+      {
+        "signal_ts": "2026-03-11 13:35:00+00:00",
+        "entry_ts": "2026-03-11 13:35:11.896814+00:00",
+        "exit_ts": "2026-03-11 13:35:22.479871+00:00",
+        "direction": "long",
+        "entry_price": 24964.75,
+        "exit_price": 24964.0,
+        "pnl_ticks": -3.0,
+        "pnl_usd": -15.0,
+        "exit_reason": "sl",
+        "breakout_bar_ts": "2026-03-11 13:35:00+00:00",
+        "defended_range_high": 24966.75,
+        "defended_range_low": 24961.5,
+        "breakout_close": 24963.5
+      },
+      {
+        "signal_ts": "2026-03-11 13:37:00+00:00",
+        "entry_ts": "2026-03-11 13:37:01.434884+00:00",
+        "exit_ts": "2026-03-11 13:37:07.238292+00:00",
+        "direction": "long",
+        "entry_price": 24962.5,
+        "exit_price": 24963.5,
+        "pnl_ticks": 4.0,
+        "pnl_usd": 20.0,
+        "exit_reason": "tp",
+        "breakout_bar_ts": "2026-03-11 13:37:00+00:00",
+        "defended_range_high": 24966.75,
+        "defended_range_low": 24961.5,
+        "breakout_close": 24965.75
+      }
+    ],
+    "metrics": {
+      "profit_factor": 0.33,
+      "win_rate": 20.0,
+      "total_trades": 5,
+      "net_pnl_usd": -4.0,
+      "sharpe": -1.28,
+      "max_drawdown_pct": 0.0
+    },
+    "session_breakdown": {
+      "Unknown": {
+        "trades": 5,
+        "pf": 0.33,
+        "pnl": -4.0
+      }
+    },
+    "variation": "var_A",
+    "variation_name": "var_A: All sessions",
+    "base_variation": 1,
+    "session_variation": "var_A",
+    "session_filter": null
+  },
+  {
+    "trades": [],
+    "metrics": {
+      "profit_factor": 0.0,
+      "win_rate": 0.0,
+      "total_trades": 0,
+      "net_pnl_usd": 0.0,
+      "sharpe": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "session_breakdown": {},
+    "variation": "var_B",
+    "variation_name": "var_B: RTH only",
+    "base_variation": 1,
+    "session_variation": "var_B",
+    "session_filter": [
+      "NYOpen",
+      "MidDay",
+      "PowerHour",
+      "Close"
+    ]
+  },
+  {
+    "trades": [],
+    "metrics": {
+      "profit_factor": 0.0,
+      "win_rate": 0.0,
+      "total_trades": 0,
+      "net_pnl_usd": 0.0,
+      "sharpe": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "session_breakdown": {},
+    "variation": "var_C",
+    "variation_name": "var_C: London + LondonNY",
+    "base_variation": 1,
+    "session_variation": "var_C",
+    "session_filter": [
+      "London",
+      "LondonNY"
+    ]
+  },
+  {
+    "trades": [
+      {
+        "signal_ts": "2026-03-11 13:29:00+00:00",
+        "entry_ts": "2026-03-11 13:29:07.586804+00:00",
+        "exit_ts": "2026-03-11 13:29:22.747024+00:00",
+        "direction": "long",
+        "entry_price": 24965.0,
+        "exit_price": 24964.25,
+        "pnl_ticks": -3.0,
+        "pnl_usd": -15.0,
+        "exit_reason": "sl",
+        "breakout_bar_ts": "2026-03-11 13:29:00+00:00",
+        "defended_range_high": 24969.5,
+        "defended_range_low": 24962.0,
+        "breakout_close": 24965.5
+      }
+    ],
+    "metrics": {
+      "profit_factor": 0.0,
+      "win_rate": 0.0,
+      "total_trades": 1,
+      "net_pnl_usd": -1.5,
+      "sharpe": 0.0,
+      "max_drawdown_pct": 0.0
+    },
+    "session_breakdown": {
+      "Unknown": {
+        "trades": 1,
+        "pf": 0.0,
+        "pnl": -1.5
+      }
+    },
+    "variation": "var_D",
+    "variation_name": "var_D: Overnight",
+    "base_variation": 1,
+    "session_variation": "var_D",
+    "session_filter": [
+      "Asia",
+      "London",
+      "LondonNY",
+      "PreNY"
+    ]
+  }
+]

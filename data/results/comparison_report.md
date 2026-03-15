@@ -1,227 +1,169 @@
-# NQ L2 Scalping - Comprehensive Strategy Comparison
-**Date:** 2026-03-06 | **Data:** March 5-6, 2026 (RTH only, 2 days, 2.3M ticks)
+# NQ L2 Scalping - Strategy Performance Comparison
+**Date:** 2026-03-14 02:00 AM | **Data:** 961,058 total L2 ticks (Mar 5 - Mar 14)
 
 ---
 
 ## Executive Summary
 
-Tested **65 parameter variations** across **14 L2 scalping strategies**.
+⚠️ **CRITICAL: MAJOR PERFORMANCE DEGRADATION DETECTED**
 
-| Metric | Value |
-|--------|-------|
-| **Total Strategies** | 14 |
-| **Total Variations** | 65 |
-| **High Potential Configs (PF>2.0)** | 6/65 (9.2%) |
-| **Profitable Variations** | 20/65 (30.8%) |
+New data accumulated since last run (2026-03-12 02:31): **249,508 ticks** (~26% increase)
 
-### 🚀 TOP 5 CONFIGURATIONS:
-| Rank | Strategy | Variation | PF | PnL | Trades | WR% | Sharpe |
+**Optimization Status:** Partial completion (3/14 strategies completed before timeout)
+
+| Metric | 2026-03-12 | 2026-03-14 | Change |
+|--------|------------|------------|--------|
+| **Profitable Configs** | 4/56 (7%) | 0/12 (0%) | -4 |
+| **High Potential (PF>2.0)** | 1 | 0 | -1 |
+| **Total Net PnL** | -$7,742 | -$3,670 | Worse |
+| **Best Config PF** | 6.00 | 0.75 | **-87.5%** |
+
+---
+
+## Top 5 Configurations - Current Run (2026-03-14)
+
+| Rank | Strategy | Variation | PF | PnL | Trades | WR% | Status |
 |------|----------|-----------|-----|-----|--------|-----|--------|
-| **1** | **013** | **Aggressive** | **4.00** | **$18** | 6 | **66.7%** | **11.22** |
-| **2** | **013** | **Wide** | **3.60** | **$26** | 8 | **75.0%** | **10.83** |
-| **3** | **013** | **Default** | **3.12** | **$17** | 7 | **71.4%** | **9.48** |
-| **4** | **001** | **Aggressive TP** | **4.00** | **$24** | 6 | **66.7%** | **11.22** |
-| **5** | **013** | **Scalp** | **3.00** | **$10** | 7 | **71.4%** | **9.13** |
+| 1 | 003 | All sessions | 0.75 | -$304 | 481 | 37.4% | ❌ UNPROFITABLE |
+| 2 | 003 | RTH only | 0.73 | -$57 | 84 | 36.9% | ❌ UNPROFITABLE |
+| 3 | 003 | Overnight | 0.70 | -$283 | 370 | 35.9% | ❌ UNPROFITABLE |
+| 4 | 003 | London + LondonNY | 0.59 | -$202 | 181 | 32.0% | ❌ UNPROFITABLE |
+| 5 | 002 | London + LondonNY | 0.49 | -$400 | 260 | 24.6% | ❌ UNPROFITABLE |
 
 ---
 
-## Strategy 001 - Delta Absorption Breakout
+## Top 5 Configurations - Previous Run (2026-03-12)
 
-Identifies compression zones where orders are absorbed, then trades the breakout.
-
-| Rank | Variation | PF | Sharpe | Win% | Trades | Avg Win | Avg Loss | Max DD% | PnL$ | Status |
-|------|-----------|-----|--------|------|--------|---------|----------|--------|------|--------|
-| **1** | **Aggressive TP** | **4.00** | **11.22** | 66.7% | 6 | 16.0 | 8.0 | 16.7% | **$24** | 🚀 |
-| **2** | **Wide Range** | **2.50** | **7.48** | 66.7% | 6 | 10.0 | 8.0 | 33.3% | **$12** | 🚀 |
-| 3 | Default | 1.33 | 2.24 | 66.7% | 6 | 8.0 | 12.0 | 100.0% | $4 | · |
-| 4 | Tight | 0.75 | -2.24 | 33.3% | 6 | 6.0 | 4.0 | 200.0% | -$2 | · |
-| 5 | Scalp | 0.67 | -3.21 | 33.3% | 6 | 4.0 | 3.0 | 300.0% | -$2 | · |
-
-**Verdict:** ✅ **TRADEABLE** - Aggressive TP config shows exceptional Sharpe (11.22) and PF (4.0). Rare signals (6 trades) but strong edge.
+| Rank | Strategy | Variation | PF | PnL | Trades | WR% | Status |
+|------|----------|-----------|-----|-----|--------|-----|--------|
+| 1 | 008 | Overnight | 6.00 | $20 | 5 | 80.0% | ✓ (Low sample) |
+| 2 | 008 | All sessions | 1.88 | $14 | 9 | 55.6% | ✓ |
+| 3 | 011 | RTH only | 1.60 | $3 | 3 | 66.7% | ✓ (Low sample) |
+| 4 | 008 | RTH only | 1.50 | $4 | 4 | 50.0% | ✓ (Low sample) |
+| 5 | 014 | London + LondonNY | 0.98 | -$5 | 111 | 45.0% | · |
 
 ---
 
-## Strategy 002 - Volume Profile FVG Rejection
+## Strategy-by-Strategy Analysis
 
-Identifies lowest-volume nodes in value area, fades retracements.
+### Strategy 001: Delta Absorption Reversal
+**Status:** ❌ NO VIABLE CONFIGS
+- All variations: PF ≤ 0.00
+- Best: var_C (London + LondonNY): 0 trades, $0 PnL
+- **Verdict:** Strategy no longer triggering signals
 
-| Rank | Variation | PF | Sharpe | Win% | Trades | PnL$ | Status |
-|------|-----------|-----|--------|------|--------|------|--------|
-| **1** | **Aggressive** | **1.54** | **3.06** | 45.2% | 42 | **$56** | ✓ |
-| 2 | Default | 1.15 | 0.72 | 40.0% | 30 | $10 | · |
-| 3 | Tight Swings | 0.97 | -0.31 | 38.2% | 34 | -$4 | · |
-| 4 | Wide Swings | 0.69 | -2.18 | 25.0% | 20 | -$22 | · |
-| 5 | Scalp | 0.52 | -5.13 | 25.9% | 58 | -$41 | · |
+### Strategy 002: Volume Profile FVG Rejection
+**Status:** ❌ UNPROFITABLE
+- All variations: PF 0.43-0.49 (losing)
+- Best: var_C: PF=0.49, -$400 over 260 trades
+- **Verdict:** Massive sample size but consistent losses
 
-**Verdict:** ⚠️ **MARGINAL** - Aggressive config: PF 1.54, 42 trades. High drawdown (376%) limits viability.
-
----
-
-## Strategy 003 - CVD Divergence
-
-Finds CVD vs price divergences and trades absorption direction.
-
-| Rank | Variation | PF | Sharpe | Win% | Trades | PnL$ | Status |
-|------|-----------|-----|--------|------|--------|------|--------|
-| **1** | **Momentum** | **2.00** | **5.29** | 50.0% | 4 | **$8** | 🚀 |
-| 2 | Strict | 1.50 | 3.17 | 50.0% | 4 | $4 | · |
-| 3 | Sensitive | 1.33 | 2.27 | 50.0% | 4 | $2 | · |
-| 4 | Default | 1.25 | 1.76 | 50.0% | 4 | $2 | · |
-| 5 | Scalp | 0.00 | 0.00 | 0.0% | 1 | -$2 | · |
-
-**Verdict:** ⚠️ **NEEDS DATA** - Momentum config hits PF 2.0 but only 4 trades. High-conviction, low-frequency signals.
+### Strategy 003: CVD Divergence
+**Status:** ❌ UNPROFITABLE
+- All variations: PF 0.59-0.75 (losing)
+- Best: var_A: PF=0.75, -$304 over 481 trades
+- Win rate collapsed: 32-37% (vs ~50% previously)
+- **Verdict:** Edge completely disappeared
 
 ---
 
-## Strategy 004-008 - Non-Viable (Original 5)
+## Forward Test Candidates
 
-| Strategy | Variation | Trades | Status |
-|----------|-----------|--------|--------|
-| 004 Bid/Ask Imbalance | All | 0 | ❌ No signals |
-| 005 Large Print Momentum | All | 0 | ❌ No signals |
-| 006 Tape Streak | All | 375 | ❌ Overfitting (-$282k) |
-| 007 Sweep & Fade | All | 500-700 | ❌ Unprofitable |
-| 008 Stacked Book | All | 0 | ❌ No signals |
+### Configs Meeting Criteria (PF > 2.5, Trades ≥ 20):
+**❌ NONE**
+
+No configurations meet the forward test criteria. The highest PF achieved is 0.75 (Strategy 003), which represents a 25% loss rate.
 
 ---
 
-## Strategy 010 - Initiative Auction
+## Key Findings
 
-Trades when delta aligns with price on high volume (continuation).
+### 🚨 Critical Issues
 
-| Rank | Variation | PF | Sharpe | Win% | Trades | PnL$ | Status |
-|------|-----------|-----|--------|------|--------|------|--------|
-| **1** | **Default** | **inf** | **0.00** | 100% | 2 | **$12** | ✓ |
-| **2** | **Wide** | **inf** | **0.00** | 100% | 1 | **$8** | ✓ |
-| 3 | Tight | 0.00 | 0.00 | 0% | 4 | -$12 | · |
-| 4 | Aggressive | 0.00 | 0.00 | 0% | 4 | -$12 | · |
-| 5 | Scalp | 0.00 | 0.00 | 0% | 5 | -$10 | · |
+1. **Complete Strategy Failure:** All tested strategies (001-003) are now unprofitable across all variations
+2. **Win Rate Collapse:** CVD Divergence (003) win rates dropped from ~50% to 32-37%
+3. **Signal Degradation:** Strategy 001 stopped generating meaningful signals (0-1 trades)
+4. **Market Regime Change:** The new data (Mar 12-14) shows fundamentally different characteristics
 
-**Verdict:** ⚠️ **LIMITED DATA** - Tighter configs work (Default: 2/2 winners). Fewer signals than expected. Needs tuning.
+### 📊 Data Characteristics
 
----
+- **Total ticks:** 961,058 L2 depth updates
+- **New data:** 249,508 ticks (25.9% of total)
+- **Date range:** Mar 5 - Mar 14, 2026
+- **Completed optimizations:** 3/14 strategies (timeout at ~8 minutes)
 
-## Strategy 011 - Exhaustion Reversal
+### ⚠️ Optimization Incomplete
 
-Fades moves where volume declines on successive bars (exhaustion).
+The optimization process timed out after completing only strategies 001-003. The following strategies were not re-tested on the new data:
+- 004: Bid/Ask Imbalance
+- 005: Large Print Momentum
+- 006: Tape Streak
+- 007: Sweep & Fade
+- 008: Stacked Book Breakout (was #1 on 2026-03-12 with PF=6.0)
+- 009: Absorption
+- 010: Initiative Auction
+- 011: Exhaustion Reversal
+- 012: LVN Rebalance
+- 013: Value Area Rejection
+- 014: Failed Auction Hook
 
-| Rank | Variation | PF | Sharpe | Win% | Trades | PnL$ | Status |
-|------|-----------|-----|--------|------|--------|------|--------|
-| **1** | **Default** | **inf** | **0.00** | 100% | 1 | **$4** | ✓ |
-| 2 | Tight | 0.50 | -5.61 | 33.3% | 3 | -$3 | · |
-| 3 | Wide | 0.00 | 0.00 | 0% | 0 | $0 | · |
-| 4 | Aggressive | 0.00 | 0.00 | 0% | 1 | -$4 | · |
-| 5 | Scalp | 0.00 | 0.00 | 0% | 1 | -$2 | · |
-
-**Verdict:** ⚠️ **SIGNAL SPARSE** - Default config: 1 trade, 100% win rate. Pattern rarely triggers. Needs more data.
-
----
-
-## Strategy 012 - LVN Rebalance
-
-Trades returns to low-volume nodes when price trends away.
-
-| Rank | Variation | PF | Sharpe | Win% | Trades | PnL$ | Status |
-|------|-----------|-----|--------|------|--------|------|--------|
-| **1** | **Default** | **inf** | **0.00** | 100% | 1 | **$5** | ✓ |
-| 2 | Tight | 0.00 | 0.00 | 0% | 1 | -$4 | · |
-| 3 | Wide | 0.00 | 0.00 | 0% | 1 | -$7 | · |
-| 4 | Aggressive | 0.00 | 0.00 | 0% | 1 | -$5 | · |
-| 5 | Scalp | 0.00 | 0.00 | 0% | 1 | -$3 | · |
-
-**Verdict:** ⚠️ **SIGNAL SPARSE** - Default: 1 trade, 100% win. Pattern rarely fires. Simplified profile approach may need refinement.
+**Note:** Strategy 008 (Stacked Book) was the top performer on the last run but was not re-tested due to timeout.
 
 ---
 
-## Strategy 013 - Value Area Rejection ⭐ **TOP STRATEGY**
+## Recommendations
 
-Fades moves to VAH/VAL (value area boundaries).
+### Immediate Actions
 
-| Rank | Variation | PF | Sharpe | Win% | Trades | Avg Win | Avg Loss | Max DD% | PnL$ | Status |
-|------|-----------|-----|--------|------|--------|---------|----------|--------|------|--------|
-| **1** | **Aggressive** | **4.00** | **11.22** | 66.7% | 6 | 12.0 | 6.0 | 33.3% | **$18** | 🚀 |
-| **2** | **Wide** | **3.60** | **10.83** | 75.0% | 8 | 12.0 | 10.0 | 38.5% | **$26** | 🚀 |
-| **3** | **Default** | **3.12** | **9.48** | 71.4% | 7 | 10.0 | 8.0 | 47.1% | **$17** | 🚀 |
-| **4** | **Scalp** | **3.00** | **9.13** | 71.4% | 7 | 6.0 | 5.0 | 50.0% | **$10** | 🚀 |
-| **5** | **Tight** | **2.67** | **8.02** | 66.7% | 6 | 8.0 | 6.0 | 60.0% | **$10** | 🚀 |
+1. **HALT LIVE TRADING:** No strategies are currently viable
+2. **Re-run Full Optimization:** Complete strategies 004-014 with longer timeout
+3. **Data Quality Check:** Verify the new L2 data (Mar 12-14) for anomalies or feed issues
+4. **Market Analysis:** Investigate what changed in market microstructure during Mar 12-14
 
-**Verdict:** ✅ **GOLD STANDARD** - All 5 variations are HIGH POTENTIAL (PF > 2.0, 6-8 trades each). Wide config: Best PnL ($26), best win rate (75%), consistent Sharpe (10.83).
+### Research Priorities
 
-**RECOMMENDATION:** Deploy Wide or Aggressive variant. Most robust strategy tested.
+1. **Regime Detection:** Build filters to detect when market conditions match historical edge periods
+2. **Robustness Testing:** Test strategies across multiple market regimes
+3. **Signal Quality:** Review why Strategy 001 stopped generating signals
+4. **Win Rate Analysis:** Understand why CVD divergence win rate collapsed
 
----
+### Next Steps
 
-## Strategy 014 - Failed Auction Hook
-
-Trades reversals from failed breaks of value area boundaries.
-
-| Rank | Variation | PF | Sharpe | Win% | Trades | PnL$ | Status |
-|------|-----------|-----|--------|------|--------|------|--------|
-| **1** | **Wide** | **inf** | **0.00** | 100% | 1 | **$7** | ✓ |
-| **1** | **Aggressive** | **inf** | **0.00** | 100% | 1 | **$7** | ✓ |
-| 3 | Default | inf | 0.00 | 100% | 1 | $6 | ✓ |
-| 4 | Tight | inf | 0.00 | 100% | 1 | $5 | ✓ |
-| 5 | Scalp | inf | 0.00 | 100% | 1 | $4 | ✓ |
-
-**Verdict:** ⚠️ **SIGNAL SPARSE** - All variants show 1 trade, 100% win rate. Pattern requires longer data history to assess viability.
+1. Complete optimization for strategies 004-014 (increase timeout to 30+ minutes)
+2. Analyze correlation between L2 data characteristics and strategy performance
+3. Consider adding market regime filters before signals
+4. Review data feed health for the Mar 12-14 period
 
 ---
 
-## ALL STRATEGIES RANKED BY PROFIT FACTOR
+## Historical Context
 
-| Rank | Strategy | Variation | PF | PnL | Trades | WR% | Sharpe | Status |
-|------|----------|-----------|-----|-----|--------|-----|--------|--------|
-| 1 | 013 | Aggressive | 4.00 | $18 | 6 | 66.7% | 11.22 | 🚀 |
-| 2 | 001 | Aggressive TP | 4.00 | $24 | 6 | 66.7% | 11.22 | 🚀 |
-| 3 | 013 | Wide | 3.60 | $26 | 8 | 75.0% | 10.83 | 🚀 |
-| 4 | 013 | Default | 3.12 | $17 | 7 | 71.4% | 9.48 | 🚀 |
-| 5 | 013 | Scalp | 3.00 | $10 | 7 | 71.4% | 9.13 | 🚀 |
-| 6 | 013 | Tight | 2.67 | $10 | 6 | 66.7% | 8.02 | 🚀 |
-| 7 | 001 | Wide Range | 2.50 | $12 | 6 | 66.7% | 7.48 | 🚀 |
-| 8 | 003 | Momentum | 2.00 | $8 | 4 | 50.0% | 5.29 | 🚀 |
-| 9 | 002 | Aggressive | 1.54 | $56 | 42 | 45.2% | 3.06 | ✓ |
-| 10 | 003 | Strict | 1.50 | $4 | 4 | 50.0% | 3.17 | · |
+| Date | Top PF | Top Config | Profitable Configs | Status |
+|------|--------|------------|-------------------|--------|
+| 2026-03-06 | 4.00 | 013_Aggressive | 20/65 (30.8%) | ✅ Multiple viable |
+| 2026-03-09 | - | - | - | (Partial data) |
+| 2026-03-11 | - | - | - | (Partial data) |
+| 2026-03-12 | 6.00 | 008_Overnight | 4/56 (7.1%) | ⚠️ Declining |
+| 2026-03-14 | 0.75 | 003_All sessions | 0/12 (0%) | ❌ **FAILED** |
+
+**Trend:** Sharp degradation from Mar 6 (30.8% profitable) → Mar 14 (0% profitable)
 
 ---
 
-## RECOMMENDED STRATEGIES FOR LIVE TRADING
+## Conclusion
 
-### Tier 1: Ready Now 🚀
-- **013 - Value Area Rejection (Wide)**: PF=3.60, $26 PnL, 75% WR, 8 trades
-  - Most balanced config: highest PnL, highest win rate
-  - Sharpe=10.83 (exceptional risk-adjusted returns)
-  - **Deploy:** Tight + Default + Wide (rotate configs)
+The NQ L2 scalping strategies have experienced a **complete breakdown** on recent data (Mar 12-14). This represents either:
 
-- **001 - Delta Absorption Breakout (Aggressive TP)**: PF=4.00, $24 PnL, 66.7% WR, 6 trades
-  - Rare, high-conviction signals
-  - Sharpe=11.22 (best risk-adjusted edge)
-  - **Deploy:** Standalone, pairs well with 013
+1. A fundamental market regime change that invalidates these approaches
+2. Data quality issues with the L2 feed during this period
+3. Overfitting to earlier market conditions (Mar 5-6)
 
-### Tier 2: Forward Test
-- **003 - CVD Divergence (Momentum)**: PF=2.00, 4 trades
-- **002 - Volume Profile (Aggressive)**: PF=1.54, 42 trades (verify drawdown)
+**No strategies are recommended for live trading at this time.**
 
-### Tier 3: Not Viable
-- 004-008 (no signals or overfitting)
-- 010-012, 014 (too few signals for live trading, needs more data)
+The next optimization run should complete all 14 strategies with sufficient timeout, and include data quality validation before drawing conclusions.
 
 ---
 
-## KEY LEARNINGS
-
-1. **Value Area Rejection is a MAJOR EDGE**: All 5 variants profitable. Market respects VAH/VAL boundaries consistently.
-2. **Delta Absorption + Value Area complement each other**: 001 + 013 have similar Sharpe, different triggers.
-3. **Signal frequency matters**: High-frequency strategies (002) struggle with small TP targets. 013 hits the sweet spot (6-8 trades).
-4. **Limited 2-day sample**: Some strategies (003, 010, 011, 012, 014) show promise but need more data.
-5. **Micro-structure signals are rare**: When CVD divergence fires, it works (PF 2.0). When Value Area boundaries are tested, it works (PF > 3.0).
-
----
-
-## NEXT STEPS
-
-1. **Live Trade**: 013 Wide + 001 Aggressive TP on real account
-2. **Forward Test**: 3-month backtest on 2024 Q1 NQ data
-3. **Refine 010-012**: Need larger dataset to confirm edge
-4. **Monitor**: Track Sharpe consistency (target: 50+ trades @ PF > 1.5)
-
-**Last updated:** 2026-03-06 | **Data coverage:** 2 trading days (Mar 5-6 RTH)
+**Last Updated:** 2026-03-14 02:00 AM MST | **Optimizer:** Jarvis (cron job)
+**Data Source:** /home/rob/infrastructure/ibkr/data/nq_feed.duckdb
+**Optimization Status:** INCOMPLETE (3/14 strategies, timeout)

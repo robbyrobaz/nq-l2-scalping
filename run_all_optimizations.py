@@ -50,9 +50,8 @@ def print_summary(all_results):
             m = result['metrics']
             all_variations.append({
                 'strategy_id': strategy_id,
-                'strategy_name': result['strategy_name'],
-                'variation': result['variation'],
-                'variation_name': result['variation_name'],
+                'variation': result.get('variation', 'unknown'),
+                'variation_name': result.get('variation_name', result.get('variation', 'unknown')),
                 'pf': m['profit_factor'],
                 'pnl': m['net_pnl_usd'],
                 'trades': m['total_trades'],

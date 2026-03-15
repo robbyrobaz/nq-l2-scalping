@@ -87,7 +87,7 @@ and per-session PF breakdown (London killzone, Asia, overnight, etc.).
 
 ## Strategy Library
 
-**Total Strategies:** 17 | **Active Backtests:** 014 (Aggressive), session-aware run pending
+**Total Strategies:** 20 | **Active Backtests:** 014 (Aggressive), session-aware run pending
 
 | ID | Strategy | Description | Source | Status |
 |----|----------|-------------|--------|--------|
@@ -108,6 +108,9 @@ and per-session PF breakdown (London killzone, Asia, overnight, etc.).
 | 015 | Order Flow Market Structure | Multi-timeframe orderflow | Video | 🔬 Partial build |
 | 016 | Orderflow Auction Theory Framework | Full auction cycle | Video | 🔬 Partial build |
 | 017 | Simple Order Flow Delta Setups | Basic delta patterns | Video | 🔬 Partial build |
+| 018 | Delta Absorption Live Trade | $65K profit trade breakdown | [Video](https://www.youtube.com/watch?v=TahCL7FXXLs) | 🆕 **NEW** (2026-03-15) |
+| 019 | Order Flow Priority 2026 | Market Atlas orderflow tactics | [Video](https://www.youtube.com/watch?v=hq5FKQAnvpY) | 🆕 **NEW** (2026-03-15) |
+| 020 | Simplest Orderflow Model | Opening range + IVB pattern | [Video](https://www.youtube.com/watch?v=cUTsoU-15Tc) | 🆕 **NEW** (2026-03-15) |
 
 ---
 
