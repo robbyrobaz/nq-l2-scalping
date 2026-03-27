@@ -36,7 +36,7 @@ def load_ticks_with_side(lookback_days=14):
             ORDER BY ts_utc
         )
         SELECT t.ts_utc, t.price, t.size,
-               q.bid as bid_price, q.ask as ask_price,
+               q.bid, q.ask,
                CASE 
                    WHEN t.price >= q.ask THEN 'B'
                    WHEN t.price <= q.bid THEN 'S'
@@ -76,6 +76,11 @@ def build_bars_from_ticks(ticks: pd.DataFrame) -> pd.DataFrame:
     if "ts_utc" not in bars.columns:
         bars = bars.rename_axis("ts_utc").reset_index()
     bars["cumulative_delta"] = bars["bar_delta"].cumsum()
+    
+    # Add session tags for compatibility with old strategy code
+    from pipeline.data_loader import tag_sessions
+    bars = tag_sessions(bars, ts_col="ts_utc")
+    
     return bars
 
 
