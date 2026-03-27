@@ -192,6 +192,28 @@
 - `data/lucid_monte_carlo_results.json` — 10k sim results
 - `docs/LUCID_MONTE_CARLO_ANALYSIS.md` — Decision analysis
 
+### Trail Stop Research (NQ-Trading-PIPELINE repo)
+- `data/trail_stop_optimization.md` — Full research timeline (Hours 1-6)
+- `pipeline/trail_stop_v5_relative.py` — Final corrected version
+- `data/trail_only_sweep_results.json` — 330+ config results
+
+### Sprint Summary
+- `docs/SPRINT_MAR27_SUMMARY.md` — This file
+
+---
+
+**Sprint Status:** ✅ COMPLETE  
+**All questions answered. Winners identified. Budget optimized. Systems stable.**
+
+Last updated: 2026-03-27 05:45 MST
+
+- `scripts/run_020_deep_search.py` — Deep search automation
+
+### Lucid Monte Carlo
+- `scripts/lucid_monte_carlo.py` — Simulation engine
+- `data/lucid_monte_carlo_results.json` — 10k sim results
+- `docs/LUCID_MONTE_CARLO_ANALYSIS.md` — Decision analysis
+
 ### Trail Stop Research
 - `scripts/trail_stop_research.py` — Backtest script
 - `data/trail_stop_results.json` — Config comparison
