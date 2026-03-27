@@ -1,0 +1,633 @@
+{
+  "timestamp": "2026-03-27T01:06:57.686356",
+  "results": {
+    "Strategy 020": [
+      {
+        "num_trades": 25,
+        "num_wins": 10,
+        "num_losses": 15,
+        "win_rate": 0.4,
+        "profit_factor": 1.33,
+        "net_pnl": 800.0,
+        "total_wins": 3200.0,
+        "total_losses": 2400.0,
+        "avg_win": 320.0,
+        "avg_loss": -160.0,
+        "trades": [
+          {
+            "entry_ts": "2026-03-13 14:43:00+00:00",
+            "exit_ts": "2026-03-13 14:44:00+00:00",
+            "direction": "short",
+            "entry_price": 24610.75,
+            "exit_price": 24612.75,
+            "pnl": -160.0,
+            "outcome": "loss",
+            "ivb_high": 24805.25,
+            "ivb_low": 24611.0
+          },
+          {
+            "entry_ts": "2026-03-13 15:00:00+00:00",
+            "exit_ts": "2026-03-13 15:01:00+00:00",
+            "direction": "short",
+            "entry_price": 24481.75,
+            "exit_price": 24483.75,
+            "pnl": -160.0,
+            "outcome": "loss",
+            "ivb_high": 24728.25,
+            "ivb_low": 24482.0
+          },
+          {
+            "entry_ts": "2026-03-16 14:08:00+00:00",
+            "exit_ts": "2026-03-16 14:09:00+00:00",
+            "direction": "long",
+            "entry_price": 24741.25,
+            "exit_price": 24739.25,
+            "pnl": -160.0,
+            "outcome": "loss",
+            "ivb_high": 24741.0,
+            "ivb_low": 24623.0
+          },
+          {
+            "entry_ts": "2026-03-16 15:22:00+00:00",
+            "exit_ts": "2026-03-16 15:23:00+00:00",
+            "direction": "long",
+            "entry_price": 24721.75,
+            "exit_price": 24719.75,
+            "pnl": -160.0,
+            "outcome": "loss",
+            "ivb_high": 24721.5,
+            "ivb_low": 24610.75
+          },
+          {
+            "entry_ts": "2026-03-17 15:36:00+00:00",
+            "exit_ts": "2026-03-17 15:37:00+00:00",
+            "direction": "short",
+            "entry_price": 24745.0,
+            "exit_price": 24747.0,
+            "pnl": -160.0,
+            "outcome": "loss",
+            "ivb_high": 24896.0,
+            "ivb_low": 24745.25
+          },
+          {
+            "entry_ts": "2026-03-17 15:08:00+00:00",
+            "exit_ts": "2026-03-17 15:09:00+00:00",
+            "direction": "short",
+            "entry_price": 24818.75,
+            "exit_price": 24814.75,
+            "pnl": 320.0,
+            "outcome": "win",
+            "ivb_high": 24872.5,
+            "ivb_low": 24819.0
+          },
+          {
+            "entry_ts": "2026-03-18 14:13:00+00:00",
+            "exit_ts": "2026-03-18 14:14:00+00:00",
+            "direction": "short",
+            "entry_price": 24686.75,
+            "exit_price": 24688.75,
+            "pnl": -160.0,
+            "outcome": "loss",
+            "ivb_high": 24780.0,
+            "ivb_low": 24687.0
+          },
+          {
+            "entry_ts": "2026-03-18 15:00:00+00:00",
+            "exit_ts": "2026-03-18 15:01:00+00:00",
+            "direction": "long",
+            "entry_price": 24665.25,
+            "exit_price": 24669.25,
+            "pnl": 320.0,
+            "outcome": "win",
+            "ivb_high": 24665.0,
+            "ivb_low": 24599.0
+          },
+          {
+            "entry_ts": "2026-03-18 17:01:00+00:00",
+            "exit_ts": "2026-03-18 17:02:00+00:00",
+            "direction": "short",
+            "entry_price": 24598.75,
+            "exit_price": 24600.75,
+            "pnl": -160.0,
+            "outcome": "loss",
+            "ivb_high": 24665.0,
+            "ivb_low": 24599.0
+          },
+          {
+            "entry_ts": "2026-03-19 14:00:00+00:00",
+            "exit_ts": "2026-03-19 14:01:00+00:00",
+            "direction": "long",
+            "entry_price": 24306.75,
+            "exit_price": 24304.75,
+            "pnl": -160.0,
+            "outcome": "loss",
+            "ivb_high": 24306.5,
+            "ivb_low": 24115.0
+          }
+        ],
+        "config": "Baseline 30min"
+      },
+      {
+        "num_trades": 31,
+        "num_wins": 11,
+        "num_losses": 20,
+        "win_rate": 0.355,
+        "profit_factor": 1.1,
+        "net_pnl": 240.0,
+        "total_wins": 2640.0,
+        "total_losses": 2400.0,
+        "avg_win": 240.0,
+        "avg_loss": -120.0,
+        "trades": [
+          {
+            "entry_ts": "2026-03-13 13:45:00+00:00",
+            "exit_ts": "2026-03-13 13:46:00+00:00",
+            "direction": "long",
+            "entry_price": 24773.25,
+            "exit_price": 24776.25,
+            "pnl": 240.0,
+            "outcome": "win",
+            "ivb_high": 24773.0,
+            "ivb_low": 24611.0
+          },
+          {
+            "entry_ts": "2026-03-13 14:43:00+00:00",
+            "exit_ts": "2026-03-13 14:44:00+00:00",
+            "direction": "short",
+            "entry_price": 24610.75,
+            "exit_price": 24612.25,
+            "pnl": -120.0,
+            "outcome": "loss",
+            "ivb_high": 24773.0,
+            "ivb_low": 24611.0
+          },
+          {
+            "entry_ts": "2026-03-13 14:45:00+00:00",
+            "exit_ts": "2026-03-13 14:46:00+00:00",
+            "direction": "short",
+            "entry_price": 24594.0,
+            "exit_price": 24591.0,
+            "pnl": 240.0,
+            "outcome": "win",
+            "ivb_high": 24728.25,
+            "ivb_low": 24594.25
+          },
+          {
+            "entry_ts": "2026-03-16 13:45:00+00:00",
+            "exit_ts": "2026-03-16 13:46:00+00:00",
+            "direction": "long",
+            "entry_price": 24717.25,
+            "exit_price": 24715.75,
+            "pnl": -120.0,
+            "outcome": "loss",
+            "ivb_high": 24717.0,
+            "ivb_low": 24623.0
+          },
+          {
+            "entry_ts": "2026-03-16 14:47:00+00:00",
+            "exit_ts": "2026-03-16 14:48:00+00:00",
+            "direction": "short",
+            "entry_price": 24633.75,
+            "exit_price": 24635.25,
+            "pnl": -120.0,
+            "outcome": "loss",
+            "ivb_high": 24721.5,
+            "ivb_low": 24634.0
+          },
+          {
+            "entry_ts": "2026-03-16 15:22:00+00:00",
+            "exit_ts": "2026-03-16 15:23:00+00:00",
+            "direction": "long",
+            "entry_price": 24721.75,
+            "exit_price": 24720.25,
+            "pnl": -120.0,
+            "outcome": "loss",
+            "ivb_high": 24721.5,
+            "ivb_low": 24634.0
+          },
+          {
+            "entry_ts": "2026-03-17 13:45:00+00:00",
+            "exit_ts": "2026-03-17 13:46:00+00:00",
+            "direction": "long",
+            "entry_price": 24856.75,
+            "exit_price": 24859.75,
+            "pnl": 240.0,
+            "outcome": "win",
+            "ivb_high": 24856.5,
+            "ivb_low": 24745.25
+          },
+          {
+            "entry_ts": "2026-03-17 15:36:00+00:00",
+            "exit_ts": "2026-03-17 15:37:00+00:00",
+            "direction": "short",
+            "entry_price": 24745.0,
+            "exit_price": 24746.5,
+            "pnl": -120.0,
+            "outcome": "loss",
+            "ivb_high": 24856.5,
+            "ivb_low": 24745.25
+          },
+          {
+            "entry_ts": "2026-03-17 15:08:00+00:00",
+            "exit_ts": "2026-03-17 15:09:00+00:00",
+            "direction": "short",
+            "entry_price": 24818.75,
+            "exit_price": 24815.75,
+            "pnl": 240.0,
+            "outcome": "win",
+            "ivb_high": 24872.25,
+            "ivb_low": 24819.0
+          },
+          {
+            "entry_ts": "2026-03-18 13:46:00+00:00",
+            "exit_ts": "2026-03-18 13:47:00+00:00",
+            "direction": "long",
+            "entry_price": 24771.0,
+            "exit_price": 24769.5,
+            "pnl": -120.0,
+            "outcome": "loss",
+            "ivb_high": 24770.75,
+            "ivb_low": 24687.0
+          }
+        ],
+        "config": "Aggressive 15min"
+      },
+      {
+        "num_trades": 24,
+        "num_wins": 9,
+        "num_losses": 15,
+        "win_rate": 0.375,
+        "profit_factor": 1.2,
+        "net_pnl": 600.0,
+        "total_wins": 3600.0,
+        "total_losses": 3000.0,
+        "avg_win": 400.0,
+        "avg_loss": -200.0,
+        "trades": [
+          {
+            "entry_ts": "2026-03-13 14:43:00+00:00",
+            "exit_ts": "2026-03-13 14:44:00+00:00",
+            "direction": "short",
+            "entry_price": 24610.75,
+            "exit_price": 24613.25,
+            "pnl": -200.0,
+            "outcome": "loss",
+            "ivb_high": 24805.25,
+            "ivb_low": 24611.0
+          },
+          {
+            "entry_ts": "2026-03-13 15:36:00+00:00",
+            "exit_ts": "2026-03-13 15:37:00+00:00",
+            "direction": "short",
+            "entry_price": 24461.5,
+            "exit_price": 24464.0,
+            "pnl": -200.0,
+            "outcome": "loss",
+            "ivb_high": 24728.25,
+            "ivb_low": 24461.75
+          },
+          {
+            "entry_ts": "2026-03-16 19:09:00+00:00",
+            "exit_ts": "2026-03-16 19:10:00+00:00",
+            "direction": "long",
+            "entry_price": 24761.0,
+            "exit_price": 24766.0,
+            "pnl": 400.0,
+            "outcome": "win",
+            "ivb_high": 24760.75,
+            "ivb_low": 24623.0
+          },
+          {
+            "entry_ts": "2026-03-16 15:22:00+00:00",
+            "exit_ts": "2026-03-16 15:23:00+00:00",
+            "direction": "long",
+            "entry_price": 24721.75,
+            "exit_price": 24719.25,
+            "pnl": -200.0,
+            "outcome": "loss",
+            "ivb_high": 24721.5,
+            "ivb_low": 24610.75
+          },
+          {
+            "entry_ts": "2026-03-17 02:53:00+00:00",
+            "exit_ts": "2026-03-17 02:54:00+00:00",
+            "direction": "short",
+            "entry_price": 24610.5,
+            "exit_price": 24605.5,
+            "pnl": 400.0,
+            "outcome": "win",
+            "ivb_high": 24721.5,
+            "ivb_low": 24610.75
+          },
+          {
+            "entry_ts": "2026-03-17 15:36:00+00:00",
+            "exit_ts": "2026-03-17 15:37:00+00:00",
+            "direction": "short",
+            "entry_price": 24745.0,
+            "exit_price": 24747.5,
+            "pnl": -200.0,
+            "outcome": "loss",
+            "ivb_high": 24896.0,
+            "ivb_low": 24745.25
+          },
+          {
+            "entry_ts": "2026-03-17 15:21:00+00:00",
+            "exit_ts": "2026-03-17 15:22:00+00:00",
+            "direction": "short",
+            "entry_price": 24795.0,
+            "exit_price": 24797.5,
+            "pnl": -200.0,
+            "outcome": "loss",
+            "ivb_high": 24872.5,
+            "ivb_low": 24795.25
+          },
+          {
+            "entry_ts": "2026-03-18 14:22:00+00:00",
+            "exit_ts": "2026-03-18 14:23:00+00:00",
+            "direction": "short",
+            "entry_price": 24675.75,
+            "exit_price": 24678.25,
+            "pnl": -200.0,
+            "outcome": "loss",
+            "ivb_high": 24780.0,
+            "ivb_low": 24676.0
+          },
+          {
+            "entry_ts": "2026-03-18 17:01:00+00:00",
+            "exit_ts": "2026-03-18 17:02:00+00:00",
+            "direction": "short",
+            "entry_price": 24598.75,
+            "exit_price": 24601.25,
+            "pnl": -200.0,
+            "outcome": "loss",
+            "ivb_high": 24713.25,
+            "ivb_low": 24599.0
+          },
+          {
+            "entry_ts": "2026-03-19 15:05:00+00:00",
+            "exit_ts": "2026-03-19 15:06:00+00:00",
+            "direction": "long",
+            "entry_price": 24332.25,
+            "exit_price": 24337.25,
+            "pnl": 400.0,
+            "outcome": "win",
+            "ivb_high": 24332.0,
+            "ivb_low": 24115.0
+          }
+        ],
+        "config": "Conservative 45min"
+      },
+      {
+        "num_trades": 25,
+        "num_wins": 10,
+        "num_losses": 15,
+        "win_rate": 0.4,
+        "profit_factor": 1.33,
+        "net_pnl": 1000.0,
+        "total_wins": 4000.0,
+        "total_losses": 3000.0,
+        "avg_win": 400.0,
+        "avg_loss": -200.0,
+        "trades": [
+          {
+            "entry_ts": "2026-03-13 14:43:00+00:00",
+            "exit_ts": "2026-03-13 14:44:00+00:00",
+            "direction": "short",
+            "entry_price": 24610.75,
+            "exit_price": 24613.25,
+            "pnl": -200.0,
+            "outcome": "loss",
+            "ivb_high": 24805.25,
+            "ivb_low": 24611.0
+          },
+          {
+            "entry_ts": "2026-03-13 15:00:00+00:00",
+            "exit_ts": "2026-03-13 15:01:00+00:00",
+            "direction": "short",
+            "entry_price": 24481.75,
+            "exit_price": 24484.25,
+            "pnl": -200.0,
+            "outcome": "loss",
+            "ivb_high": 24728.25,
+            "ivb_low": 24482.0
+          },
+          {
+            "entry_ts": "2026-03-16 14:08:00+00:00",
+            "exit_ts": "2026-03-16 14:09:00+00:00",
+            "direction": "long",
+            "entry_price": 24741.25,
+            "exit_price": 24738.75,
+            "pnl": -200.0,
+            "outcome": "loss",
+            "ivb_high": 24741.0,
+            "ivb_low": 24623.0
+          },
+          {
+            "entry_ts": "2026-03-16 15:22:00+00:00",
+            "exit_ts": "2026-03-16 15:23:00+00:00",
+            "direction": "long",
+            "entry_price": 24721.75,
+            "exit_price": 24719.25,
+            "pnl": -200.0,
+            "outcome": "loss",
+            "ivb_high": 24721.5,
+            "ivb_low": 24610.75
+          },
+          {
+            "entry_ts": "2026-03-17 15:36:00+00:00",
+            "exit_ts": "2026-03-17 15:37:00+00:00",
+            "direction": "short",
+            "entry_price": 24745.0,
+            "exit_price": 24747.5,
+            "pnl": -200.0,
+            "outcome": "loss",
+            "ivb_high": 24896.0,
+            "ivb_low": 24745.25
+          },
+          {
+            "entry_ts": "2026-03-17 15:08:00+00:00",
+            "exit_ts": "2026-03-17 15:09:00+00:00",
+            "direction": "short",
+            "entry_price": 24818.75,
+            "exit_price": 24813.75,
+            "pnl": 400.0,
+            "outcome": "win",
+            "ivb_high": 24872.5,
+            "ivb_low": 24819.0
+          },
+          {
+            "entry_ts": "2026-03-18 14:13:00+00:00",
+            "exit_ts": "2026-03-18 14:14:00+00:00",
+            "direction": "short",
+            "entry_price": 24686.75,
+            "exit_price": 24689.25,
+            "pnl": -200.0,
+            "outcome": "loss",
+            "ivb_high": 24780.0,
+            "ivb_low": 24687.0
+          },
+          {
+            "entry_ts": "2026-03-18 15:00:00+00:00",
+            "exit_ts": "2026-03-18 15:01:00+00:00",
+            "direction": "long",
+            "entry_price": 24665.25,
+            "exit_price": 24670.25,
+            "pnl": 400.0,
+            "outcome": "win",
+            "ivb_high": 24665.0,
+            "ivb_low": 24599.0
+          },
+          {
+            "entry_ts": "2026-03-18 17:01:00+00:00",
+            "exit_ts": "2026-03-18 17:02:00+00:00",
+            "direction": "short",
+            "entry_price": 24598.75,
+            "exit_price": 24601.25,
+            "pnl": -200.0,
+            "outcome": "loss",
+            "ivb_high": 24665.0,
+            "ivb_low": 24599.0
+          },
+          {
+            "entry_ts": "2026-03-19 14:00:00+00:00",
+            "exit_ts": "2026-03-19 14:01:00+00:00",
+            "direction": "long",
+            "entry_price": 24306.75,
+            "exit_price": 24304.25,
+            "pnl": -200.0,
+            "outcome": "loss",
+            "ivb_high": 24306.5,
+            "ivb_low": 24115.0
+          }
+        ],
+        "config": "Wide targets"
+      },
+      {
+        "num_trades": 25,
+        "num_wins": 9,
+        "num_losses": 16,
+        "win_rate": 0.36,
+        "profit_factor": 1.12,
+        "net_pnl": 240.0,
+        "total_wins": 2160.0,
+        "total_losses": 1920.0,
+        "avg_win": 240.0,
+        "avg_loss": -120.0,
+        "trades": [
+          {
+            "entry_ts": "2026-03-13 14:43:00+00:00",
+            "exit_ts": "2026-03-13 14:44:00+00:00",
+            "direction": "short",
+            "entry_price": 24610.75,
+            "exit_price": 24612.25,
+            "pnl": -120.0,
+            "outcome": "loss",
+            "ivb_high": 24805.25,
+            "ivb_low": 24611.0
+          },
+          {
+            "entry_ts": "2026-03-13 15:00:00+00:00",
+            "exit_ts": "2026-03-13 15:01:00+00:00",
+            "direction": "short",
+            "entry_price": 24481.75,
+            "exit_price": 24483.25,
+            "pnl": -120.0,
+            "outcome": "loss",
+            "ivb_high": 24728.25,
+            "ivb_low": 24482.0
+          },
+          {
+            "entry_ts": "2026-03-16 14:08:00+00:00",
+            "exit_ts": "2026-03-16 14:09:00+00:00",
+            "direction": "long",
+            "entry_price": 24741.25,
+            "exit_price": 24739.75,
+            "pnl": -120.0,
+            "outcome": "loss",
+            "ivb_high": 24741.0,
+            "ivb_low": 24623.0
+          },
+          {
+            "entry_ts": "2026-03-16 15:22:00+00:00",
+            "exit_ts": "2026-03-16 15:23:00+00:00",
+            "direction": "long",
+            "entry_price": 24721.75,
+            "exit_price": 24720.25,
+            "pnl": -120.0,
+            "outcome": "loss",
+            "ivb_high": 24721.5,
+            "ivb_low": 24610.75
+          },
+          {
+            "entry_ts": "2026-03-17 15:36:00+00:00",
+            "exit_ts": "2026-03-17 15:37:00+00:00",
+            "direction": "short",
+            "entry_price": 24745.0,
+            "exit_price": 24746.5,
+            "pnl": -120.0,
+            "outcome": "loss",
+            "ivb_high": 24896.0,
+            "ivb_low": 24745.25
+          },
+          {
+            "entry_ts": "2026-03-17 15:08:00+00:00",
+            "exit_ts": "2026-03-17 15:09:00+00:00",
+            "direction": "short",
+            "entry_price": 24818.75,
+            "exit_price": 24815.75,
+            "pnl": 240.0,
+            "outcome": "win",
+            "ivb_high": 24872.5,
+            "ivb_low": 24819.0
+          },
+          {
+            "entry_ts": "2026-03-18 14:13:00+00:00",
+            "exit_ts": "2026-03-18 14:14:00+00:00",
+            "direction": "short",
+            "entry_price": 24686.75,
+            "exit_price": 24688.25,
+            "pnl": -120.0,
+            "outcome": "loss",
+            "ivb_high": 24780.0,
+            "ivb_low": 24687.0
+          },
+          {
+            "entry_ts": "2026-03-18 15:00:00+00:00",
+            "exit_ts": "2026-03-18 15:01:00+00:00",
+            "direction": "long",
+            "entry_price": 24665.25,
+            "exit_price": 24668.25,
+            "pnl": 240.0,
+            "outcome": "win",
+            "ivb_high": 24665.0,
+            "ivb_low": 24599.0
+          },
+          {
+            "entry_ts": "2026-03-18 17:01:00+00:00",
+            "exit_ts": "2026-03-18 17:02:00+00:00",
+            "direction": "short",
+            "entry_price": 24598.75,
+            "exit_price": 24600.25,
+            "pnl": -120.0,
+            "outcome": "loss",
+            "ivb_high": 24665.0,
+            "ivb_low": 24599.0
+          },
+          {
+            "entry_ts": "2026-03-19 14:00:00+00:00",
+            "exit_ts": "2026-03-19 14:01:00+00:00",
+            "direction": "long",
+            "entry_price": 24306.75,
+            "exit_price": 24305.25,
+            "pnl": -120.0,
+            "outcome": "loss",
+            "ivb_high": 24306.5,
+            "ivb_low": 24115.0
+          }
+        ],
+        "config": "Tight targets"
+      }
+    ]
+  },
+  "winners": []
+}
