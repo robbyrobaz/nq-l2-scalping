@@ -200,23 +200,33 @@ def get_data():
     # Today's stats
     today = datetime.now().date().isoformat()
     
-    signals_today = con.execute(f"""
-        SELECT COUNT(*) as cnt FROM l2_signals
-        WHERE DATE(timestamp) = '{today}'
-    """).fetchone()[0]
+    try:
+        signals_today = con.execute(f"""
+            SELECT COUNT(*) as cnt FROM l2_signals
+            WHERE CAST(timestamp AS DATE) = CAST('{today}' AS DATE)
+        """).fetchone()[0]
+    except:
+        signals_today = 0
     
-    fills_today = con.execute(f"""
-        SELECT COUNT(*) as cnt FROM l2_fills
-        WHERE DATE(entry_time) = '{today}'
-    """).fetchone()[0]
+    try:
+        fills_today = con.execute(f"""
+            SELECT COUNT(*) as cnt FROM l2_fills
+            WHERE CAST(entry_time AS DATE) = CAST('{today}' AS DATE)
+        """).fetchone()[0]
+    except:
+        fills_today = 0
     
-    pnl_today = con.execute(f"""
-        SELECT COALESCE(SUM(pnl_usd), 0) as total FROM l2_fills
-        WHERE DATE(entry_time) = '{today}'
-    """).fetchone()[0]
+    try:
+        pnl_today = con.execute(f"""
+            SELECT COALESCE(SUM(pnl_usd), 0) as total FROM l2_fills
+            WHERE CAST(entry_time AS DATE) = CAST('{today}' AS DATE)
+        """).fetchone()[0]
+    except:
+        pnl_today = 0.0
     
     # All-time sim stats
-    all_fills = con.execute("SELECT * FROM l2_fills WHERE pnl_usd IS NOT NULL").fetchdf()
+    import pandas as pd
+    all_fills = pd.DataFrame([dict(row) for row in con.execute("SELECT * FROM l2_fills WHERE pnl_usd IS NOT NULL").fetchall()])
     
     sim_pf = None
     sim_wr = None

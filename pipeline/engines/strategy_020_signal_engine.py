@@ -187,6 +187,7 @@ def save_signal(direction, params):
         datetime.now(timezone.utc).isoformat()
     ))
     
+    con.commit()
     con.close()
 
 
@@ -296,4 +297,6 @@ def run():
 
 
 if __name__ == "__main__":
+    run()
+e__ == "__main__":
     run()
