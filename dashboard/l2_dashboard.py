@@ -11,7 +11,6 @@ Shows:
 """
 
 from flask import Flask, render_template_string
-import duckdb
 from pathlib import Path
 from datetime import datetime, timedelta
 
@@ -226,7 +225,8 @@ def get_data():
     
     # All-time sim stats
     import pandas as pd
-    all_fills = pd.DataFrame([dict(row) for row in con.execute("SELECT * FROM l2_fills WHERE pnl_usd IS NOT NULL").fetchall()])
+    fills_raw = con.execute("SELECT * FROM l2_fills WHERE pnl_usd IS NOT NULL").fetchall()
+    all_fills = pd.DataFrame([dict(row) for row in fills_raw]) if fills_raw else pd.DataFrame()
     
     sim_pf = None
     sim_wr = None
