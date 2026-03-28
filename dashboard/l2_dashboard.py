@@ -179,7 +179,8 @@ TEMPLATE = r"""
 
 def get_data():
     """Load signals and fills from database."""
-    con = duckdb.connect(str(L2_DB), read_only=True)
+    con = sqlite3.connect(str(L2_DB))
+    con.row_factory = sqlite3.Row
     
     # Recent signals (last 7 days)
     signals = con.execute("""
